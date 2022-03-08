@@ -1,25 +1,52 @@
-import logo from './logo.svg';
 import './App.css';
 
+import {
+	Navigate,
+	Route,
+	BrowserRouter as Router,
+	Routes,
+} from 'react-router-dom';
+
+import MainPage from './View/MainPage/MainPage';
+import PinCodePage from './View/Pages/PinCodePage/PinCodePage';
+import StarterPage from './View/Pages/StarterPage/StarterPage';
+import { useState } from 'react';
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	// let pinCode = localStorage.getItem('@pharm-box-pin-code');
+	const [state, setState] = useState(
+		localStorage.getItem('@pharm-box-pin-code')
+	);
+	return (
+		<Router>
+			<Routes>
+				<Route
+					exact
+					path="/starter-page"
+					element={<StarterPage />}
+				/>
+				<Route
+					exact
+					path="/pin-code"
+					element={<PinCodePage setState={setState} />}
+				/>
+				{/* <AuthRoute exact path="/" element={<MainPage />} /> */}
+				<Route
+					exact
+					path="/"
+					element={
+						state ? (
+							<MainPage />
+						) : (
+							<Navigate to="/starter-page" />
+						)
+					}
+				/>
+
+				{/* <Route path="*" element={<Navigate to="/starter-page" />} /> */}
+			</Routes>
+		</Router>
+	);
 }
 
 export default App;
