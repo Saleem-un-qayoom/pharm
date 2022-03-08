@@ -29,7 +29,7 @@ function PinCodePage({ setState }) {
 
 			setTimeout(() => {
 				navigate('/');
-			}, 1000);
+			}, 300);
 		}
 	};
 
