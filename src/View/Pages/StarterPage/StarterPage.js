@@ -81,8 +81,6 @@ function StarterPage() {
 				navigation
 				pagination={{ clickable: true }}
 				scrollbar={{ draggable: true }}
-				onSwiper={swiper => console.log(swiper)}
-				onSlideChange={() => console.log('slide change')}
 			>
 				{sliderData.map(item => (
 					<SwiperSlide>
@@ -93,11 +91,11 @@ function StarterPage() {
 									alt=""
 									className="slider-image inline-block"
 								/>
-								<p className="text-gray-700 text-base font-medium mt-10 ion-padding capitalize font-semibold">
+								<p className="ion-padding text-gray-700 text-base font-medium mt-10 capitalize font-semibold">
 									{item.mainText}
 								</p>
 							</div>
-							<div className="h-1/5 flex flex-col items-center justify-between ion-padding-x capitalize">
+							<div className="ion-padding-x h-1/5 flex flex-col items-center justify-between  capitalize">
 								<p className="text-black mt-6 leading-5	font-semibold">
 									{item.subText}
 								</p>

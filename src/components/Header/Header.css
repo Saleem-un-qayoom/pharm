@@ -1,0 +1,154 @@
+/* .header-container {
+  background-color: lightskyblue;
+  height: 14%;
+}
+
+.header-layout {
+  padding: 3px 0;
+}
+
+.header-location__container {
+  display: flex;
+}
+
+.header-location {
+  display: flex;
+  align-items: center;
+}
+
+.header-location img {
+  width: 20px;
+  height: 15px;
+  margin-right: 2px;
+}
+
+.header-location h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header-paragraph p {
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.header-paragraph span {
+  color: green;
+  margin-left: 3px;
+}
+
+.header-input {
+  margin: 4px 15px;
+}
+
+.header-input input {
+  width: 360px;
+  border-radius: 100px;
+  padding: 4px 30px;
+}
+
+.pharmbox-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.prescription-button {
+  display: flex;
+  align-items: center;
+  background-color: #91ff33;
+  padding: 9px 10px;
+  border-radius: 100px;
+}
+
+.prescription-button button {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.prescription-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.whatsapp-button {
+  display: flex;
+  align-items: center;
+  background-color: #91ff33;
+  padding: 9px 10px;
+  border-radius: 100px;
+}
+
+.whatsapp-button button {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.whatsapp-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.pharmbox-category {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.shop-by__category p {
+  font-size: 12px;
+  font-weight: 700;
+  color: green;
+}
+
+.view-all__category {
+  display: flex;
+  align-items: center;
+}
+
+.view-all__category button {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.view-all__category img {
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;
+}
+
+.wrapper {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+} */
+
+.scrollable-element {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+.scrollable-element::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+.dot-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scrollable-element {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-x: scroll;
+}
+
+.scrollable-element::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}

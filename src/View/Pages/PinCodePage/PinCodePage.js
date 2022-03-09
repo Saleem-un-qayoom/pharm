@@ -27,9 +27,9 @@ function PinCodePage({ setState }) {
 			localStorage.setItem('@pharm-box-pin-code', pinCode);
 			setState(pinCode);
 
-			setTimeout(() => {
-				navigate('/');
-			}, 300);
+			// setTimeout(() => {
+			navigate('/');
+			// }, 300);
 		}
 	};
 
