@@ -9,9 +9,10 @@ function ProductList({ product }) {
 			</div>
 
 			<div className=" flex mt-4 scrollable-element">
-				{product.products.map(item => {
+				{product.products.map((item, key) => {
 					return (
 						<div
+							key={key}
 							className="flex flex-col bg-white items-center mr-3 relative "
 							style={{
 								flex: '0 0 145px',

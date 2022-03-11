@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react';
 
+import { getPinCodeApi } from '../../../Services/apis';
+import { pinCodeData } from '../../../Recoil/atom';
 import { useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
 
-function PinCodePage({ setState }) {
+function PinCodePage() {
 	let navigate = useNavigate();
-	const [showLoading, setShowLoading] = useState(false);
+	// const [showLoading, setShowLoading] = useState(false);
 	const [showPinCodeError, setShowPinCodeError] = useState(false);
+	const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
 	const [pinCode, setPinCode] = useState('');
 
+	const getPinCodeApiFunc = getPinCodeApi();
+
 	useEffect(() => {
-		const pinCode = localStorage.getItem('@pharm-box-pin-code');
+		const pinCode = localStorage.getItem('pharm-box-pin-code');
 		if (pinCode) {
 			navigate('/');
 		} else {
-			setShowLoading(true);
 		}
 		// eslint-disable-next-line
 	}, []);
@@ -24,12 +29,26 @@ function PinCodePage({ setState }) {
 		if (!pinCode) {
 			setShowPinCodeError(true);
 		} else {
-			localStorage.setItem('@pharm-box-pin-code', pinCode);
-			setState(pinCode);
+			getPinCodeApiFunc(handleResponse);
 
-			// setTimeout(() => {
-			navigate('/');
-			// }, 300);
+			// localStorage.setItem('pharm-box-pin-code', pinCode);
+			// setState(pinCode);
+			// navigate('/');
+		}
+	};
+
+	const handleResponse = res => {
+		if (res && res.ResponseCode === '200') {
+			for (let i = 0; i < res.PincodeData.length; i++) {
+				if (res.PincodeData[i].pincode === pinCode) {
+					localStorage.setItem(
+						'pharm-box-pin-code',
+						JSON.stringify(res.PincodeData[i])
+					);
+					setPinCodeRecoil(res.PincodeData[i]);
+					navigate('/home');
+				}
+			}
 		}
 	};
 
