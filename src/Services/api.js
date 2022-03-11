@@ -20,13 +20,16 @@ const API = (method, url, payload, server, hasFile) => {
 	if (hasFile) {
 		options = {
 			method,
-			headers: {},
+			// headers: {},
 			url: `${server}/${url}`,
 		};
 	} else {
 		options = {
 			method,
-			headers: {},
+			// headers: {},
+			header: {
+				'Content-type': 'application/x-www-form-urlencoded\r\n',
+			},
 			url: `${server}/${url}`,
 		};
 	}

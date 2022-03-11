@@ -41,12 +41,12 @@ function PinCodePage() {
 		if (res && res.ResponseCode === '200') {
 			for (let i = 0; i < res.PincodeData.length; i++) {
 				if (res.PincodeData[i].pincode === pinCode) {
-					localStorage.setItem(
-						'pharm-box-pin-code',
-						JSON.stringify(res.PincodeData[i])
-					);
+					// localStorage.setItem(
+					// 	'pharm-box-pin-code',
+					// 	JSON.stringify(res.PincodeData[i])
+					// );
 					setPinCodeRecoil(res.PincodeData[i]);
-					navigate('/home');
+					navigate('/store-page');
 				}
 			}
 		}

@@ -2,7 +2,6 @@ import MAINAPI from './api';
 
 export const getPinCodeApi = () => {
 	return callback => {
-		// const { username, password } = data;
 		MAINAPI('POST', `capi/p_list_pincode.php`)
 			.then(response => {
 				if (response) {
@@ -19,7 +18,34 @@ export const getPinCodeApi = () => {
 					'🚀 ~ file: apis.js ~ line 18 ~ getPinCodeApi ~ error',
 					error
 				);
-				// console.log(err.response);
+				if (callback) callback(error.response);
+			});
+	};
+};
+
+export const getStoreApi = () => {
+	return (data, callback) => {
+		const { uId, pinCode } = data;
+		MAINAPI('POST', `capi/p_store_list.php`, {
+			uid: uId,
+			pincode: parseInt(pinCode),
+		})
+			.then(response => {
+				if (response) {
+					console.log(
+						'🚀 ~ file: apis.js ~ line 34 ~ getStoreApi ~ response',
+						response
+					);
+
+					if (callback) callback(response);
+				}
+			})
+			.catch(error => {
+				console.log(
+					'🚀 ~ file: apis.js ~ line 43 ~ getStoreApi ~ error',
+					error
+				);
+
 				if (callback) callback(error.response);
 			});
 	};
