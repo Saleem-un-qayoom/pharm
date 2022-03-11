@@ -5,8 +5,10 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
 import { Pagination } from 'swiper';
+import { pinCodeData } from '../../../Recoil/atom';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useRecoilValue } from 'recoil';
 
 const sliderData = [
 	{
@@ -64,10 +66,12 @@ function SlideNextButton({ text }) {
 
 function StarterPage() {
 	let navigate = useNavigate();
+
+	const pinCodeRecoil = useRecoilValue(pinCodeData);
+
 	useEffect(() => {
-		const pinCode = localStorage.getItem('@pharm-box-pin-code');
-		if (pinCode) {
-			navigate('/');
+		if (pinCodeRecoil) {
+			navigate('/home');
 		}
 		// eslint-disable-next-line
 	}, []);
@@ -82,8 +86,8 @@ function StarterPage() {
 				pagination={{ clickable: true }}
 				scrollbar={{ draggable: true }}
 			>
-				{sliderData.map(item => (
-					<SwiperSlide>
+				{sliderData.map((item, key) => (
+					<SwiperSlide key={key}>
 						<div className="h-screen background-primary">
 							<div className="h-4/5 bg-white flex flex-col justify-center items-center rounded-b-2xl">
 								<img
@@ -100,7 +104,6 @@ function StarterPage() {
 									{item.subText}
 								</p>
 								<SlideNextButton
-									// history={history}
 									text={item.buttonText}
 								/>
 							</div>
