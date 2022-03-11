@@ -25,6 +25,7 @@ import PrivacyPolicy from "./View/MainPage/ProfilePage/PrivacyPolicy/PrivacyPoli
 import TermsandConditions from "./View/MainPage/ProfilePage/TermsandConditions/TermsandConditions";
 import Login from "./View/Pages/LoginPage/LoginPage";
 import EditProfile from "./View/MainPage/ProfilePage/EditProfile/EditProfile";
+import StorePage from "./View/MainPage/StorePage/StorePage";
 
 function App() {
   const [popUpModal, setPopUpModal] = useState(false);
@@ -128,6 +129,11 @@ function App() {
           <Route
             path="/login-page"
             element={state ? <Login /> : <Navigate to="/starter-page" />}
+          />
+
+          <Route
+            path="/store-page"
+            element={state ? <StorePage /> : <Navigate to="/starter-page" />}
           />
 
           {/* <AuthRoute exact path="/" element={<MainPage />} /> */}

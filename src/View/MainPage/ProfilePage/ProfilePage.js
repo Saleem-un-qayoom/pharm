@@ -54,7 +54,10 @@ function ProfilePage({ history }) {
         </p>
         <p className="text-xs font-w-600 text-slate-400">V1.0</p>
       </div>
-      <div className="flex flex-col justify-center items-center pt-72">
+      <div
+        className="flex flex-col justify-center items-center "
+        style={{ marginTop: "295px" }}
+      >
         <img
           className="w-12"
           src="https://img.icons8.com/fluency/48/000000/whatsapp.png"
