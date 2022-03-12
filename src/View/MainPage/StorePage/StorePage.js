@@ -1,39 +1,35 @@
 import React, { useEffect, useState } from 'react';
+import { pinCodeData, storeData, userData } from '../../../Recoil/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
+import StarRatings from 'react-star-ratings/build/star-ratings';
+import config from '../../../Services/config';
 import { getStoreApi } from '../../../Services/apis';
-import { pinCodeData } from '../../../Recoil/atom';
 import { useNavigate } from 'react-router';
-import { useRecoilValue } from 'recoil';
 
 function StorePage() {
 	let navigate = useNavigate();
 
-	const pinCodeRecoil = useRecoilValue(pinCodeData);
-
 	const [stores, setStores] = useState([]);
+	const pinCodeRecoil = useRecoilValue(pinCodeData);
+	const userRecoil = useRecoilValue(userData);
+	const [storeRecoil, setStoreRecoil] = useRecoilState(storeData);
 
 	const getStoreApiFunc = getStoreApi();
 
-	const store = [
-		{
-			storeName: 'PharmBox Store',
-			storeItems: '989 items',
-			rating: '',
-			storeImage:
-				'https://img.icons8.com/fluency/48/000000/whatsapp.png',
-		},
-	];
-
 	useEffect(() => {
 		const data = {
-			// uId: 2 || pinCodeRecoil.id,
-			uId: 2,
+			uId: userRecoil.id || '0',
 			pinCode: pinCodeRecoil.id,
 		};
 		getStoreApiFunc(data, handleResponse);
-	});
+	}, []);
 
-	const handleResponse = res => {};
+	const handleResponse = res => {
+		if (res && res.ResponseCode === '200') {
+			setStores(res.StoreData);
+		}
+	};
 
 	return (
 		<div className="  font-semibold  background-tertiary h-screen">
@@ -64,30 +60,58 @@ function StorePage() {
 						placeholder="Search items.."
 					/>
 				</div>
-				<div className="bg-white flex mt-10 py-5 rounded-xl pr-5 relative">
-					<span
-						className="absolute background-primary font13 rounded-full font-w-500 py-px px-6 left-0.5"
-						style={{ top: '-11px' }}
+				{stores.map((item, key) => (
+					<div
+						key={key}
+						onClick={() => {
+							if (item.Total_Items !== 0) {
+								localStorage.setItem(
+									'pharm-box-store',
+									JSON.stringify(item)
+								);
+								localStorage.setItem(
+									'pharm-box-pin-code',
+									JSON.stringify(item)
+								);
+
+								setStoreRecoil(item);
+								navigate('/home');
+							} else {
+								// error
+							}
+						}}
+						className="bg-white flex mt-10 py-3 rounded-xl pr-5 relative"
 					>
-						Open
-					</span>
-					{store.map(item => (
-						<>
-							<img
-								src={item.storeImage}
-								className="pl-2"
+						<span
+							className="absolute background-primary font12 rounded-full font-w-500 px-5 left-0.5"
+							style={{ top: '-11px' }}
+						>
+							{item.IS_OPEN}
+						</span>
+
+						<img
+							src={`${config.baseUrl}/${item.store_image}`}
+							className="inline-block h-10 w-12 pl-2 self-center"
+						/>
+						<ul className="pl-4">
+							<li className="font-w-700 text-md leading-4	">
+								{item.title}
+							</li>
+							<li className="text-slate-400 font11 font-w-500">
+								{item.Total_Items} items
+							</li>
+							<StarRatings
+								starDimension="15px"
+								starSpacing="1px"
+								rating={parseInt(item.star)}
+								starRatedColor="gold"
+								changeRating={() => {}}
+								numberOfStars={5}
+								name="rating"
 							/>
-							<ul className="pl-4">
-								<li className="font-w-900 text-xl">
-									{item.storeName}
-								</li>
-								<li className="text-slate-400 font15 font-w-500">
-									{item.storeItems}
-								</li>
-							</ul>
-						</>
-					))}
-				</div>
+						</ul>
+					</div>
+				))}
 			</div>
 		</div>
 	);

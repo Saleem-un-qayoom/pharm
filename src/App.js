@@ -6,6 +6,8 @@ import {
 	BrowserRouter as Router,
 	Routes,
 } from 'react-router-dom';
+import { pinCodeData, storeData } from './Recoil/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import AboutPage from './View/MainPage/ProfilePage/AboutPage/AboutPage';
 import CategoryPage from './View/MainPage/CategoryPage/CategoryPage';
@@ -24,12 +26,12 @@ import ProfilePage from './View/MainPage/ProfilePage/ProfilePage';
 import StarterPage from './View/Pages/StarterPage/StarterPage';
 import StorePage from './View/MainPage/StorePage/StorePage';
 import TermsandConditions from './View/MainPage/ProfilePage/TermsandConditions/TermsandConditions';
-import { pinCodeData } from './Recoil/atom';
-import { useRecoilState } from 'recoil';
 import { useState } from 'react';
 
 function App() {
-	const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
+	const pinCodeRecoil = useRecoilValue(pinCodeData);
+	const storeRecoil = useRecoilValue(storeData);
+
 	const [popUpModal, setPopUpModal] = useState(false);
 
 	const popUpToggle = () => {
@@ -53,7 +55,7 @@ function App() {
 						exact
 						path="/home"
 						element={
-							pinCodeRecoil ? (
+							pinCodeRecoil && storeRecoil ? (
 								<Home popUpToggle={popUpToggle} />
 							) : (
 								<Navigate to="/starter-page" />
@@ -63,7 +65,7 @@ function App() {
 					<Route
 						path="/categories-page"
 						element={
-							pinCodeRecoil ? (
+							pinCodeRecoil && storeRecoil ? (
 								<CategoryPage
 									popUpToggle={popUpToggle}
 								/>
