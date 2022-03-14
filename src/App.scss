@@ -19,6 +19,10 @@
 	color: var(--text-color-secondary);
 }
 
+.text-light-grey {
+	color: var(--light-grey-color);
+}
+
 .background-secondary {
 	background-color: var(--secondary-color);
 }
@@ -146,3 +150,11 @@ input::placeholder {
 // 		border: 1px solid #999;
 // 	}
 // }
+
+.truncate {
+	display: inline-block;
+	width: 140px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
