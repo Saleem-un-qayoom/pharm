@@ -1,7 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { useRecoilState } from "recoil";
+import { AboutData } from "../../../../Recoil/atom";
 
 function AboutPage({ history }) {
+  const [aboutRecoil, setAboutRecoil] = useRecoilState(AboutData);
+
   let navigate = useNavigate();
   return (
     <div className="ion-padding background-primary font-semibold rounded-b-xl flex items-center">
@@ -11,6 +15,7 @@ function AboutPage({ history }) {
         style={{ height: "25px", width: "20px", marginRight: "10px" }}
       />
       <span>About</span>
+      <div>{aboutRecoil}</div>
     </div>
   );
 }

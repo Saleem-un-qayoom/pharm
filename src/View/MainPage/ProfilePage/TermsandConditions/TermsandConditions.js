@@ -1,7 +1,13 @@
 import React from "react";
 import { navigate, useNavigate } from "react-router";
+import { TermsAndConditionData } from "../../../../Recoil/atom";
+import { useRecoilState } from "recoil";
 
 function TermsandConditions({ history }) {
+  const [termsAndConditionRecoil, setTermsAndConditionRecoil] = useRecoilState(
+    TermsAndConditionData
+  );
+
   let navigate = useNavigate();
   return (
     <div className="ion-padding background-primary font-semibold rounded-b-xl flex items-center">
@@ -11,6 +17,7 @@ function TermsandConditions({ history }) {
         style={{ height: "25px", width: "20px", marginRight: "10px" }}
       />
       <span>Terms and Conditions</span>
+      <div>{termsAndConditionRecoil}</div>
     </div>
   );
 }

@@ -1,8 +1,14 @@
 import React from "react";
 import { navigate, useNavigate } from "react-router";
+import { PrivacyPolicyData } from "../../../../Recoil/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-function PrivacyPolicy({ history }) {
+function PrivacyPolicy() {
   let navigate = useNavigate();
+
+  const [privacyPolicyRecoil, setPrivacyPolicyRecoil] =
+    useRecoilState(PrivacyPolicyData);
+
   return (
     <div className="ion-padding background-primary font-semibold rounded-b-xl flex items-center">
       <img
@@ -11,6 +17,7 @@ function PrivacyPolicy({ history }) {
         style={{ height: "25px", width: "20px", marginRight: "10px" }}
       />
       <span>Privacy Policy</span>
+      <div>{privacyPolicyRecoil}</div>
     </div>
   );
 }

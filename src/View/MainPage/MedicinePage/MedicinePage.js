@@ -1,22 +1,19 @@
-import Catlist from "../../../components/Catlist/Catlist";
-import Footer from "../../../components/Footer/Footer";
+import React from "react";
 import Header from "../../../components/Header/Header";
 import HeaderFooterWrapper from "../../../components/HeaderFooterWrapper/HeaderFooterWrapper";
-import React from "react";
-import { useNavigate } from "react-router";
+import MedicineList from "../../../components/MedicineList/MedicineList";
+import Footer from "../../../components/Footer/Footer";
 
-function CategoryPage({ onLinkPress, popUpToggle }) {
-  let navigate = useNavigate();
-
+function MedicinePage({ onLinkPress, popUpToggle }) {
   return (
     <>
       <Header />
       <HeaderFooterWrapper>
-        <Catlist />
+        <MedicineList />
       </HeaderFooterWrapper>
       <Footer onLinkPress={onLinkPress} popUpToggle={popUpToggle} />
     </>
   );
 }
 
-export default CategoryPage;
+export default MedicinePage;
