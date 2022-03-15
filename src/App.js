@@ -31,6 +31,7 @@ import ProductDescription from "./View/MainPage/ProductDescription/ProductDescri
 import MedicinePage from "./View/MainPage/MedicinePage/MedicinePage";
 import Toast from "./components/Toast/Toast";
 // import MedicineList from "./components/MedicineList/MedicineList";
+import CatResult from "./components/CatResult/CatResult";
 
 function App() {
   const pinCodeRecoil = useRecoilValue(pinCodeData);
@@ -72,10 +73,10 @@ function App() {
           />
 
           <Route
-            path="/medicine-page"
+            path="/cat-result-page/:id"
             element={
               pinCodeRecoil ? (
-                <MedicinePage popUpToggle={popUpToggle} />
+                <CatResult popUpToggle={popUpToggle} />
               ) : (
                 <Navigate to="/starter-page" />
               )
