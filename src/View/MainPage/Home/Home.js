@@ -21,6 +21,7 @@ import {
   tncAtom,
   userData,
   userDataAtom,
+  testimonialAtom,
 } from "../../../Recoil/atom";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -52,6 +53,7 @@ const Home = ({ popUpToggle }) => {
   const [contact, setContact] = useRecoilState(contactAtom);
   const [tnc, setTnc] = useRecoilState(tncAtom);
   const [homeData, setHomeData] = useRecoilState(homeDataAtom);
+  const [testimonial, setTestimonial] = useRecoilState(testimonialAtom);
 
   // const [feedbackRecoil, setFeedbackRecoil] = useRecoilState(FeedbackData);
   // const [privacyPolicyRecoil, setPrivacyPolicyRecoil] =
@@ -84,6 +86,7 @@ const Home = ({ popUpToggle }) => {
       setContact(res.ResultData.contact);
       setTnc(res.ResultData.terms);
       setHomeData(res.ResultData.HomeData);
+      setTestimonial(res.ResultData.testimonial);
 
       // setStores(res.StoreData);
       // setProdcutListRecoil(res.ResultData.HomeData);

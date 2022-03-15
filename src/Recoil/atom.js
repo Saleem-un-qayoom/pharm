@@ -71,6 +71,11 @@ export const homeDataAtom = atom({
   default: [],
 });
 
+export const testimonialAtom = atom({
+  key: "testimonialAtom",
+  default: [],
+});
+
 // Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?
 // Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?
 // Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?

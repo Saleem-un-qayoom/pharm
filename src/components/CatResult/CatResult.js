@@ -53,9 +53,9 @@ function CatResult() {
     <>
       <Header />{" "}
       <HeaderFooterWrapper>
-        <div className="pt-2  background-tertiary h-screen relative mb-4">
+        <div className="pt-2  background-tertiary h-screen  mb-4 relative">
           <div className="flex items-center justify-center">
-            <span>Medicine</span>
+            <span>{catResult.category_name}</span>
           </div>
           {catResult &&
             catResult.productlist &&
@@ -70,21 +70,18 @@ function CatResult() {
                   <div className="bg-white  flex rounded-lg">
                     <img
                       style={{ width: "27%" }}
-                      // src="https://img.icons8.com/fluency/48/000000/whatsapp.png"
                       src={`${config.baseUrl}/${item.product_image}`}
                       alt=""
                     />
                     <div
-                      className="flex flex-col absolute rounded-br-full background-primary "
-                      // style={{
-                      //   top: "48px",
-                      //   left: "15px",
-                      //   padding: "5px 13px",
-                      // borderRadius: "10px",
-                      // }}
+                      className="absolute "
+                      style={{ left: "0", left: "16px" }}
                     >
-                      <span className="font12 font-w-500 py-1 px-2">10%</span>
-                      <span className="font12 font-w-500 py-1 px-2">OFF</span>
+                      <span className="inline-block leading-3	text-xs px-3 py-2 background-primary rounded-r-full rounded-b-full">
+                        {item.product_info[0].product_discount}%
+                        <br />
+                        OFF
+                      </span>
                     </div>
                     <div className="ml-2 py-4">
                       <h1 className="font13 font-w-600">{item.product_name}</h1>
@@ -102,11 +99,8 @@ function CatResult() {
                         )}
                       </span>
                     </div>
-                    <div
-                      className="absolute"
-                      style={{ top: "72px", left: "248px" }}
-                    >
-                      <button className="background-primary font13 font-w-500 py-1 px-5">
+                    <div className="pt-12">
+                      <button className="background-primary font13 font-w-500 py-1 px-5 ml-2">
                         Add To Cart
                       </button>
                     </div>

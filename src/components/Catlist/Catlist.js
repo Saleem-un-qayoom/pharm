@@ -53,7 +53,7 @@ function Catlist({ showHeader = false, catList }) {
             return (
               <div
                 key={key}
-                onClick={() => navigate("/cat-result-page/1")}
+                onClick={() => navigate(`/cat-result-page/${item.id}`)}
                 className="flex flex-col items-center bg-white mb-2 p-1 rounded-xl width-30-per"
               >
                 <img
