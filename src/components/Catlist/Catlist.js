@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import {
   CategoryData,
+  catListAtom,
   pinCodeData,
   storeData,
   userData,
 } from "../../Recoil/atom";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { getCategoryApi, getCategoryListApi } from "../../Services/apis";
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+
 import config from "../../Services/config";
+import { useNavigate } from "react-router";
 
 // const category = [
 //   {
@@ -37,7 +39,7 @@ import config from "../../Services/config";
 //   },
 // ];
 
-function Catlist({ history, showHeader = false }) {
+function Catlist({ history, showHeader = false, catList }) {
   let navigate = useNavigate();
 
   const [categoryList, setCategoryList] = useState([]);
@@ -46,7 +48,7 @@ function Catlist({ history, showHeader = false }) {
   const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
 
   //   const pinCodeRecoil = useRecoilValue(pinCodeData);
-  const [categoryRecoil, setCategoryRecoil] = useRecoilState(CategoryData);
+  const [categoryRecoil, setCategoryRecoil] = useRecoilState(catListAtom);
 
   const getCategoryApiFunc = getCategoryApi();
 
@@ -56,7 +58,7 @@ function Catlist({ history, showHeader = false }) {
       storeId: storeRecoil.id,
       pinCode: pinCodeRecoil.id,
     };
-    getCategoryApiFunc(data, handleResponse);
+    // getCategoryApiFunc(data, handleResponse);
   }, []);
 
   const handleResponse = (res) => {
@@ -74,19 +76,14 @@ function Catlist({ history, showHeader = false }) {
         </p>
         {showHeader && (
           <>
-            <button
-              className="text-xs font-medium"
-              onClick={() => navigate("/categories-page")}
-            >
-              View all
-            </button>
+            <button className="text-xs font-medium">View all</button>
           </>
         )}
       </div>
 
       <div>
         <ul className="flex justify-between flex-wrap items-center ">
-          {categoryRecoil.map((item, key) => {
+          {catList.map((item, key) => {
             return (
               <div
                 key={key}
