@@ -1,6 +1,6 @@
 import React from "react";
-import { FeedbackData } from "../../Recoil/atom";
-import { useRecoilValue } from "recoil";
+import { FeedbackData, testimonialAtom } from "../../Recoil/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import config from "../../Services/config";
 
 // const users = [
@@ -22,14 +22,16 @@ import config from "../../Services/config";
 // ];
 
 function WhatUsersSay() {
-  const FeedbackRecoil = useRecoilValue(FeedbackData);
+  // const FeedbackRecoil = useRecoilValue(FeedbackData);
+  const [testimonialRecoil, setTestimonialRecoil] =
+    useRecoilState(testimonialAtom);
   return (
     <div className="what-users-say ion-padding w-full bg-slate-50 scrollable-element ">
       <div className="what-users-say__head">
         <p className="text-xs font-medium text-color-primary">What Users Say</p>
       </div>
       <div className="flex mt-4">
-        {FeedbackRecoil.map((item) => {
+        {testimonialRecoil.map((item) => {
           return (
             <div
               className="flex flex-col items-center justify-center bg-white mr-3 px-3 py-3 "
