@@ -18,7 +18,6 @@ function ExploreNew({ medicine }) {
 						className="flex flex-col bg-white mr-3"
 						style={{
 							flex: '0 0 145px',
-							// height: '170px',
 						}}
 					>
 						<div>
@@ -31,7 +30,11 @@ function ExploreNew({ medicine }) {
 						<div className="h-28 flex items-center justify-center">
 							<img
 								className="h-4/5"
-								src={`${config.baseUrl}/${item.product_image}`}
+								src={
+									item.product_image[0]
+										? `${config.baseUrl}/${item.product_image[0]}`
+										: 'https://img.icons8.com/ios/100/000000/no-camera--v1.png'
+								}
 								alt=""
 							/>
 						</div>

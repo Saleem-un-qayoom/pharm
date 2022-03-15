@@ -102,13 +102,14 @@ export const getCategoryApi = () => {
   };
 };
 
-export const getCategoryListApi = () => {
+export const getCategoryResultApi = () => {
   return (data, callback) => {
-    const { uID, storeId, pinCode } = data;
-    MAINAPI("POST", `capi/p_cat_list.php`, {
+    const { uID, storeId, pinCode, catId } = data;
+    MAINAPI("POST", `capi/p_list_product_by_cat_and_pincode.php`, {
       uid: uID,
       store_id: storeId,
       pincode: pinCode,
+      cat_id: catId,
     })
       .then((response) => {
         if (response) {
