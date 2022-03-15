@@ -74,7 +74,12 @@ function Catlist({ history, showHeader = false }) {
         </p>
         {showHeader && (
           <>
-            <button className="text-xs font-medium">View all</button>
+            <button
+              className="text-xs font-medium"
+              onClick={() => navigate("/categories-page")}
+            >
+              View all
+            </button>
           </>
         )}
       </div>

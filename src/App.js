@@ -29,6 +29,7 @@ import TermsandConditions from "./View/MainPage/ProfilePage/TermsandConditions/T
 import { useState } from "react";
 import ProductDescription from "./View/MainPage/ProductDescription/ProductDescription";
 import MedicinePage from "./View/MainPage/MedicinePage/MedicinePage";
+import Toast from "./components/Toast/Toast";
 // import MedicineList from "./components/MedicineList/MedicineList";
 
 function App() {
@@ -44,6 +45,8 @@ function App() {
     <>
       <Router>
         <Routes>
+          {/* <Toast /> */}
+          <Route element={<Toast />} />
           <Route exact path="/starter-page" element={<StarterPage />} />
           <Route exact path="/pin-code" element={<PinCodePage />} />
           <Route
