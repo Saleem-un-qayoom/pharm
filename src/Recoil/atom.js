@@ -118,3 +118,8 @@ export const categoryListData = atom({
   key: "categoryListData",
   default: [],
 });
+
+export const exploreNewData = atom({
+  key: "exploreNewData",
+  default: [],
+});

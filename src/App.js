@@ -32,6 +32,7 @@ import MedicinePage from "./View/MainPage/MedicinePage/MedicinePage";
 import Toast from "./components/Toast/Toast";
 // import MedicineList from "./components/MedicineList/MedicineList";
 import CatResult from "./components/CatResult/CatResult";
+import ExploreNewPage from "./View/MainPage/ExploreNewPage/ExploreNewPage";
 
 function App() {
   const pinCodeRecoil = useRecoilValue(pinCodeData);
@@ -190,6 +191,17 @@ function App() {
             element={
               pinCodeRecoil ? (
                 <ProductDescription />
+              ) : (
+                <Navigate to="/starter-page" />
+              )
+            }
+          />
+
+          <Route
+            path="/explore-new-page"
+            element={
+              pinCodeRecoil ? (
+                <ExploreNewPage />
               ) : (
                 <Navigate to="/starter-page" />
               )

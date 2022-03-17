@@ -1,33 +1,42 @@
 import config from "../../Services/config";
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  catListAtom,
+  pinCodeData,
+  storeData,
+  userDataAtom,
+} from "../../Recoil/atom";
+import { getCategoryApi } from "../../Services/apis";
 
 function Catlist({ showHeader = false, catList }) {
   let navigate = useNavigate();
 
-  //   const [categoryList, setCategoryList] = useState([]);
-  //   const userRecoil = useRecoilValue(userData);
-  //   const [storeRecoil, setStoreRecoil] = useRecoilState(storeData);
-  //   const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
+  const [categoryList, seContactPagetCategoryList] = useState([]);
+  const userRecoil = useRecoilValue(userDataAtom);
+  const [storeRecoil, setStoreRecoil] = useRecoilState(storeData);
+  const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
 
-  //   const pinCodeRecoil = useRecoilValue(pinCodeData);
-  //   const [categoryRecoil, setCategoryRecoil] = useRecoilState(catListAtom);
+  // const pinCodeRecoil = useRecoilValue(pinCodeData);
+  const [categoryRecoil, setCategoryRecoil] = useRecoilState(catListAtom);
 
-  //   const getCategoryApiFunc = getCategoryApi();
+  const getCategoryApiFunc = getCategoryApi();
 
-  //   useEffect(() => {
-  //     const data = {
-  //       uID: userRecoil.id || "0",
-  //       storeId: storeRecoil.id,
-  //       pinCode: pinCodeRecoil.id,
-  //     };
-  //     // getCategoryApiFunc(data, handleResponse);
-  //   }, []);
+  useEffect(() => {
+    const data = {
+      uID: userRecoil.id || "0",
+      storeId: storeRecoil.id,
+      pinCode: pinCodeRecoil.id,
+    };
+    // getCategoryApiFunc(data, handleResponse);
+  }, []);
 
-  //   const handleResponse = (res) => {
-  //     if (res && res.ResponseCode === "200") {
-  //       setCategoryRecoil(res.CategoryData);
-  //     }
-  //   };
+  const handleResponse = (res) => {
+    if (res && res.ResponseCode === "200") {
+      setCategoryRecoil(res.CategoryData);
+    }
+  };
 
   return (
     <div className="shop-by-category background-tertiary ion-padding">
