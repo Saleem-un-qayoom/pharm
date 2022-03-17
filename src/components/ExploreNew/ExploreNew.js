@@ -1,21 +1,14 @@
 import React from "react";
 import config from "../../Services/config";
-import { useNavigate } from "react-router";
 
 function ExploreNew({ medicine }) {
-  const navigate = useNavigate();
   return (
     <div className="explore-something-new ion-padding bg-slate-50">
       <div className="explore-something-new__head flex justify-between items-center  ">
         <p className="text-xs font-medium text-color-primary ">
           Explore Something New
         </p>
-        <button
-          className="text-xs font-w-700"
-          onClick={() => navigate("/explore-new-page")}
-        >
-          View all{" "}
-        </button>
+        <button className="text-xs font-w-700">View all </button>
       </div>
 
       <div className=" flex mt-4 scrollable-element">
@@ -40,7 +33,7 @@ function ExploreNew({ medicine }) {
                 src={
                   item.product_image[0]
                     ? `${config.baseUrl}/${item.product_image[0]}`
-                    : "https://img.icons8.com/ios/70/000000/no-camera--v1.png"
+                    : "https://img.icons8.com/ios/100/000000/no-camera--v1.png"
                 }
                 alt=""
               />
