@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
-import { AboutData } from "../../../../Recoil/atom";
+import { aboutAtom, AboutData } from "../../../../Recoil/atom";
 
 function AboutPage({ history }) {
-  const [aboutRecoil, setAboutRecoil] = useRecoilState(AboutData);
+  const [aboutRecoil, setAboutRecoil] = useRecoilState(aboutAtom);
 
   let navigate = useNavigate();
   return (

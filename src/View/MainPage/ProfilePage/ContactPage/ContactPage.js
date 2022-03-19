@@ -1,8 +1,11 @@
-import React from "react";
 import { useNavigate } from "react-router";
+import { useRecoilState } from "recoil";
+import { contactAtom, ContactData } from "../../../../Recoil/atom";
 
 function ContactPage({ history }) {
   let navigate = useNavigate();
+
+  const [contactRecoil, setContactRecoil] = useRecoilState(contactAtom);
   return (
     <div className="ion-padding background-primary font-semibold rounded-b-xl flex items-center">
       <img
@@ -11,6 +14,7 @@ function ContactPage({ history }) {
         style={{ height: "25px", width: "20px", marginRight: "10px" }}
       />
       <span>Contact</span>
+      {contactRecoil}
     </div>
   );
 }

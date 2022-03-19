@@ -23,6 +23,9 @@ function OrderCart({ history }) {
             <div className="">
               <p className="ml-4">Other</p>
             </div>
+            <div>
+              <span className="ml-48">Change</span>
+            </div>
           </div>
           <div className="flex items-center justify-center  background-primary  rounded-lg">
             <button className="py-2.5 font-bold ">Proceed To Buy</button>

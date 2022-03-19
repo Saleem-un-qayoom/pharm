@@ -89,30 +89,30 @@ export const PrivacyPolicyData = atom({
   default: [],
 });
 
-export const AboutData = atom({
-  key: "AboutData",
-  default: [],
-});
+// export const AboutData = atom({
+//   key: "AboutData",
+//   default: [],
+// });
 
-export const ContactData = atom({
-  key: "ContactData",
-  default: [],
-});
+// export const ContactData = atom({
+//   key: "ContactData",
+//   default: [],
+// });
 
-export const FeedbackData = atom({
-  key: "FeedbackData",
-  default: [],
-});
+// export const FeedbackData = atom({
+//   key: "FeedbackData",
+//   default: [],
+// });
 
-export const TermsAndConditionData = atom({
-  key: "TermsAndConditionData",
-  default: [],
-});
+// export const TermsAndConditionData = atom({
+//   key: "TermsAndConditionData",
+//   default: [],
+// });
 
-export const exploreSomethingData = atom({
-  key: "exploreSomethingData",
-  default: [],
-});
+// export const exploreSomethingData = atom({
+//   key: "exploreSomethingData",
+//   default: [],
+// });
 
 export const categoryListData = atom({
   key: "categoryListData",

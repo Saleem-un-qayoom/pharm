@@ -1,12 +1,11 @@
 import React from "react";
 import { navigate, useNavigate } from "react-router";
-import { TermsAndConditionData } from "../../../../Recoil/atom";
+import { TermsAndConditionData, tncAtom } from "../../../../Recoil/atom";
 import { useRecoilState } from "recoil";
 
 function TermsandConditions({ history }) {
-  const [termsAndConditionRecoil, setTermsAndConditionRecoil] = useRecoilState(
-    TermsAndConditionData
-  );
+  const [termsAndConditionRecoil, setTermsAndConditionRecoil] =
+    useRecoilState(tncAtom);
 
   let navigate = useNavigate();
   return (
