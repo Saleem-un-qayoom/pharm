@@ -16,9 +16,12 @@ function ProfilePage({ history }) {
   ];
 
   return (
-    <div>
-      <div className=" flex flex-col h-32 items-center background-primary pt-4 relative">
-        <div className=" absolute bg-white py-px px-px rounded-full top-2.5 right-40">
+    <div className="relative">
+      <div className=" flex flex-col h-32 items-center background-primary pt-4 ">
+        <div
+          className=" absolute bg-white py-px px-px rounded-full top-3"
+          style={{ right: "180px" }}
+        >
           <img
             className="w-4 h-4"
             onClick={() => navigate("/edit-profile")}

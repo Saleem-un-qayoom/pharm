@@ -45,7 +45,9 @@ function CategoryPage({ onLinkPress, popUpToggle }) {
   return (
     <>
       <Header />
-      <HeaderFooterWrapper>{<Catlist />}</HeaderFooterWrapper>
+      <HeaderFooterWrapper>
+        {<Catlist catList={categoryList} />}
+      </HeaderFooterWrapper>
       <Footer onLinkPress={onLinkPress} popUpToggle={popUpToggle} />
     </>
   );

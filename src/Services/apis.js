@@ -127,3 +127,28 @@ export const getCategoryResultApi = () => {
       });
   };
 };
+
+export const getExploreNewApi = () => {
+  return (data, callback) => {
+    const { uID, storeId, pinCode } = data;
+    MAINAPI("POST", `capi/p_rand_product.php`, {
+      uid: uID,
+      store_id: storeId,
+      pincode: pinCode,
+    })
+      .then((response) => {
+        if (response) {
+          console.log(
+            "🚀 ~ file: apis.js ~ line 115 ~ .then ~ response",
+            response
+          );
+          if (callback) callback(response);
+        }
+      })
+      .catch((error) => {
+        console.log("🚀 ~ file: apis.js ~ line 123 ~ return ~ error", error);
+
+        if (callback) callback(error.response);
+      });
+  };
+};

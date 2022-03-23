@@ -22,6 +22,7 @@ import {
   userData,
   userDataAtom,
   testimonialAtom,
+  privacyPolicyAtom,
 } from "../../../Recoil/atom";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -35,6 +36,9 @@ import HeaderFooterWrapper from "../../../components/HeaderFooterWrapper/HeaderF
 import ProductList from "../../../components/ProductList/ProductList";
 import { getHomeApi } from "../../../Services/apis";
 import { useParams } from "react-router";
+import TermsandConditions from "../ProfilePage/TermsandConditions/TermsandConditions";
+import UploadPrescription from "../../../components/UploadPrescription/UploadPrescription";
+import Slider from "../../../components/Slider/Slider";
 
 const Home = ({ popUpToggle }) => {
   // const [homeData, setHomeData] = useState([]);
@@ -44,7 +48,7 @@ const Home = ({ popUpToggle }) => {
   const [prodcutListRecoil, setProdcutListRecoil] =
     useRecoilState(ProductListData);
 
-  const [banners, setBanners] = useRecoilState(bannersAtom);
+  // const [banners, setBanners] = useRecoilState(bannersAtom);
   const [catList, setCatList] = useRecoilState(catListAtom);
   const [brand, setBrand] = useRecoilState(brandAtom);
   const [medicine, setMedicine] = useRecoilState(medicineAtom);
@@ -54,6 +58,8 @@ const Home = ({ popUpToggle }) => {
   const [tnc, setTnc] = useRecoilState(tncAtom);
   const [homeData, setHomeData] = useRecoilState(homeDataAtom);
   const [testimonial, setTestimonial] = useRecoilState(testimonialAtom);
+  const [privacyPolicy, setPrivacyPolicy] = useRecoilState(privacyPolicyAtom);
+  const [banner, setBanner] = useRecoilState(bannersAtom);
 
   // const [feedbackRecoil, setFeedbackRecoil] = useRecoilState(FeedbackData);
   // const [privacyPolicyRecoil, setPrivacyPolicyRecoil] =
@@ -77,24 +83,18 @@ const Home = ({ popUpToggle }) => {
 
   const handleResponse = (res) => {
     if (res && res.ResponseCode === "200") {
-      setBanners(res.ResultData.Banner);
+      console.log("res", res);
       setCatList(res.ResultData.Catlist);
       setBrand(res.ResultData.Brand);
       setMedicine(res.ResultData.Medicine);
       setMainData(res.ResultData.Main_Data);
-      setAbout(res.ResultData.about);
-      setContact(res.ResultData.contact);
-      setTnc(res.ResultData.terms);
+      setAbout(res.ResultData.Main_Data.about);
+      setContact(res.ResultData.Main_Data.contact);
+      setTnc(res.ResultData.Main_Data.terms);
       setHomeData(res.ResultData.HomeData);
       setTestimonial(res.ResultData.testimonial);
-
-      // setStores(res.StoreData);
-      // setProdcutListRecoil(res.ResultData.HomeData);
-      // setFeedbackRecoil(res.ResultData.testimonial);
-      // setPrivacyPolicyRecoil(res.ResultData.Main_Data.policy);
-      // setTermsandConditionRecoil(res.ResultData.Main_Data.terms);
-      // setAboutDataRecoil(res.ResultData.Main_Data.about);
-      // setExporeSomethingRecoil(res.ResultData.Medicine);
+      setPrivacyPolicy(res.ResultData.Main_Data.policy);
+      setBanner(res.ResultData.Banner);
     }
   };
 
@@ -102,10 +102,11 @@ const Home = ({ popUpToggle }) => {
     <>
       <Header />
       <HeaderFooterWrapper>
+        {banner.length > 0 && <Slider />}
+        <UploadPrescription popUpToggle={popUpToggle} />
         <Catlist showHeader catList={catList} />
 
         <ExploreNew medicine={medicine} />
-        {/* <ProductList product={exporeSomethingRecoil} key={1} /> */}
         {homeData.map((item, key) => (
           <ProductList product={item} key={key} />
         ))}
