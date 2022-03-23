@@ -37,6 +37,12 @@ function Login() {
             <span className="text-red-700 text-xs">Number Required</span>
           )}
 
+          <input
+            type="text"
+            placeholder="Password "
+            className="w-full py-2 px-4 mt-2 text-xs  bg-white border border-solid rounded-full"
+          />
+
           <p className="pt-1 text-xs font-w-700">
             Have a Email/Password Account?
           </p>

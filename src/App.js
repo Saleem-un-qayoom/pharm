@@ -33,6 +33,7 @@ import Toast from "./components/Toast/Toast";
 // import MedicineList from "./components/MedicineList/MedicineList";
 import CatResult from "./components/CatResult/CatResult";
 import ExploreNewPage from "./View/MainPage/ExploreNewPage/ExploreNewPage";
+import UploadPrescription from "./components/UploadPrescription/UploadPrescription";
 
 function App() {
   const pinCodeRecoil = useRecoilValue(pinCodeData);
@@ -72,7 +73,6 @@ function App() {
               )
             }
           />
-
           <Route
             path="/cat-result-page/:id"
             element={
@@ -83,14 +83,12 @@ function App() {
               )
             }
           />
-
           {/* <Route
             path="/medicine-list"
             element={
               pinCodeRecoil ? <MedicineList /> : <Navigate to="/starter-page" />
             }
           /> */}
-
           <Route
             path="/notification-page"
             element={
@@ -104,21 +102,18 @@ function App() {
               pinCodeRecoil ? <OrderCart /> : <Navigate to="/starter-page" />
             }
           />
-
           <Route
             path="/profile-page"
             element={
               pinCodeRecoil ? <ProfilePage /> : <Navigate to="/starter-page" />
             }
           />
-
           <Route
             path="/my-order"
             element={
               pinCodeRecoil ? <MyOrder /> : <Navigate to="/starter-page" />
             }
           />
-
           <Route
             path="/manage-addresses"
             element={
@@ -129,21 +124,18 @@ function App() {
               )
             }
           />
-
           <Route
             path="/about-page"
             element={
               pinCodeRecoil ? <AboutPage /> : <Navigate to="/starter-page" />
             }
           />
-
           <Route
             path="/contact-page"
             element={
               pinCodeRecoil ? <ContactPage /> : <Navigate to="/starter-page" />
             }
           />
-
           <Route
             path="/privacy-policy"
             element={
@@ -154,7 +146,6 @@ function App() {
               )
             }
           />
-
           <Route
             path="/terms-and-conditions"
             element={
@@ -165,14 +156,12 @@ function App() {
               )
             }
           />
-
           <Route
             path="/edit-profile"
             element={
               pinCodeRecoil ? <EditProfile /> : <Navigate to="/starter-page" />
             }
           />
-
           <Route
             path="/login-page"
             element={
@@ -185,7 +174,6 @@ function App() {
               pinCodeRecoil ? <StorePage /> : <Navigate to="/starter-page" />
             }
           />
-
           <Route
             path="/product-description"
             element={
@@ -196,7 +184,6 @@ function App() {
               )
             }
           />
-
           <Route
             path="/explore-new-page"
             element={
@@ -207,7 +194,6 @@ function App() {
               )
             }
           />
-
           {/* <AuthRoute exact path="/" element={<MainPage />} /> */}
           <Route exact path="*" element={<Navigate to="/home" />} />
         </Routes>

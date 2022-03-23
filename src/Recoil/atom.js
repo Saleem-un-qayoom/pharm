@@ -63,11 +63,16 @@ export const contactAtom = atom({
 
 export const tncAtom = atom({
   key: "tncAtom",
-  default: [],
+  default: "",
 });
 
 export const homeDataAtom = atom({
   key: "homeDataAtom",
+  default: [],
+});
+
+export const privacyPolicyAtom = atom({
+  key: "privacyPolicyAtom",
   default: [],
 });
 
