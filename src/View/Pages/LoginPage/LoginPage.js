@@ -1,75 +1,199 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { toastAtom, userDataAtom } from '../../../Recoil/atom';
+
+import ShowToast from '../../../Services/CommonService';
+import { loginApi } from '../../../Services/apis';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
 
 function Login() {
-  const [number, setNumber] = useState("");
-  const [numberError, setNumberError] = useState(false);
+	const [userData, setUserData] = useRecoilState(userDataAtom);
+	const loginApiFunc = loginApi();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+	const navigate = useNavigate();
 
-    if (!number) {
-      setNumberError(true);
-    }
-  };
+	const [number, setNumber] = useState('');
+	const [numberError, setNumberError] = useState(false);
 
-  return (
-    <div className="pharm-box__login">
-      <div className="pharm-box__img">
-        <img
-          src="https://rlv.zcache.com/gold_caduceus_pharmd_classic_round_sticker-rd4fe1acce9844ff69287c367403102fd_0ugmp_8byvr_307.jpg"
-          style={{ width: "100%" }}
-        />
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className="login-info ion-padding font-w-700 pt-2">
-          <p className="text-xs">Sign in / Sign Up</p>
-          <input
-            value={number}
-            onChange={({ target }) => {
-              setNumber(target.value);
-              setNumberError(false);
-            }}
-            type="text"
-            placeholder="Phone Number "
-            className="w-full py-2 px-4 mt-2 text-xs  bg-white border border-solid rounded-full"
-          />
-          {numberError && (
-            <span className="text-red-700 text-xs">Number Required</span>
-          )}
+	const [password, setPassword] = useState('');
+	const [passwordError, setPasswordError] = useState(false);
 
-          <input
-            type="text"
-            placeholder="Password "
-            className="w-full py-2 px-4 mt-2 text-xs  bg-white border border-solid rounded-full"
-          />
+	const [showSignUpModule, setShowSignUpModule] = useState(true);
 
-          <p className="pt-1 text-xs font-w-700">
-            Have a Email/Password Account?
-          </p>
-          <div className="flex items-center mt-4">
-            <input type="radio" className="mr-2" />
-            <span className="text-xs font-medium">Remember Me</span>
-          </div>
-          <div className="mt-4">
-            <p className="font10 text-slate-400">
-              By clicking continue, you agree with our Privacy Policy
-            </p>
-          </div>
-          <div className="flex  justify-center bg-green-400 w-full rounded-xl mt-1">
-            <button
-              className="py-3 font-w-700"
-              onClick={() => console.log("clicked")}
-            >
-              Continue
-            </button>
-          </div>
-          <span className="flex items-center justify-center mt-3 text-xs">
-            Forgot Password?
-          </span>
-        </div>
-      </form>
-    </div>
-  );
+	const [rememberMe, setRememberMe] = useState(false);
+
+	const [toast, setToast] = useRecoilState(toastAtom);
+
+	useEffect(() => {
+		if (userData) {
+			navigate('/home');
+		}
+	}, []);
+
+	const handleSubmit = e => {
+		e.preventDefault();
+
+		let error = 0;
+
+		if (!number) {
+			setNumberError(true);
+			error++;
+		}
+
+		if (!password) {
+			setPasswordError(true);
+			error++;
+		}
+
+		if (error === 0) {
+			//
+
+			const data = {
+				mobile: number,
+				password: password,
+			};
+			loginApiFunc(data, handleResponse);
+		}
+	};
+
+	const handleResponse = res => {
+		console.log('first', res);
+		if (res.Result == 'true') {
+			if (rememberMe) {
+				localStorage.setItem(
+					'pharm-box-user',
+					JSON.stringify(res.UserLogin)
+				);
+			} else {
+				sessionStorage.setItem(
+					'pharm-box-user',
+					JSON.stringify(res.UserLogin)
+				);
+			}
+			setUserData(res.UserLogin);
+			navigate('/home');
+		}
+		ShowToast(res.ResponseMsg, setToast);
+	};
+
+	const toggleShowModal = value => {
+		setNumber('');
+		setNumberError('');
+		setPassword('');
+		setPasswordError('');
+
+		setShowSignUpModule(value);
+	};
+
+	return (
+		<div className="pharm-box__login">
+			<div className="pharm-box__img">
+				<img
+					className="h-80 w-screen"
+					src="https://rlv.zcache.com/gold_caduceus_pharmd_classic_round_sticker-rd4fe1acce9844ff69287c367403102fd_0ugmp_8byvr_307.jpg"
+				/>
+			</div>
+			<form onSubmit={handleSubmit}>
+				<div className="login-info ion-padding font-w-700 pt-2">
+					<p className="text-xs">Sign in / Sign Up</p>
+					{showSignUpModule ? (
+						<>
+							<input
+								value={number}
+								onChange={({ target }) => {
+									setNumber(target.value);
+									setNumberError(false);
+								}}
+								type="text"
+								placeholder="Phone Number "
+								className="w-full py-2 px-4 mt-2 text-xs  bg-white border border-solid rounded-full"
+							/>
+							{numberError && (
+								<span className="text-red-700 text-xs">
+									Number Required
+								</span>
+							)}
+
+							<p
+								className="pt-1 text-xs font-w-700"
+								onClick={() => toggleShowModal(false)}
+							>
+								Have a Email/Password Account?
+							</p>
+						</>
+					) : (
+						<>
+							<input
+								value={number}
+								onChange={({ target }) => {
+									setNumber(target.value);
+									setNumberError(false);
+								}}
+								type="text"
+								placeholder="Phone Number "
+								className="w-full py-2 px-4 mt-2 text-xs  bg-white border border-solid rounded-full"
+							/>
+							{numberError && (
+								<span className="text-red-700 text-xs">
+									Number Required
+								</span>
+							)}
+
+							<input
+								type="password"
+								value={password}
+								onChange={({ target }) => {
+									setPassword(target.value);
+									setPasswordError(false);
+								}}
+								placeholder="Password "
+								className="w-full py-2 px-4 mt-2 text-xs  bg-white border border-solid rounded-full"
+							/>
+
+							{passwordError && (
+								<span className="text-red-700 text-xs">
+									Password Required
+								</span>
+							)}
+
+							<p
+								className="pt-1 text-xs font-w-700"
+								onClick={() => toggleShowModal(true)}
+							>
+								Sign Up?
+							</p>
+						</>
+					)}
+					<div className="flex items-center mt-4">
+						<input
+							type="checkbox"
+							value={rememberMe}
+							onChange={({ target }) =>
+								setRememberMe(target.value)
+							}
+							className="mr-2"
+						/>
+						<span className="text-xs font-medium">
+							Remember Me
+						</span>
+					</div>
+					<div className="mt-4">
+						<p className="font10 text-slate-400">
+							By clicking continue, you agree with our
+							Privacy Policy
+						</p>
+					</div>
+					<button className="py-3 font-w-700 flex  justify-center bg-green-400 w-full rounded-xl mt-1">
+						Continue
+					</button>
+					<span className="flex items-center justify-center mt-3 text-xs">
+						Forgot Password?
+					</span>
+				</div>
+			</form>
+		</div>
+	);
 }
 
 export default Login;

@@ -1,11 +1,14 @@
 import './Footer.scss';
 
 import { useNavigate } from 'react-router';
-
-// import Icon from "../../public/assets/icon/home.png";
+import { useRecoilValue } from 'recoil';
+import { userDataAtom } from '../../Recoil/atom';
 
 function Footer({ popUpToggle }) {
 	const navigate = useNavigate();
+
+	const user = useRecoilValue(userDataAtom);
+
 	const footer = [
 		{ name: 'Home', link: '' },
 		{ name: 'Prescription', link: '' },
@@ -26,7 +29,11 @@ function Footer({ popUpToggle }) {
 				navigate('/notification-page');
 				break;
 			case 'User':
-				navigate('/profile-page');
+				if (user) {
+					navigate('/profile-page');
+				} else {
+					navigate('/login-page');
+				}
 				break;
 			case 'Category':
 				navigate('/categories-page');
