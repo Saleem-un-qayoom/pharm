@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import ShowToast from '../../../functions/showToast';
 import { getPinCodeApi } from '../../../Services/apis';
 import { pinCodeData } from '../../../Recoil/atom';
 import { useNavigate } from 'react-router';
@@ -30,25 +31,22 @@ function PinCodePage() {
 			setShowPinCodeError(true);
 		} else {
 			getPinCodeApiFunc(handleResponse);
-
-			// localStorage.setItem('pharm-box-pin-code', pinCode);
-			// setState(pinCode);
-			// navigate('/');
 		}
 	};
 
 	const handleResponse = res => {
 		if (res && res.ResponseCode === '200') {
 			for (let i = 0; i < res.PincodeData.length; i++) {
+				console.log('first');
+
 				if (res.PincodeData[i].pincode === pinCode) {
-					// localStorage.setItem(
-					// 	'pharm-box-pin-code',
-					// 	JSON.stringify(res.PincodeData[i])
-					// );
 					setPinCodeRecoil(res.PincodeData[i]);
 					navigate('/store-page');
+					return;
 				}
 			}
+			console.log('first');
+			ShowToast('We dont deliver at this address');
 		}
 	};
 
