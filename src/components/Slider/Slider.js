@@ -50,7 +50,7 @@ function Slider() {
       // pagination={{ clickable: true }}
       slidesPerView={1}
       scrollbar={{ draggable: true }}
-      Autoplay
+      autoplay
     >
       {banner.map((item) => (
         <SwiperSlide>

@@ -1,9 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router";
-import PrescriptionPopUp from "../PrecriptionPopUp/PrescriptionPopUp";
 
 function UploadPrescription(props) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <div className="py-2 flex justify-between">
       <div
