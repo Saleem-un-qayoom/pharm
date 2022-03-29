@@ -1,4 +1,5 @@
 import React from "react";
+import config from "../../Services/config";
 
 function UploadPrescription(props) {
   // const navigate = useNavigate();
@@ -17,7 +18,11 @@ function UploadPrescription(props) {
           style={{ height: "20px" }}
         />
       </div>
-      <div className="background-primary px-2 py-3 flex rounded-full  items-center justify-center">
+      <a
+        // href={${config.}}
+        href={`https://api.whatsapp.com/send?phone=${config.whatsappNumber}`}
+        className="background-primary px-2 py-3 flex rounded-full  items-center justify-center"
+      >
         <span className="text-sm font-semibold	text-white">
           Order On Whatsapp
         </span>
@@ -26,7 +31,7 @@ function UploadPrescription(props) {
           src="https://img.icons8.com/ios/70/000000/no-camera--v1.png"
           style={{ height: "20px" }}
         />
-      </div>
+      </a>
     </div>
   );
 }

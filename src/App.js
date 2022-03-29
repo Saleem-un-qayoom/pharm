@@ -32,6 +32,7 @@ import Toast from "./components/Toast";
 import { useRecoilValue } from "recoil";
 import { useState } from "react";
 import OtpPage from "./View/Pages/OtpPage/OtpPage";
+import SubmitPrescription from "./components/SubmitPrescription/SubmitPrescription";
 
 function App() {
   const pinCodeRecoil = useRecoilValue(pinCodeData);
@@ -131,12 +132,25 @@ function App() {
               pinCodeRecoil ? <AboutPage /> : <Navigate to="/starter-page" />
             }
           />
+
+          <Route
+            path="/submit-prescription"
+            element={
+              pinCodeRecoil ? (
+                <SubmitPrescription />
+              ) : (
+                <Navigate to="/starter-page" />
+              )
+            }
+          />
+
           <Route
             path="/contact-page"
             element={
               pinCodeRecoil ? <ContactPage /> : <Navigate to="/starter-page" />
             }
           />
+
           <Route
             path="/privacy-policy"
             element={

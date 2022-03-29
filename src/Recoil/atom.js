@@ -16,6 +16,13 @@ export const userDataAtom = atom({
     : "",
 });
 
+export const CartAtom = atom({
+  key: "CartAtom",
+  default: JSON.parse(localStorage.getItem("pharm-box-cart"))
+    ? JSON.parse(localStorage.getItem("pharm-box-cart"))
+    : [],
+});
+
 export const storeData = atom({
   key: "storeData",
   default: localStorage.getItem("pharm-box-store")
@@ -104,6 +111,11 @@ export const testimonialAtom = atom({
 export const PrivacyPolicyData = atom({
   key: "PrivacyPolicyData",
   default: [],
+});
+
+export const SelectedProductAtom = atom({
+  key: "SelectedProductAtom",
+  default: "",
 });
 
 // export const AboutData = atom({
