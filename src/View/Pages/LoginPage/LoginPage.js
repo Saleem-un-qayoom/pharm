@@ -73,7 +73,6 @@ function Login() {
 	};
 
 	const handleResponse = res => {
-		console.log('first', res);
 		if (res.Result == 'true') {
 			if (rememberMe) {
 				localStorage.setItem(

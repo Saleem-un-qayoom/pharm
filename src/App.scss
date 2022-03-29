@@ -1,142 +1,146 @@
 :root {
-  --primary-color: #dee9fd;
-  --secondary-color: #0ac2c2;
-  --tertiary-color: #f2f3f8;
-  --light-grey-color: #9a9a9a;
-  --text-color-primary: #1f98a7;
-  --text-color-secondary: #3fc9ce;
+	--primary-color: #dee9fd;
+	--secondary-color: #0ac2c2;
+	--tertiary-color: #f2f3f8;
+	--light-grey-color: #9a9a9a;
+	--text-color-primary: #1f98a7;
+	--text-color-secondary: #3fc9ce;
 }
 
 .background-primary {
-  background-color: var(--primary-color);
+	background-color: var(--primary-color);
+}
+
+.border-primary {
+	border-color: var(--primary-color);
 }
 
 .text-color-primary {
-  color: var(--text-color-primary);
+	color: var(--text-color-primary);
 }
 
 .text-color-secondary {
-  color: var(--text-color-secondary);
+	color: var(--text-color-secondary);
 }
 
 .text-light-grey {
-  color: var(--light-grey-color);
+	color: var(--light-grey-color);
 }
 
 .background-secondary {
-  background-color: var(--secondary-color);
+	background-color: var(--secondary-color);
 }
 
 .background-tertiary {
-  background-color: var(--tertiary-color);
+	background-color: var(--tertiary-color);
 }
 
 input {
-  border: 1px solid var(--light-grey-color);
+	border: 1px solid var(--light-grey-color);
 }
 
 input:focus {
-  outline: none;
-  border: 1px solid var(--light-grey-color);
+	outline: none;
+	border: 1px solid var(--light-grey-color);
 }
 
 .header-footer-wrapper {
-  margin-top: 120px;
-  margin-bottom: 48px;
+	margin-top: 120px;
+	margin-bottom: 48px;
 }
 
 input::placeholder {
-  font-weight: 500;
-  color: var(--light-grey-color);
+	font-weight: 500;
+	color: var(--light-grey-color);
 }
 
 .input-border-none {
-  border: none;
+	border: none;
 }
 
 .input-border-none:focus {
-  outline: none !important;
-  border: none !important;
+	outline: none !important;
+	border: none !important;
 }
 
 .width-30-per {
-  width: 30%;
+	width: 30%;
 }
 .width-70-per {
-  width: 70%;
+	width: 70%;
 }
 .font10 {
-  font-size: 10px;
+	font-size: 10px;
 }
 
 .font11 {
-  font-size: 11px;
+	font-size: 11px;
 }
 
 .font12 {
-  font-size: 12px;
+	font-size: 12px;
 }
 
 .font13 {
-  font-size: 13px;
+	font-size: 13px;
 }
 
 .font14 {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 .font-w-100 {
-  font-weight: 100;
+	font-weight: 100;
 }
 
 .font-w-200 {
-  font-weight: 200;
+	font-weight: 200;
 }
 
 .font-w-300 {
-  font-weight: 300;
+	font-weight: 300;
 }
 
 .font-w-400 {
-  font-weight: 400;
+	font-weight: 400;
 }
 
 .font-w-500 {
-  font-weight: 500;
+	font-weight: 500;
 }
 
 .font-w-600 {
-  font-weight: 600;
+	font-weight: 600;
 }
 
 .font-w-700 {
-  font-weight: 700;
+	font-weight: 700;
 }
 
 .font-w-800 {
-  font-weight: 800;
+	font-weight: 800;
 }
 
 .font-w-900 {
-  font-weight: 900;
+	font-weight: 900;
 }
 
 .error-message {
-  color: red;
+	color: red;
 }
 
 .ion-padding {
-  padding: 16px;
+	padding: 16px;
 }
 
 .ion-padding-x {
-  padding-left: 16px !important;
-  padding-right: 16px !important;
+	padding-left: 16px !important;
+	padding-right: 16px !important;
 }
 
 .ion-padding-y {
-  padding-top: 16px !important;
-  padding-bottom: 16px !important;
+	padding-top: 16px !important;
+	padding-bottom: 16px !important;
 }
 
 // #background-content {
@@ -154,54 +158,42 @@ input::placeholder {
 // }
 
 .truncate {
-  display: inline-block;
-  width: 140px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	display: inline-block;
+	width: 140px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .css-1s2u09g-control {
-  width: 100px;
-  min-height: 20px !important;
+	width: 100px;
+	min-height: 20px !important;
 }
 
 .css-319lph-ValueContainer {
-  display: inline-block;
+	display: inline-block;
 }
 
 .min-height-24 {
-  max-height: 96px;
+	max-height: 96px;
 }
 
-// .your-app {
 .rsis-image {
-  background-size: 90% !important;
-  background-position: center center;
+	background-size: 90% !important;
+	background-position: center center;
 }
-// }
 
 // CAMERA
 #cameraFileInput {
-  display: none;
+	display: none;
 }
 
 #pictureFromCamera {
-  width: 100%;
-  height: auto;
-  margin-top: 16px;
+	width: 100%;
+	height: auto;
+	margin-top: 16px;
 }
 
-// .btn {
-//   display: inline-block;
-//   background-color: #00b531;
-//   color: white;
-//   padding: 8px 12px;
-//   border-radius: 4px;
-//   font-size: 16px;
-//   cursor: pointer;
-// }
-
 .btn:hover {
-  filter: brightness(0.9);
+	filter: brightness(0.9);
 }
