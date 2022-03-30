@@ -4,7 +4,7 @@ import {
   CartAtom,
   pinCodeData,
   SelectedProductAtom,
-  storeData,
+  storeDataAtom,
   userData,
   userDataAtom,
 } from "../../Recoil/atom";
@@ -30,7 +30,7 @@ function CatResult() {
   const { id } = useParams();
 
   const userData = useRecoilValue(userDataAtom);
-  const storeDataRecoil = useRecoilValue(storeData);
+  const storeDataRecoil = useRecoilValue(storeDataAtom);
   const pinCodeRecoil = useRecoilValue(pinCodeData);
   const [catResult, setCatResult] = useState([]);
 

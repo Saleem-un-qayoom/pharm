@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   pinCodeData,
-  storeData,
+  storeDataAtom,
   userData,
   userDataAtom,
 } from "../../../Recoil/atom";
@@ -18,7 +18,7 @@ function StorePage() {
   const [stores, setStores] = useState([]);
   const pinCodeRecoil = useRecoilValue(pinCodeData);
   const userRecoil = useRecoilValue(userDataAtom);
-  const [storeRecoil, setStoreRecoil] = useRecoilState(storeData);
+  const [storeRecoil, setStoreRecoil] = useRecoilState(storeDataAtom);
 
   const getStoreApiFunc = getStoreApi();
 

@@ -4,7 +4,7 @@ import {
   exploreNewData,
   pinCodeData,
   SelectedProductAtom,
-  storeData,
+  storeDataAtom,
   userDataAtom,
 } from "../../../Recoil/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -25,7 +25,7 @@ function ExploreNewPage() {
 
   const [exploreNew, setExploreNew] = useState([]);
   const userRecoil = useRecoilValue(userDataAtom);
-  const [storeRecoil, setStoreRecoil] = useRecoilState(storeData);
+  const [storeRecoil, setStoreRecoil] = useRecoilState(storeDataAtom);
   const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
 
   const [exploreNewRecoil, setExploreNewRecoil] = useState(exploreNewData);

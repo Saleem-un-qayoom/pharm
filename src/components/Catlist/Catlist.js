@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   catListAtom,
   pinCodeData,
-  storeData,
+  storeDataAtom,
   userDataAtom,
 } from "../../Recoil/atom";
 import { getCategoryApi } from "../../Services/apis";
@@ -15,7 +15,7 @@ function Catlist({ showHeader = false, catList }) {
 
   const [categoryList, seContactPagetCategoryList] = useState([]);
   const userRecoil = useRecoilValue(userDataAtom);
-  const [storeRecoil, setStoreRecoil] = useRecoilState(storeData);
+  const [storeRecoil, setStoreRecoil] = useRecoilState(storeDataAtom);
   const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
 
   // const pinCodeRecoil = useRecoilValue(pinCodeData);
