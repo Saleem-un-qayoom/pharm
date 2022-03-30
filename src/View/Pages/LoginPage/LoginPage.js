@@ -3,6 +3,7 @@ import { getOtpApi, loginApi } from '../../../Services/apis';
 import { toastAtom, userDataAtom } from '../../../Recoil/atom';
 
 import ShowToast from '../../../functions/showToast';
+import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
@@ -27,7 +28,7 @@ function Login() {
 
 	const [rememberMe, setRememberMe] = useState(false);
 
-	const [toast, setToast] = useRecoilState(toastAtom);
+	// const [toast, setToast] = useRecoilState(toastAtom);
 
 	useEffect(() => {
 		if (userData) {
@@ -88,7 +89,8 @@ function Login() {
 			setUserData(res.UserLogin);
 			navigate('/home');
 		}
-		ShowToast(res.ResponseMsg, setToast);
+		// ShowToast(res.ResponseMsg, setToast);
+		toast(res.ResponseMsg);
 	};
 
 	const toggleShowModal = value => {

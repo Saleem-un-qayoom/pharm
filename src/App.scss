@@ -197,3 +197,22 @@ input::placeholder {
 .btn:hover {
 	filter: brightness(0.9);
 }
+
+// TOAST
+.Toastify__toast-container {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 40px !important;
+}
+.Toastify__close-button {
+	display: none;
+}
+
+.Toastify__toast {
+	min-height: 30px !important;
+	// max-height: 30px !important;
+}
+
+.Toastify__toast-body {
+	font-size: 12px;
+}
