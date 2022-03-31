@@ -11,15 +11,15 @@ import { pinCodeData, storeDataAtom, toastAtom } from './Recoil/atom';
 
 import AboutPage from './View/MainPage/ProfilePage/AboutPage/AboutPage';
 import CatResult from './components/CatResult/CatResult';
-import CategoryPage from './View/MainPage/CategoryPage/CategoryPage';
+import CategoryScreen from './View/Screens/CategoryScreen/CategoryScreen';
 import ContactPage from './View/MainPage/ProfilePage/ContactPage/ContactPage';
 import EditProfile from './View/MainPage/ProfilePage/EditProfile/EditProfile';
 import ExploreNewPage from './View/MainPage/ExploreNewPage/ExploreNewPage';
-import Home from './View/MainPage/Home/Home';
+import HomeScreen from './View/Screens/HomeScreen/HomeScreen';
 import Login from './View/Pages/LoginPage/LoginPage';
 import ManageAddresses from './View/MainPage/ProfilePage/ManageAddresses/ManageAddresses';
 import MyOrder from './View/MainPage/ProfilePage/MyOrder/MyOrder';
-import Notification from './View/MainPage/Notification/Notification';
+import NotificationScreen from './View/Screens/NotificationScreen/NotificationScreen';
 import OrderCart from './View/MainPage/Cart/OrderCart';
 import OtpPage from './View/Pages/OtpPage/OtpPage';
 import PinCodePage from './View/Pages/PinCodePage/PinCodePage';
@@ -36,13 +36,10 @@ import { ToastContainer } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { useState } from 'react';
 
-// import { useNavigate } from 'react-router';
-
 function App() {
 	const pinCodeRecoil = useRecoilValue(pinCodeData);
 	const storeRecoil = useRecoilValue(storeDataAtom);
 	const [popUpModal, setPopUpModal] = useState(false);
-	// const navigate = useNavigate();
 
 	const toast = useRecoilValue(toastAtom);
 
@@ -69,7 +66,7 @@ function App() {
 						path="/home"
 						element={
 							pinCodeRecoil && storeRecoil ? (
-								<Home />
+								<HomeScreen />
 							) : (
 								<Navigate to="/starter-page" />
 							)
@@ -79,7 +76,7 @@ function App() {
 						path="/categories-page"
 						element={
 							pinCodeRecoil && storeRecoil ? (
-								<CategoryPage />
+								<CategoryScreen />
 							) : (
 								<Navigate to="/starter-page" />
 							)
@@ -100,7 +97,7 @@ function App() {
 						path="/notification-page"
 						element={
 							pinCodeRecoil ? (
-								<Notification />
+								<NotificationScreen />
 							) : (
 								<Navigate to="/starter-page" />
 							)
@@ -266,12 +263,6 @@ function App() {
 						path="*"
 						element={<Navigate to="/home" />}
 					/>
-					{/* {popUpModal && (
-						<PrescriptionPopUp
-							setPopUpModal={setPopUpModal}
-							navigate={navigate}
-						/>
-					)} */}
 				</Routes>
 				{toast && <Toast />}
 			</Router>

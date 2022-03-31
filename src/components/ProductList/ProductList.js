@@ -1,10 +1,4 @@
-import { CartAtom, SelectedProductAtom } from '../../Recoil/atom';
-import { navigate, useNavigate } from 'react-router';
-
 import ProductListItem from '../ProductListItem';
-import commonService from '../../Services/commonService';
-import config from '../../Services/config';
-import { useRecoilState } from 'recoil';
 
 function ProductList({ product }) {
 	return (

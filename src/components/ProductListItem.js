@@ -61,8 +61,8 @@ function ProductListItem({ item, key }) {
 					<img
 						className="h-4/5"
 						src={
-							item.image
-								? `${config.baseUrl}/${item.image}`
+							item.product_image[0]
+								? `${config.baseUrl}/${item.product_image[0]}`
 								: 'https://img.icons8.com/ios/70/000000/no-camera--v1.png'
 						}
 						alt=""
