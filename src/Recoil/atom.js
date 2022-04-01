@@ -35,6 +35,11 @@ export const prescriptionImageAtom = atom({
   default: null,
 });
 
+// export const orderAtom = atom({
+//   key: "orderAtom",
+//   default: "",
+// });
+
 export const bannersAtom = atom({
   key: "bannersAtom",
   default: [],
