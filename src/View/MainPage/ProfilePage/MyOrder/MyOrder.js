@@ -1,45 +1,76 @@
-import CommonScreenPage from '../../../../components/CommonScreenPage/CommonScreenPage';
-import React from 'react';
-import { useState } from 'react';
+// import CommonScreenPage from "../../../../components/CommonScreenPage/CommonScreenPage";
+// import React, { useEffect } from "react";
+// import { useState } from "react";
+// import { useRecoilValue } from "recoil";
+// import { userDataAtom } from "../../../../Recoil/atom";
+// import { getMyOrderApi } from "../../../../Services/apis";
+// import config from "../../../../Services/config";
+// import { navigate } from "react-router";
+// import { useNavigate } from "react-router";
 
-function MyOrder() {
-	const [loading, setLoading] = useState(true);
+// function MyOrder() {
+//   let navigate = useNavigate();
 
-	return (
-		<CommonScreenPage
-			headingTitle={'My Orders'}
-			contentBg={'bg-gray-100'}
-			showLoading={false}
-		>
-			<div className="bg-white mx-1 my-1 px-1 py-1 rounded-sm flex">
-				<div className="w-14">
-					<img src="/assets/icons/spinner-animated.svg" alt="" />
-				</div>
-				<div className="grow">
-					<div className="flex justify-between">
-						<div className="text-xs font-bold">
-							Order Id &nbsp;: &nbsp;
-							<span className="text-blue-400">
-								PB123456768
-							</span>
-						</div>
-						<div className="text-xs font-bold">Rs 207</div>
-					</div>
-					<div className="text-xs font-bold text-yellow-500 mt-1.5">
-						Cancelled
-					</div>
-					<div className="text-xs font-bold mt-1.5">
-						2202.22,22
-					</div>
-					<div className=" flex justify-end mt-1.5">
-						<button className=" text-xs font-bold px-12 py-1 rounded background-primary">
-							info
-						</button>
-					</div>
-				</div>
-			</div>
-		</CommonScreenPage>
-	);
-}
+//   const getMyOrderApiFunc = getMyOrderApi();
 
-export default MyOrder;
+//   const [loading, setLoading] = useState(true);
+
+//   const userData = useRecoilValue(userDataAtom);
+//   const [myOrders, setMyOrders] = useState([]);
+
+//   useEffect(() => {
+//     const data = {
+//       uid: userData.id,
+//     };
+//     getMyOrderApiFunc(data, handleResponse);
+//   }, []);
+
+//   const handleResponse = (response) => {
+//     if (response.ResponseCode === "200") {
+//       setMyOrders(response.OrderHistory);
+//     }
+//     setLoading(false);
+//   };
+
+//   return (
+//     <CommonScreenPage
+//       headingTitle={"My Orders"}
+//       contentBg={"bg-gray-100"}
+//       showLoading={loading}
+//     >
+//       {myOrders.map((item, key) => (
+//         <div
+//           key={key}
+//           className="bg-white mx-1 my-1 px-1 py-1 rounded-sm flex flex col"
+//         >
+//           <div className="w-14">
+//             <img src={`${config.baseUrl}/${item.store_img}`} alt="" />
+//           </div>
+//           <div className="grow ml-1">
+//             <div className="flex justify-between">
+//               <div className="text-xs font-bold">
+//                 Order Id &nbsp;: &nbsp;
+//                 <span className="text-blue-400">{item.order_id}</span>
+//               </div>
+//               <div className="text-xs font-bold">Rs {item.total}</div>
+//             </div>
+//             <div className="text-xs font-bold text-yellow-500 mt-1.5">
+//               {item.status}
+//             </div>
+//             <div className="text-xs font-bold mt-1.5">{item.order_date}</div>
+//             <div className=" flex justify-end mt-1.5">
+//               <button
+//                 className=" text-xs font-bold px-12 py-1 rounded background-primary"
+//                 onClick={() => navigate("/order-details")}
+//               >
+//                 info
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       ))}
+//     </CommonScreenPage>
+//   );
+// }
+
+// export default MyOrder;
