@@ -38,6 +38,7 @@ import { useState } from "react";
 // import OrderDetails from "./components/OrderDetails/OrderDetails";
 import MyOrderScreen from "./View/Screens/MyOrdersScreen/MyOrdersScreen";
 import MyOrderDetailsScreen from "./View/Screens/MyOrderDetailsScreen/MyOrderDetailsScreen";
+import ManageAddressScreen from "./View/Screens/ManageAddressScreen/ManageAddressScreen";
 
 function App() {
   const pinCodeRecoil = useRecoilValue(pinCodeData);
@@ -146,7 +147,7 @@ function App() {
             path="/manage-addresses"
             element={
               pinCodeRecoil ? (
-                <ManageAddresses />
+                <ManageAddressScreen />
               ) : (
                 <Navigate to="/starter-page" />
               )
