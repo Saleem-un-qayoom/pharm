@@ -22,6 +22,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Catlist from '../../../components/Catlist/Catlist';
+import CommonHeaderFooterPage from '../../../components/CommonScreenWithSearchHeaderPage/CommonHeaderFooterPage';
 import ExploreNew from '../../../components/ExploreNew/ExploreNew';
 import FeedBack from '../../../components/FeedBack/FeedBack';
 import Footer from '../../../components/Footer/Footer';
@@ -38,8 +39,8 @@ import { useNavigate } from 'react-router';
 const Home = () => {
 	const navigate = useNavigate();
 	const userRecoil = useRecoilValue(userDataAtom);
-	const [storeRecoil, setStoreRecoil] = useRecoilState(storeDataAtom);
-	const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
+	const storeRecoil = useRecoilValue(storeDataAtom);
+	const pinCodeRecoil = useRecoilValue(pinCodeData);
 	const [popUpModal, setPopUpModal] = useState(false);
 	const [catList, setCatList] = useRecoilState(catListAtom);
 	const [brand, setBrand] = useRecoilState(brandAtom);
@@ -54,8 +55,7 @@ const Home = () => {
 		useRecoilState(privacyPolicyAtom);
 	const [banner, setBanner] = useRecoilState(bannersAtom);
 
-	const [showLoadingModal, setShowLoadingModal] =
-		useRecoilState(showLoadingModalAtom);
+	const [showLoadingModal, setShowLoadingModal] = useState(true);
 
 	const getHomeApiFunc = getHomeApi();
 
@@ -65,7 +65,6 @@ const Home = () => {
 			storeId: storeRecoil.id,
 			pinCode: pinCodeRecoil.id,
 		};
-		setShowLoadingModal(true);
 		getHomeApiFunc(data, handleResponse);
 	}, []);
 
@@ -90,30 +89,19 @@ const Home = () => {
 	};
 
 	return (
-		<>
-			<Loading />
+		<CommonHeaderFooterPage showLoading={showLoadingModal}>
 			<div>
-				<Header />
-				<HeaderFooterWrapper>
-					{banner.length > 0 && <Slider />}
-					<UploadPrescription popUpToggle={popUpToggle} />
-					<Catlist showHeader catList={catList} />
+				{banner.length > 0 && <Slider />}
+				<UploadPrescription popUpToggle={popUpToggle} />
+				<Catlist showHeader catList={catList} />
 
-					<ExploreNew medicine={medicine} />
-					{homeData.map((item, key) => (
-						<ProductList product={item} key={key} />
-					))}
-					<FeedBack />
-				</HeaderFooterWrapper>
-				<Footer popUpToggle={popUpToggle} />
+				<ExploreNew medicine={medicine} />
+				{homeData.map((item, key) => (
+					<ProductList product={item} key={key} />
+				))}
+				<FeedBack />
 			</div>
-			{popUpModal && (
-				<PrescriptionPopUp
-					setPopUpModal={setPopUpModal}
-					navigate={navigate}
-				/>
-			)}
-		</>
+		</CommonHeaderFooterPage>
 	);
 };
 

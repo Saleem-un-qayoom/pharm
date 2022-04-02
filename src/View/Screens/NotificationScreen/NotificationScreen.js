@@ -1,3 +1,4 @@
+import CommonHeaderFooterPage from '../../../components/CommonScreenWithSearchHeaderPage/CommonHeaderFooterPage';
 import CommonScreenPage from '../../../components/CommonScreenPage/CommonScreenPage';
 import { getNotificationApi } from '../../../Services/apis';
 import { useEffect } from 'react';
@@ -26,6 +27,8 @@ function Notification() {
 		}
 		setLoading(false);
 	};
+
+	return <CommonHeaderFooterPage></CommonHeaderFooterPage>;
 
 	return (
 		<CommonScreenPage
