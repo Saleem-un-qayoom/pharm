@@ -12,11 +12,11 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 
-const prescriptionIcon = '/assets/icons/prescription.png';
-const notificationIcon = '/assets/icons/notification.png';
-const categoryIcon = '/assets/icons/category.png';
-const homeIcon = '/assets/icons/home.png';
-const userIcon = '/assets/icons/user.png';
+const prescriptionIcon = '/assets/icons/treatment.svg';
+const notificationIcon = '/assets/icons/bell.svg';
+const categoryIcon = '/assets/icons/filter.svg';
+const homeIcon = '/assets/icons/home.svg';
+const userIcon = '/assets/icons/user.svg';
 
 function CommonHeaderFooterPage({ children, showLoading = false }) {
 	let navigate = useNavigate();
@@ -47,8 +47,6 @@ function CommonHeaderFooterPage({ children, showLoading = false }) {
 	};
 
 	const prescriptionClick = () => {
-		console.log('first', showPrescriptionPopup);
-
 		userData
 			? setShowPrescriptionPopup(!showPrescriptionPopup)
 			: navigate('/login-page');
@@ -115,11 +113,17 @@ function CommonHeaderFooterPage({ children, showLoading = false }) {
 						onClick={() => navigate('/cart-page')}
 					>
 						<img
-							className="h-8"
-							src="/assets/icons/cart.png"
+							className="h-7"
+							src="/assets/icons/shopping-cart.svg"
 							alt=""
 						/>
-						<span className="absolute top-0 right-0  w-5 h-5 bg-gray-800 rounded-full text-white text-sm flex justify-center items-center">
+						<span
+							style={{
+								top: -2,
+								right: -5,
+							}}
+							className="absolute  w-5 h-5 bg-gray-800 rounded-full text-white text-sm flex justify-center items-center"
+						>
 							{cartItems.length}
 						</span>
 					</div>
@@ -145,7 +149,7 @@ function CommonHeaderFooterPage({ children, showLoading = false }) {
 						className="flex flex-col items-center"
 						onClick={item.onClick}
 					>
-						<img src={item.icon} className="w-7" alt="" />
+						<img src={item.icon} className="w-5" alt="" />
 						<span className="text-sm">{item.label}</span>
 					</div>
 				))}

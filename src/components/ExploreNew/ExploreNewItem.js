@@ -6,7 +6,7 @@ import config from '../../Services/config';
 import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
 
-function ExploreNewItem({ item, key }) {
+function ExploreNewItem({ item }) {
 	const navigate = useNavigate();
 
 	const [cart, setCart] = useRecoilState(CartAtom);
@@ -34,7 +34,6 @@ function ExploreNewItem({ item, key }) {
 	};
 	return (
 		<div
-			key={key}
 			className="flex flex-col bg-white mr-3"
 			style={{
 				flex: '0 0 145px',

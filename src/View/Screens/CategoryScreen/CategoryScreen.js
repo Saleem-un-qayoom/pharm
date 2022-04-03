@@ -4,44 +4,43 @@ import React, { useEffect, useState } from 'react';
 import { pinCodeData, storeDataAtom, userDataAtom } from '../../../Recoil/atom';
 
 import Catlist from '../../../components/Catlist/Catlist';
-import Footer from '../../../components/Footer/Footer';
-import Header from '../../../components/Header/Header';
-import HeaderFooterWrapper from '../../../components/HeaderFooterWrapper/HeaderFooterWrapper';
+import CommonHeaderFooterPage from '../../../components/CommonScreenWithSearchHeaderPage/CommonHeaderFooterPage';
 import { getCategoryApi } from '../../../Services/apis';
 import { useRecoilValue } from 'recoil';
 
-function CategoryScreen({ onLinkPress, popUpToggle }) {
+function CategoryScreen() {
 	const [categoryList, setCategoryList] = useState([]);
 
 	const userRecoil = useRecoilValue(userDataAtom);
 	const storeRecoil = useRecoilValue(storeDataAtom);
 	const pinCodeRecoil = useRecoilValue(pinCodeData);
+	const [showLoading, setShowLoading] = useState(false);
 
 	const getCategoryApiFunc = getCategoryApi();
 
 	useEffect(() => {
-		const data = {
-			uID: userRecoil.id || '0',
-			storeId: storeRecoil.id,
-			pinCode: pinCodeRecoil.id,
-		};
-		getCategoryApiFunc(data, handleResponse);
+		if (categoryList.length === 0) {
+			setShowLoading(true);
+			const data = {
+				uID: userRecoil.id || '0',
+				storeId: storeRecoil.id,
+				pinCode: pinCodeRecoil.id,
+			};
+			getCategoryApiFunc(data, handleResponse);
+		}
 	}, []);
 
 	const handleResponse = res => {
+		setShowLoading(false);
 		if (res && res.ResponseCode === '200') {
 			setCategoryList(res.CategoryData);
 		}
 	};
 
 	return (
-		<>
-			<Header />
-			<HeaderFooterWrapper>
-				<Catlist catList={categoryList} />
-			</HeaderFooterWrapper>
-			<Footer onLinkPress={onLinkPress} popUpToggle={popUpToggle} />
-		</>
+		<CommonHeaderFooterPage showLoading={showLoading}>
+			<Catlist catList={categoryList} />
+		</CommonHeaderFooterPage>
 	);
 }
 
