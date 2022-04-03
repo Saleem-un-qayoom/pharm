@@ -38,6 +38,10 @@ function CommonHeaderFooterPage({ children, showLoading = false }) {
 		}
 	};
 
+	const prescriptionPopUpToggle = () => {
+		prescriptionClick();
+	};
+
 	const homeClick = () => {
 		navigate('/home');
 	};
@@ -47,8 +51,6 @@ function CommonHeaderFooterPage({ children, showLoading = false }) {
 	};
 
 	const prescriptionClick = () => {
-		console.log('first', showPrescriptionPopup);
-
 		userData
 			? setShowPrescriptionPopup(!showPrescriptionPopup)
 			: navigate('/login-page');

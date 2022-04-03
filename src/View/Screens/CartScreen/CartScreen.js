@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { CartAtom } from '../../../Recoil/atom';
 import CommonScreenPage from '../../../components/CommonScreenPage/CommonScreenPage';
 import commonService from '../../../Services/commonService';
 import config from '../../../Services/config';
-import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
 
 function CartScreen() {
@@ -40,11 +39,8 @@ function CartScreen() {
 			<div className="flex flex-col h-full">
 				<div className="ion-padding-x scrollable-element grow">
 					{cart.map((item, key) => (
-						<>
-							<div
-								key={key}
-								className="flex justify-between w-full py-2 h-20"
-							>
+						<div key={key}>
+							<div className="flex justify-between w-full py-2 h-20">
 								<div className="flex items-center">
 									<img
 										className="h-14 w-14"
@@ -127,7 +123,7 @@ function CartScreen() {
 								</div>
 							</div>
 							<hr />
-						</>
+						</div>
 					))}
 				</div>
 				<div className=" bg-white w-full flex flex-col justify-between">
