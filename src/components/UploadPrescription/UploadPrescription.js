@@ -14,6 +14,7 @@ function UploadPrescription(props) {
 			</div>
 			<a
 				href={`https://api.whatsapp.com/send?phone=${config.whatsappNumber}`}
+				target="_blank"
 				className="background-secondary px-2 py-3 flex rounded-full  items-center justify-center"
 			>
 				<span className="text-sm font-semibold	text-white">

@@ -39,9 +39,12 @@ function CartScreen() {
 		>
 			<div className="flex flex-col h-full">
 				<div className="ion-padding-x scrollable-element grow">
-					{cart.map(item => (
+					{cart.map((item, key) => (
 						<>
-							<div className="flex justify-between w-full py-2 h-20">
+							<div
+								key={key}
+								className="flex justify-between w-full py-2 h-20"
+							>
 								<div className="flex items-center">
 									<img
 										className="h-14 w-14"
