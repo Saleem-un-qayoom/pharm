@@ -162,3 +162,8 @@ export const exploreNewData = atom({
   key: "exploreNewData",
   default: [],
 });
+
+export const addressesAtom = atom({
+  key: "addressesAtom",
+  default: [],
+});

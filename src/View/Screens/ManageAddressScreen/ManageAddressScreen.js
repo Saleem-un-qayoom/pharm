@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenPage";
 import config from "../../../Services/config";
 import { Select } from "react-select";
-import { useRecoilValue } from "recoil";
-import { userDataAtom } from "../../../Recoil/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { addressesAtom, userDataAtom } from "../../../Recoil/atom";
 import { getMyDeliveryAddressApi } from "../../../Services/apis";
 import { useNavigate } from "react-router";
 import Loading from "../../../components/Loading";
@@ -13,7 +13,8 @@ function ManageAddressScreen() {
   const [loading, setLoading] = useState(true);
   const userData = useRecoilValue(userDataAtom);
 
-  const [myDeliveryAddress, setMyDeliveyAddress] = useState([]);
+  const [myDeliveryAddress, setMyDeliveyAddress] =
+    useRecoilState(addressesAtom);
   const getMyDeliveryAddressApiFunc = getMyDeliveryAddressApi();
 
   useEffect(() => {
@@ -63,7 +64,6 @@ function ManageAddressScreen() {
         <div className="bg-white mx-2 my-1  px-1  flex  border-2 border-slate-400 py-3 rounded-md	 ">
           <div className="w-14">
             <img src={`${config.baseUrl}/${item.address_image}`} alt="" />
-            {/* <img src="https://akm-img-a-in.tosshub.com/businesstoday/images/story/202203/medicines1200-sixteen_nine.jpg?size=948:533" /> */}
           </div>
           <div className="grow ml-2">
             <div className="">
@@ -80,32 +80,14 @@ function ManageAddressScreen() {
               >
                 SELECT
               </button>
-              <button className="border-2 py-1.5 px-4 text-xs font-semibold mx-20 border-slate-300 rounded-md	">
+              <button
+                className="border-2 py-1.5 px-4 text-xs font-semibold mx-20 border-slate-300 rounded-md	"
+                onClick={() => navigate("/edit-address")}
+              >
                 EDIT
               </button>
             </div>
           </div>
-
-          {/* <div className="grow ml-1 flex flex-col ">
-            <div className="">
-              <div className="text-xs font-bold flex flex-col">
-                {item.type}
-                <span className="text-xs font-bold">{item.landmark}</span>
-                <span className="text-xs font-bold ">{item.address}</span>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center mt-2 items-center ">
-            <button
-              className="border-2 py-1.5 px-4 text-xs font-semibold border-slate-300 rounded-md	"
-              onClick={() => navigate("/profile-page")}
-            >
-              SELECT
-            </button>
-            <button className="border-2 py-1.5 px-4 text-xs font-semibold mx-20 border-slate-300 rounded-md	">
-              EDIT
-            </button>
-          </div> */}
         </div>
       ))}
     </CommonScreenPage>
