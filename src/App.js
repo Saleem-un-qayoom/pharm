@@ -37,6 +37,7 @@ import { useState } from "react";
 import ManageAddressScreen from "./View/Screens/ManageAddressScreen/ManageAddressScreen";
 import EditAddressScreen from "./View/Screens/EditAddressScreen/EditAddressScreen";
 import CartScreen from "./View/Screens/CartScreen/CartScreen";
+import ApplyCouponScreen from "./View/Screens/ApplyCouponScreen/ApplyCouponScreen";
 
 function App() {
   const pinCodeRecoil = useRecoilValue(pinCodeData);
@@ -155,6 +156,17 @@ function App() {
             path="/about-page"
             element={
               pinCodeRecoil ? <AboutPage /> : <Navigate to="/starter-page" />
+            }
+          />
+
+          <Route
+            path="/apply-coupon"
+            element={
+              pinCodeRecoil ? (
+                <ApplyCouponScreen />
+              ) : (
+                <Navigate to="/starter-page" />
+              )
             }
           />
 
