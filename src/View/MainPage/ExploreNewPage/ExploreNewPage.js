@@ -79,7 +79,7 @@ function ExploreNewPage() {
               <div>
                 <span className="inline-block leading-3	text-xs px-3 py-2 background-primary absolute top-0 left-0 rounded-r-full rounded-b-full">
                   {item.product_info[0].product_discount}
-                  %
+                  %font10
                   <br />
                   OFF
                 </span>
