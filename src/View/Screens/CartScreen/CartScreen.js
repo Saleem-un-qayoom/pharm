@@ -40,16 +40,16 @@ function CartScreen() {
       onDeleteModalClick={onDeleteModalClick}
     >
       <div className="flex flex-col h-full">
-        <div className="ion-padding-x scrollable-element grow">
+        <div className=" scrollable-element grow">
           {cart.map((item) => (
             <>
-              <div className="flex justify-between w-full py-2 h-20">
+              <div className="flex justify-between w-full py-2 h-20 ion-padding-x">
                 <div className="flex items-center">
                   <img
                     className="h-14 w-14"
                     src={`${config.baseUrl}/${item.product_image[0]}`}
                   />
-                  CartAtom
+
                   <div className="flex flex-col ml-4">
                     <span className="font14 text-color-gray font-medium leading-4">
                       {item.product_name}
@@ -103,7 +103,7 @@ function CartScreen() {
               <hr />
             </>
           ))}
-          <div className="background-tertiary mt-1 py-3 px-2 flex justify-between">
+          <div className="background-tertiary mt-1 py-4 ion-padding-x flex justify-between">
             <div className="flex items-center">
               <img src="/assets/icons/coupon.png" className="w-6" />
               <span className="text-sm font-bold pl-4">Apply Coupon</span>
@@ -118,33 +118,43 @@ function CartScreen() {
           </div>
 
           <div>
-            <div className="bg-white mx-2.5 my-2.5  rounded-lg flex flex-col ">
-              <div className="flex justify-between text-xs font-medium text-color-gray">
-                Cart Value<span className="text-black">Rs123.11</span>
-              </div>
-              <div className="flex justify-between text-xs font-medium mt-2 text-color-gray">
-                Delivery Charges<span className="text-black">Rs0.0</span>
-              </div>
-              <div className="flex justify-between text-xs font-medium mt-2 text-color-gray">
-                Coupon Discount<span className="text-black">Rs0</span>
+            <div className="">
+              <div className="bg-white  my-2.5  rounded-lg flex flex-col ion-padding-x">
+                <div className="flex justify-between text-xs font-medium text-color-gray">
+                  Cart Value
+                  <span className="text-black">
+                    {commonService.getTotalPrice(cart)}
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs font-medium mt-2 text-color-gray">
+                  Delivery Charges<span className="text-black">Rs0.0</span>
+                </div>
+                <div className="flex justify-between text-xs font-medium mt-2 text-color-gray">
+                  Coupon Discount<span className="text-black">Rs0</span>
+                </div>
               </div>
             </div>
-          </div>
-          <hr />
-          <div className="flex justify-between text-xs font-medium mt-3 text-black ">
-            Amount to be Paid :<span className="text-black">Rs123.12</span>
-          </div>
+            <hr />
+            <div className="flex justify-between text-xs font-medium mt-3 text-black ion-padding-x">
+              Amount to be Paid :
+              <span className="text-black">
+                {commonService.getTotalPrice(cart)}
+              </span>
+            </div>
 
-          <div className=" w-full flex flex-col border rounded-lg overflow-hidden mt-2">
-            <label className="bg-white pl-2 pr-2 pb-1 pt-1 text-xs	font-semibold	mt-1">
-              Additional Note
-            </label>
-            <textarea
-              className="border-0 text-xs	font-semibold pl-2 pr-2"
-              type="text"
-              rows="5"
-              placeholder="Enter any additional information regarding your order"
-            />
+            <div className="ion-padding-x mb-2">
+              <div className=" w-full flex flex-col border rounded-lg overflow-hidden mt-2 ">
+                <label className="bg-white pl-2 pr-2 pb-1 pt-1 text-xs	font-semibold	mt-1">
+                  Additional Note
+                </label>
+                <textarea
+                  className="border-0 text-xs	font-semibold pl-2 pr-2"
+                  type="text"
+                  rows="5"
+                  placeholder="Enter any additional information regarding your order"
+                />
+              </div>
+            </div>
           </div>
         </div>
 

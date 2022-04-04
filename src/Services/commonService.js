@@ -1,6 +1,21 @@
-import { CartAtom } from "../Recoil/atom";
-
 const commonService = {
+  getTotalPrice: (cart) => {
+    let temp = [...cart];
+    console.log("🚀 ~ file: commonService.js ~ line 4 ~ temp", temp);
+
+    let price = 0.0;
+
+    for (let i = 0; i < temp.length; i++) {
+      price =
+        price +
+        (temp[i].product_info[0].product_price -
+          (temp[i].product_info[0].product_price / 100) *
+            temp[i].product_info[0].product_discount) *
+          temp[i].quantity;
+    }
+    return price.toFixed(2);
+  },
+
   addItemToCart: (item, cart, setCart) => {
     let found = false;
     let temp = [...cart];

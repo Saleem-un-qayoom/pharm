@@ -19,6 +19,8 @@ import { getExploreNewApi } from "../../../Services/apis";
 
 // import Select from "react-select";
 import { navigate, useNavigate } from "react-router";
+import commonService from "../../../Services/commonService";
+import CommonHeaderFooterPage from "../../../components/CommonScreenWithSearchHeaderPage/CommonHeaderFooterPage";
 
 function ExploreNewPage() {
   const navigate = useNavigate();
@@ -29,6 +31,8 @@ function ExploreNewPage() {
   const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
 
   const [exploreNewRecoil, setExploreNewRecoil] = useState(exploreNewData);
+
+  const [loading, setLoading] = useState(true);
 
   const getExploreNewApiFunc = getExploreNewApi();
 
@@ -47,6 +51,7 @@ function ExploreNewPage() {
   }, []);
 
   const handleResponse = (res) => {
+    setLoading(false);
     if (res && res.ResponseCode === "200") {
       setExploreNew(res.BrandProductList);
     }
@@ -59,8 +64,10 @@ function ExploreNewPage() {
 
   return (
     <>
-      <Header />
-      <HeaderFooterWrapper className="bg-slate-200 ion-padding-x py-6">
+      <CommonHeaderFooterPage
+        className="bg-slate-200 ion-padding-x py-6"
+        showLoading={loading}
+      >
         {exploreNew.map((item) => (
           <div className="flex bg-white mb-3 h-24 relative">
             <div
@@ -132,8 +139,7 @@ function ExploreNewPage() {
             </div>
           </div>
         ))}
-      </HeaderFooterWrapper>
-      <Footer popUpToggle={() => {}} />
+      </CommonHeaderFooterPage>
     </>
   );
 }
