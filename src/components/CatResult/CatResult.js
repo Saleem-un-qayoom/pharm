@@ -42,6 +42,8 @@ function CatResult(item) {
 
   const [cart, setCart] = useRecoilState(CartAtom);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const data = {
       uID: userData.id || "0",
@@ -53,6 +55,7 @@ function CatResult(item) {
   }, []);
 
   const handleResponse = (res) => {
+    setLoading(false);
     if (res && res.ResponseCode === "200") {
       setCatResult(res.CategoryProduct);
     }
@@ -85,8 +88,11 @@ function CatResult(item) {
 
   return (
     <>
-      <CommonHeaderFooterPage bgColor={"background-tertiary"}>
-        <div className="pt-2   h-full  mb-4 relative ion-padding">
+      <CommonHeaderFooterPage
+        bgColor={"background-tertiary"}
+        showLoading={loading}
+      >
+        <div className="pt-2  h-full mb-4 relative ion-padding">
           <div className="flex items-center justify-center">
             <span>{catResult.category_name}</span>
           </div>
@@ -145,33 +151,40 @@ function CatResult(item) {
                     </span>
                   </div>
 
-                  <div className="flex justify-center items-center w-full h-6 ">
+                  <div className="flex justify-center items-center w-full h-6  ">
                     {commonService.isItemAlreadyInCart(item, cart, setCart) !==
                     0 ? (
-                      <div className="w-full flex justify- items-center">
-                        <div
-                          className="background-primary w-6 h-full rounded  font-medium text-lg flex justify-center items-center"
-                          onClick={() => decreaseQuantity(item)}
-                        >
-                          -
+                      <>
+                        <div className="absolute top-2 right-5 bg-orange-400 py-0.5 px-1.5 rounded-md">
+                          <span className="text-white font-semibold">
+                            Buy Now
+                          </span>
                         </div>
-                        <div className="text-sm">
-                          {commonService.isItemAlreadyInCart(
-                            item,
-                            cart,
-                            setCart
-                          )}
-                        </div>
+                        <div className="w-full flex justify-end absolute bottom-0 left-0">
+                          <div
+                            className="background-primary w-6 h-full rounded  font-medium text-lg flex justify-center items-center"
+                            onClick={() => decreaseQuantity(item)}
+                          >
+                            -
+                          </div>
+                          <div className="text-sm px-6 flex items-center">
+                            {commonService.isItemAlreadyInCart(
+                              item,
+                              cart,
+                              setCart
+                            )}
+                          </div>
 
-                        <div
-                          className="background-primary w-6 h-full rounded  font-medium text-lg flex justify-center items-center"
-                          onClick={() => increaseQuantity(item)}
-                        >
-                          +
+                          <div
+                            className="background-primary w-6 h-full rounded  font-medium text-lg flex justify-center items-center"
+                            onClick={() => increaseQuantity(item)}
+                          >
+                            +
+                          </div>
                         </div>
-                      </div>
+                      </>
                     ) : (
-                      <div className="">
+                      <div className="absolute bottom-0 right-0">
                         <button
                           className="text-xs background-primary font-w-600 py-1 px-5"
                           onClick={() => addItemToCart(item)}

@@ -94,6 +94,7 @@ function ProductDescription() {
                 <button className="background-primary font12 font-w-500 py-1 px-3 rounded-md">
                   10% OFF
                 </button>
+
                 <button className="background-primary mt-1 font12 font-w-500 py-1 px-3 rounded-md">
                   Add To Cart
                 </button>
