@@ -101,7 +101,7 @@ function Login() {
 
 	return (
 		<div className="pharm-box__login h-screen flex flex-col justify-end">
-			<form onSubmit={handleSubmit} className="mb-16">
+			<form onSubmit={handleSubmit} className="pharm-box__login-form ">
 				<div className="login-info ion-padding font-w-700 pt-2">
 					<p className="text-xs">Sign in / Sign Up</p>
 					{showSignUpModule ? (

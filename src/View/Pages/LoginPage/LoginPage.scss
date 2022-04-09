@@ -3,4 +3,12 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
+	position: relative;
+}
+
+.pharm-box__login-form {
+	position: absolute;
+	top: 60%;
+	left: 0;
+	width: 100%;
 }
