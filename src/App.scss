@@ -286,69 +286,7 @@ input::placeholder {
   height: 77%;
 }
 
-input:focus {
-  outline: none;
-  border: none;
-}
-
-//
-
-.track-order {
-  // animation-name: example;
-  // animation-duration: 4s;
-  animation: example 0.2s ease-out;
-}
-
-@keyframes example {
-  0% {
-    height: 0px;
-  }
-  16% {
-    height: 30px;
-  }
-  32% {
-    height: 60px;
-  }
-  48% {
-    height: 90px;
-  }
-  64% {
-    height: 120px;
-  }
-  80% {
-    height: 150px;
-  }
-  // 100% {
-  //   height: 100%;
-  // }
-}
-
-.track-item {
-  animation: example 0.2s ease-out;
-}
-
-@keyframes example {
-  0% {
-    height: 0px;
-  }
-  16% {
-    height: 30px;
-  }
-  32% {
-    height: 60px;
-  }
-  48% {
-    height: 90px;
-  }
-  64% {
-    height: 120px;
-  }
-  80% {
-    height: 150px;
-  }
-  // 100% {
-  //   height: 100%;
-  // }
-}
-
-//
+// input:focus {
+// 	outline: none;
+// 	border: none;
+// }

@@ -1,12 +1,6 @@
-import { CartAtom, SelectedProductAtom } from '../../Recoil/atom';
-import React, { useState } from 'react';
-
 import ExploreNewItem from './ExploreNewItem';
-import commonService from '../../Services/commonService';
-import config from '../../Services/config';
-import { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
-import { useRecoilState } from 'recoil';
 
 function ExploreNew({ medicine }) {
 	const navigate = useNavigate();

@@ -38,12 +38,7 @@ function ExploreNewItem({ item }) {
         flex: "0 0 145px",
       }}
     >
-      <div
-        onClick={() => {
-          setSelectedProduct(item);
-          navigate("/product-description");
-        }}
-      >
+      <div>
         <div>
           <span className="inline-block leading-3	text-xs px-3 py-2 background-primary rounded-r-full rounded-b-full">
             {item.product_info[0].product_discount}
@@ -51,8 +46,22 @@ function ExploreNewItem({ item }) {
             <br />
             OFF
           </span>
+          <div
+            className="absolute top-2 right-2 bg-amber-400	 py-1 px-2 rounded-md"
+            onClick={() => {
+              navigate(`/cart-page/${item.id}`);
+            }}
+          >
+            <p className="text-white text-xs font-semibold">Buy Now</p>
+          </div>
         </div>
-        <div className="h-28 flex items-center justify-center">
+        <div
+          className="h-28 flex items-center justify-center"
+          onClick={() => {
+            setSelectedProduct(item);
+            navigate("/product-description");
+          }}
+        >
           <img
             className="h-4/5"
             src={
@@ -63,7 +72,12 @@ function ExploreNewItem({ item }) {
             alt=""
           />
         </div>
-        <div>
+        <div
+          onClick={() => {
+            setSelectedProduct(item);
+            navigate("/product-description");
+          }}
+        >
           <span className="font12 font-semibold pl-2">
             Rs
             {parseFloat(
@@ -87,14 +101,6 @@ function ExploreNewItem({ item }) {
       <div className="flex justify-center items-center h-6 w-full	 ">
         {noOfItemsAlreadyAddedInCart !== 0 ? (
           <>
-            <div className="absolute top-2 right-2 bg-amber-400	 py-1 px-2 rounded-md">
-              <p
-                className="text-white text-xs font-semibold"
-                onClick={() => navigate("/cart-page")}
-              >
-                Buy Now
-              </p>
-            </div>
             <div className="w-full flex justify-between items-center">
               <div
                 className="background-primary w-6 h-full  font-medium text-lg flex justify-center items-center rounded"

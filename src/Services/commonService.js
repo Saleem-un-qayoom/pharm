@@ -1,6 +1,7 @@
 const commonService = {
   getTotalPrice: (cart) => {
     let temp = [...cart];
+    console.log("🚀 ~ file: commonService.js ~ line 4 ~ temp", temp);
 
     let price = 0.0;
 
@@ -13,6 +14,16 @@ const commonService = {
           temp[i].quantity;
     }
     return price.toFixed(2);
+  },
+  getCartItemById: (id, cart) => {
+    let temp = {};
+    for (let i = 0; i < cart.length; i++) {
+      if (id == cart[i].id) {
+        temp = cart[i];
+        break;
+      }
+    }
+    return temp;
   },
 
   addItemToCart: (item, cart, setCart) => {
@@ -87,7 +98,6 @@ const commonService = {
         break;
       }
     }
-
     return found;
   },
 };
