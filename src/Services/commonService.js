@@ -1,7 +1,6 @@
 const commonService = {
   getTotalPrice: (cart) => {
     let temp = [...cart];
-    console.log("🚀 ~ file: commonService.js ~ line 4 ~ temp", temp);
 
     let price = 0.0;
 
@@ -88,6 +87,7 @@ const commonService = {
         break;
       }
     }
+
     return found;
   },
 };

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
-import { SelectedProductAtom } from "../../../Recoil/atom";
+import { CartAtom, SelectedProductAtom } from "../../../Recoil/atom";
 import config from "../../../Services/config";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
+import commonService from "../../../Services/commonService";
 
-function ProductDescription() {
+function ProductDescription({ item }) {
   let navigate = useNavigate();
 
   const [showBrand, setShowBrand] = useState(false);
@@ -20,6 +21,28 @@ function ProductDescription() {
       navigate("/home");
     }
   });
+
+  const [cart, setCart] = useState(CartAtom);
+
+  const [noOfItemsAlreadyAddedInCart, setNoOfItemsAlreadyInCart] = useState(0);
+
+  useEffect(() => {
+    setNoOfItemsAlreadyInCart(
+      commonService.isItemAlreadyInCart(item, cart, setCart)
+    );
+  }, [cart]);
+
+  const addItemToCart = (item) => {
+    commonService.addItemToCart(item, cart, setCart);
+  };
+
+  const increaseQuantity = (item) => {
+    commonService.increaseQuantity(item, cart, setCart);
+  };
+
+  const decreaseQuantity = (item) => {
+    commonService.decreaseQuantity(item, cart, setCart);
+  };
 
   return (
     <div className="flex flex-col h-screen">
@@ -94,10 +117,44 @@ function ProductDescription() {
                 <button className="background-primary font12 font-w-500 py-1 px-3 rounded-md">
                   10% OFF
                 </button>
+                <div>
+                  <div className="flex justify-center items-center w-full h-6">
+                    {noOfItemsAlreadyAddedInCart !== 0 ? (
+                      <>
+                        <div className="absolute top-2 right-2 bg-amber-400	 py-1 px-2 rounded-md">
+                          <p className="text-white text-xs font-semibold">
+                            Buy Now
+                          </p>
+                        </div>
+                        <div className="w-full flex justify-between items-center">
+                          <div
+                            className="background-primary w-6 h-full rounded  font-medium text-lg flex justify-center items-center"
+                            onClick={() => decreaseQuantity(item)}
+                          >
+                            -
+                          </div>
+                          <div className="text-sm ">
+                            {noOfItemsAlreadyAddedInCart}
+                          </div>
 
-                <button className="background-primary mt-1 font12 font-w-500 py-1 px-3 rounded-md">
-                  Add To Cart
-                </button>
+                          <div
+                            className="background-primary w-6 h-full rounded  font-medium text-lg flex justify-center items-center"
+                            onClick={() => increaseQuantity(item)}
+                          >
+                            +
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <button
+                        className="text-xs background-primary font-w-600 py-1 px3 w-full	"
+                        onClick={() => addItemToCart(item)}
+                      >
+                        Add To Cart
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
             <hr />

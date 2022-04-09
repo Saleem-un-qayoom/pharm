@@ -3,11 +3,6 @@ import * as Sentry from "@sentry/react";
 import axios from "axios";
 import config from "./config";
 
-// import { config } from '.';// modules={[Pagination]}
-// spaceBetween={50}
-// navigation
-// pagination={{ clickable: true }}
-
 const MAINAPI = (method, url, payload, hasFile) => {
   return API(method, url, payload, config.baseUrl, hasFile);
 };
@@ -15,31 +10,22 @@ const MAINAPI = (method, url, payload, hasFile) => {
 export default MAINAPI;
 
 const API = (method, url, payload, server, hasFile) => {
-  // const token = localStorage.getItem('@kupostoken');
-
-  // console.log(token);
   var options = {};
 
   if (hasFile) {
     options = {
       method,
-      // headers: {},
       url: `${server}/${url}`,
     };
   } else {
     options = {
       method,
-      // headers: {},
       header: {
         "Content-type": "application/x-www-form-urlencoded\r\n",
       },
       url: `${server}/${url}`,
     };
   }
-
-  // if (token) {
-  // 	options.headers.Authorization = `Bearer ${token}`;
-  // }
 
   if (method === "POST" || method === "PATCH" || method === "PUT") {
     options.data = payload;

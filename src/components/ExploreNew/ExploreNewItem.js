@@ -88,7 +88,12 @@ function ExploreNewItem({ item }) {
         {noOfItemsAlreadyAddedInCart !== 0 ? (
           <>
             <div className="absolute top-2 right-2 bg-amber-400	 py-1 px-2 rounded-md">
-              <p className="text-white text-xs font-semibold">Buy Now</p>
+              <p
+                className="text-white text-xs font-semibold"
+                onClick={() => navigate("/cart-page")}
+              >
+                Buy Now
+              </p>
             </div>
             <div className="w-full flex justify-between items-center">
               <div
