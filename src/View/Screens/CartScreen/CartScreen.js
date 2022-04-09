@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 
 import { CartAtom } from '../../../Recoil/atom';
 import CommonScreenPage from '../../../components/CommonScreenPage/CommonScreenPage';
 import commonService from '../../../Services/commonService';
 import config from '../../../Services/config';
-import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
 
 function CartScreen() {
 	let navigate = useNavigate();
+
+	const { id } = useParams();
 
 	const [cart, setCart] = useRecoilState(CartAtom);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const increaseQuantity = item => {
 		commonService.increaseQuantity(item, cart, setCart);
 	};
-
 	const [selectedItemToDelete, setSelectedItemToDelete] = useState({});
 
 	const decreaseQuantity = item => {
@@ -40,8 +41,8 @@ function CartScreen() {
 			onDeleteModalClick={onDeleteModalClick}
 			showCart={true}
 		>
-			<div className="flex flex-col h-full">
-				<div className=" scrollable-element grow">
+			<div className="flex flex-col h-full ">
+				<div className=" scrollable-element grow ">
 					{cart.map(item => (
 						<>
 							<div className="flex justify-between w-full py-2 h-20 ion-padding-x">
@@ -212,8 +213,9 @@ function CartScreen() {
 									Other
 								</p>
 								<p className="text-xs text-color-gray font-medium">
-									lorem lorem lorem lorem lorem lorem
-									lorem lorem lorem lorem lorem lorem{' '}
+									Lorem ipsum dolor sit amet
+									consectetur adipisicing elit.
+									Dicta, porro?
 								</p>
 							</div>
 						</div>
