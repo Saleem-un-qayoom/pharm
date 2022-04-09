@@ -162,3 +162,8 @@ export const addressesAtom = atom({
 	key: 'addressesAtom',
 	default: [],
 });
+
+export const orderDetailsAtom = atom({
+  key: "orderDetailsAtom",
+  default: [],
+});

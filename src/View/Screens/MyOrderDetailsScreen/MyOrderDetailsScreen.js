@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { navigate, useParams } from "react-router";
-import { storeDataAtom, userDataAtom } from "../../../Recoil/atom";
+import { useParams } from "react-router";
+import { orderDetailsAtom, userDataAtom } from "../../../Recoil/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenPage";
@@ -15,7 +15,10 @@ function MyOrderDetailsScreen() {
   const getMyOrderDetailsApiFunc = getMyOrderDetailsApi();
   const userData = useRecoilValue(userDataAtom);
   // const [storerecoil, setStoreRecoil] = useState(storeDataAtom);
-  const [myOrderDetails, setMyOrderDetails] = useState({});
+  const [myOrderDetails, setMyOrderDetails] = useRecoilState(orderDetailsAtom);
+
+  const [trackOrder, setTrackOrder] = useState(false);
+  const [trackItem, setTrackItem] = useState(false);
 
   useEffect(() => {
     const data = {
@@ -54,8 +57,15 @@ function MyOrderDetailsScreen() {
         headingTitle={"Order Details"}
         contentBg={"bg-gray-100"}
         showLoading={loading}
+        showTrackOrder={trackOrder}
+        setTrackOrder={setTrackOrder}
+        setTrackItem={setTrackItem}
+        showTrackItem={trackItem}
       >
-        <div className="h-full flex flex-col justify-between">
+        <div
+          className="h-full flex flex-col justify-between"
+          // onClick={() => setTrackOrder(false)}
+        >
           <div>
             <div className="bg-white mx-2.5 my-2.5 px-2.5 py-2.5 rounded-lg flex flex-col ">
               <div className="flex justify-between text-xs font-medium">
@@ -134,15 +144,20 @@ function MyOrderDetailsScreen() {
             </div>
           </div>
           <div className=" flex justify-between ion-padding	">
-            <button className="text-xs font-medium px-12 py-1 rounded background-primary">
+            <button
+              className="text-xs font-medium px-12 py-1 rounded background-primary"
+              onClick={() => setTrackOrder(true)}
+            >
               Track Order
             </button>
-            <button className=" text-xs font-medium px-12 py-1 rounded background-primary">
+            <button
+              className=" text-xs font-medium px-12 py-1 rounded background-primary"
+              onClick={() => setTrackItem(true)}
+            >
               Item
             </button>
           </div>
         </div>
-        {/* ))} */}
       </CommonScreenPage>
     </>
   );

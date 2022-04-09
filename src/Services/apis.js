@@ -397,3 +397,24 @@ export const getMyDeliveryAddressApi = () => {
 			});
 	};
 };
+
+export const getSearchApi = () => {
+  return (data, callback) => {
+    MAINAPI("POST", `capi/p_product_search.php`, data)
+      .then((response) => {
+        if (response) {
+          console.log(
+            "🚀 ~ file: apis.js ~ line 352~ .then ~ response",
+            response
+          );
+
+          if (callback) callback(response);
+        }
+      })
+      .catch((error) => {
+        console.log("🚀 ~ file: apis.js ~ line 361 ~ return ~ error", error);
+
+        if (callback) callback(error.response);
+      });
+  };
+};
