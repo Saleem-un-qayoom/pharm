@@ -1,14 +1,13 @@
+import './LoginPage.scss';
+
 import React, { useState } from 'react';
 import { getOtpApi, loginApi } from '../../../Services/apis';
-import { toastAtom, userDataAtom } from '../../../Recoil/atom';
 
-import ShowToast from '../../../functions/showToast';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
-
-// import ShowToast from '../../../Services/CommonService';
+import { userDataAtom } from '../../../Recoil/atom';
 
 function Login() {
 	const [userData, setUserData] = useRecoilState(userDataAtom);
@@ -27,8 +26,6 @@ function Login() {
 	const [showSignUpModule, setShowSignUpModule] = useState(true);
 
 	const [rememberMe, setRememberMe] = useState(false);
-
-	// const [toast, setToast] = useRecoilState(toastAtom);
 
 	useEffect(() => {
 		if (userData) {
@@ -103,14 +100,8 @@ function Login() {
 	};
 
 	return (
-		<div className="pharm-box__login">
-			<div className="pharm-box__img">
-				<img
-					className="h-80 w-screen"
-					src="https://rlv.zcache.com/gold_caduceus_pharmd_classic_round_sticker-rd4fe1acce9844ff69287c367403102fd_0ugmp_8byvr_307.jpg"
-				/>
-			</div>
-			<form onSubmit={handleSubmit}>
+		<div className="pharm-box__login h-screen flex flex-col justify-end">
+			<form onSubmit={handleSubmit} className="mb-16">
 				<div className="login-info ion-padding font-w-700 pt-2">
 					<p className="text-xs">Sign in / Sign Up</p>
 					{showSignUpModule ? (
