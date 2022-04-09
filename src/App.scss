@@ -285,3 +285,9 @@ input::placeholder {
 // 	outline: none;
 // 	border: none;
 // }
+
+.disable-component {
+	opacity: 0.5;
+	pointer-events: none;
+	cursor: default;
+}

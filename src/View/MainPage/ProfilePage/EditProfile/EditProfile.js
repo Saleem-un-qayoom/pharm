@@ -1,69 +1,155 @@
-import React from "react";
-import { useNavigate } from "react-router";
+import './EditProfile.scss';
+
+import React, { useEffect } from 'react';
+
+import CommonScreenPage from '../../../../components/CommonScreenPage/CommonScreenPage';
+import { toast } from 'react-toastify';
+import { updateUserDetails } from '../../../../Services/apis';
+import { useNavigate } from 'react-router';
+import { useRecoilValue } from 'recoil';
+import { useState } from 'react';
+import { userDataAtom } from '../../../../Recoil/atom';
 
 function EditProfile() {
-  let navigate = useNavigate();
-  return (
-    <>
-      <div className="ion-padding background-primary font-semibold rounded-b-xl flex items-center">
-        <img
-          onClick={() => navigate(-1)}
-          src="https://img.icons8.com/ios-filled/2x/long-arrow-left.png "
-          style={{
-            height: "25px",
-            width: "20px",
-            marginRight: "10px",
-          }}
-        />
-        <span>Edit Profile</span>
-      </div>
-      <div className="flex item-center justify-center h-28 pt-12">
-        <img
-          src="https://img.icons8.com/fluency/48/000000/whatsapp.png"
-          alt=""
-        />
-      </div>
-      <form className="ion-padding mt-6">
-        <div className="flex justify-between ">
-          <input
-            type="text"
-            placeholder="First Name "
-            className="mt-4 p-4 rounded-xl w-5/12 "
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            className="mt-4 p-4 rounded-xl w-5/12"
-          />
-        </div>
-        <div className="w-full mt-4 flex flex-col">
-          <input
-            type="text"
-            placeholder="Mobile"
-            className="mt-4 p-4 rounded-xl"
-          />
-          <input
-            type="text"
-            placeholder="Email"
-            className="mt-4 p-4 rounded-xl"
-          />
-          <input
-            type="text"
-            placeholder="Password"
-            className="mt-4 p-4 rounded-xl"
-          />
-        </div>
-        <div
-          className=" ion-padding w-full flex items-center justify-center  "
-          style={{ paddingTop: "225px" }}
-        >
-          <button className=" w-full background-primary rounded-lg font-w-700 font15 py-4  px-36">
-            Continue
-          </button>
-        </div>
-      </form>
-    </>
-  );
+	let navigate = useNavigate();
+
+	const user = useRecoilValue(userDataAtom);
+
+	const [loading, setLoading] = useState(false);
+
+	const [firstName, setFirstName] = useState(user.fname);
+	const [lastName, setLastName] = useState(user.lname);
+
+	const [phone, setPhone] = useState(user.mobile);
+	const [email, setEmail] = useState(user.email);
+
+	const [password, setPassword] = useState(user.password);
+
+	const userData = useRecoilValue(userDataAtom);
+
+	const updateUserDetailsFunc = updateUserDetails();
+	const [userProfile, setUserProfile] = useState({});
+
+	const handleSubmit = e => {
+		e.preventDefault();
+		const data = {
+			uid: userData.id,
+			fname: firstName,
+			lname: lastName,
+			password: password,
+		};
+		setLoading(true);
+		updateUserDetailsFunc(data, handleResponse);
+	};
+
+	// useEffect(() => {
+
+	// });
+
+	const handleResponse = res => {
+		setLoading(false);
+
+		if (res && res.ResponseCode === '200') {
+			toast('Profile Updated SuccessFully');
+			navigate(-1);
+		} else {
+			toast('Something Went Wrong');
+		}
+	};
+
+	return (
+		<CommonScreenPage showLoading={loading} headingTitle={'Edit Profile'}>
+			<div className="h-full ">
+				<form
+					onSubmit={handleSubmit}
+					className="h-full flex flex-col justify-between ion-padding"
+				>
+					<div className="flex flex-col items-center">
+						<img
+							className="inline-block mb-8"
+							src="https://img.icons8.com/fluency/48/000000/whatsapp.png"
+							alt=""
+						/>
+						<div className="w-full mb-3">
+							<div className="flex justify-between">
+								<div className="form-group w-3/6 mr-3 border overflow-hidden rounded-xl px-2 py-2">
+									<label className="font-medium text-gray-600">
+										First Name
+									</label>
+									<input
+										type="text"
+										value={firstName}
+										onChange={e =>
+											setFirstName(
+												e.target.value
+											)
+										}
+										className="border-0"
+									/>
+								</div>
+								<div className="form-group w-3/6 ml-3 border overflow-hidden rounded-xl px-2 py-2">
+									<label className="font-medium text-gray-600">
+										Last Name
+									</label>
+									<input
+										type="text"
+										value={lastName}
+										onChange={e => {
+											setLastName(
+												e.target.value
+											);
+										}}
+										className="border-0"
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div className="form-group mb-3 w-full flex flex-col  border overflow-hidden rounded-xl px-2 py-2 disable-component">
+							<label className="font-medium text-gray-600">
+								Mobile
+							</label>
+							<input
+								disabled={true}
+								value={phone}
+								type="number"
+								className="border-0"
+							/>
+						</div>
+						<div className="form-group mb-3 w-full flex flex-col  border overflow-hidden rounded-xl px-2 py-2 disable-component">
+							<label className="font-medium text-gray-600">
+								Email
+							</label>
+							<input
+								disabled={true}
+								value={email}
+								type="email"
+								className="border-0"
+							/>
+						</div>
+						<div className="form-group mb-3 w-full flex flex-col  border overflow-hidden rounded-xl px-2 py-2">
+							<label className="font-medium text-gray-600">
+								Password
+							</label>
+							<input
+								type="password"
+								value={password}
+								onChange={e => {
+									setPassword(e.target.value);
+								}}
+								className="border-0"
+							/>
+						</div>
+					</div>
+					<div className="ion-padding flex items-center justify-center  ">
+						<button className="  background-primary rounded-lg font-w-700 font15 py-4  px-36">
+							Continue
+						</button>
+					</div>
+				</form>
+			</div>
+		</CommonScreenPage>
+	);
 }
 
 export default EditProfile;

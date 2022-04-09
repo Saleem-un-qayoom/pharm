@@ -7,7 +7,7 @@ import {
 	BrowserRouter as Router,
 	Routes,
 } from 'react-router-dom';
-import { pinCodeData, storeDataAtom, toastAtom } from './Recoil/atom';
+import { pinCodeData, storeDataAtom } from './Recoil/atom';
 
 import AboutPage from './View/MainPage/ProfilePage/AboutPage/AboutPage';
 import ApplyCouponScreen from './View/Screens/ApplyCouponScreen/ApplyCouponScreen';
@@ -33,17 +33,18 @@ import StarterPage from './View/Pages/StarterPage/StarterPage';
 import StorePage from './View/MainPage/StorePage/StorePage';
 import SubmitPrescription from './components/SubmitPrescription/SubmitPrescription';
 import TermsandConditions from './View/MainPage/ProfilePage/TermsandConditions/TermsandConditions';
-import Toast from './components/Toast';
 import { ToastContainer } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { useState } from 'react';
+
+// import Toast from './components/Toast';
 
 function App() {
 	const pinCodeRecoil = useRecoilValue(pinCodeData);
 	const storeRecoil = useRecoilValue(storeDataAtom);
 	const [popUpModal, setPopUpModal] = useState(false);
 
-	const toast = useRecoilValue(toastAtom);
+	// const toast = useRecoilValue(toastAtom);
 
 	const popUpToggle = () => {
 		setPopUpModal(!popUpModal);
@@ -53,7 +54,6 @@ function App() {
 		<>
 			<Router>
 				<Routes>
-					<Route element={<Toast />} />
 					<Route
 						exact
 						path="/starter-page"
@@ -277,7 +277,7 @@ function App() {
 					/>
 
 					<Route
-						path="edit-address"
+						path="/edit-address"
 						element={
 							pinCodeRecoil ? (
 								<EditAddressScreen />
@@ -313,7 +313,6 @@ function App() {
 						element={<Navigate to="/home" />}
 					/>
 				</Routes>
-				{toast && <Toast />}
 			</Router>
 			<ToastContainer
 				position="bottom-center"

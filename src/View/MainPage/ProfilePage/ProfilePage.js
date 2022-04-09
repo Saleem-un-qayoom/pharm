@@ -81,6 +81,17 @@ function ProfilePage() {
 							</p>
 						</div>
 					))}
+					<p
+						className="text-base font-w-600 px-5 py-2"
+						onClick={() => {
+							setUser('');
+							localStorage.removeItem('pharm-box-user');
+							sessionStorage.removeItem('pharm-box-user');
+							navigate('/home');
+						}}
+					>
+						Logout
+					</p>
 				</div>
 			</div>
 			<div>
