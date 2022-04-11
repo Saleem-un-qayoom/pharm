@@ -15,6 +15,7 @@ import { useState } from "react";
 import { getSearchApi } from "../../Services/apis";
 import config from "../../Services/config";
 import commonService from "../../Services/commonService";
+import SearchResult from "../SearchResult/SearchResult";
 
 const prescriptionIcon = "/assets/icons/treatment.svg";
 const notificationIcon = "/assets/icons/bell.svg";
@@ -109,11 +110,11 @@ function CommonHeaderFooterPage({
 
   const [noOfItemsAlreadyAddedInCart, setNoOfItemsAlreadyInCart] = useState(0);
 
-  useEffect(() => {
-    setNoOfItemsAlreadyInCart(
-      commonService.isItemAlreadyInCart(item, cart, setCart)
-    );
-  }, [cart]);
+  // useEffect(() => {
+  //   setNoOfItemsAlreadyInCart(
+  //     commonService.isItemAlreadyInCart(item, cart, setCart)
+  //   );
+  // }, [cart]);
 
   const addItemToCart = (item) => {
     commonService.addItemToCart(item, cart, setCart);
@@ -188,7 +189,11 @@ function CommonHeaderFooterPage({
       >
         {search ? (
           <div className="h-full ion-padding">
-            {searchResult.map((item) => (
+            {searchResult.map((item, key) => (
+              <SearchResult item={item} key={key} />
+            ))}
+            {/* {searchResult.map((item) => (
+
               <div className="flex bg-white mb-3 h-24 relative rounded">
                 <div
                   className="p-2 flex justify-center items-center h-full"
@@ -236,7 +241,7 @@ function CommonHeaderFooterPage({
                     </span>
                   </div>
                 </div>
-                \
+
                 <div className="flex justify-center items-center w-full h-6">
                   {noOfItemsAlreadyAddedInCart !== 0 ? (
                     <>
@@ -274,7 +279,7 @@ function CommonHeaderFooterPage({
                   )}
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         ) : (
           children

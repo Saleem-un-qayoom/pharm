@@ -6,7 +6,7 @@ import config from "../../Services/config";
 import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 
-function ExploreNewItem({ item }) {
+function SearchResult({ item }) {
   const navigate = useNavigate();
 
   const [cart, setCart] = useRecoilState(CartAtom);
@@ -46,16 +46,14 @@ function ExploreNewItem({ item }) {
             <br />
             OFF
           </span>
-          {noOfItemsAlreadyAddedInCart !== 0 && (
-            <div
-              className="absolute top-2 right-2 bg-amber-400 py-1 px-2 rounded-md text-white text-xs font-semibold"
-              onClick={() => {
-                navigate(`/cart-page/${item.id}`);
-              }}
-            >
-              Buy Now
-            </div>
-          )}
+          <div
+            className="absolute top-2 right-2 bg-amber-400	 py-1 px-2 rounded-md"
+            onClick={() => {
+              navigate(`/cart-page/${item.id}`);
+            }}
+          >
+            <p className="text-white text-xs font-semibold">Buy Now</p>
+          </div>
         </div>
         <div
           className="h-28 flex items-center justify-center"
@@ -133,4 +131,4 @@ function ExploreNewItem({ item }) {
   );
 }
 
-export default ExploreNewItem;
+export default SearchResult;
