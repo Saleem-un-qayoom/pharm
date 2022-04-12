@@ -12,6 +12,8 @@ function CartScreen() {
 
   const { id } = useParams();
 
+  const [paymentMethod, setPaymentMethod] = useState(false);
+
   const [cart, setCart] = useRecoilState(CartAtom);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const increaseQuantity = (item) => {
@@ -40,6 +42,8 @@ function CartScreen() {
       showDeleteModal={showDeleteModal}
       onDeleteModalClick={onDeleteModalClick}
       showCart={true}
+      showPaymentMethod={paymentMethod}
+      setPaymentMethod={setPaymentMethod}
     >
       <div className="flex flex-col h-full ">
         <div className=" scrollable-element grow ">
@@ -179,7 +183,10 @@ function CartScreen() {
             </div>
           </div>
           <div className=" ion-padding flex items-center justify-center  rounded-lg">
-            <button className="py-2.5 font-bold background-primary w-full rounded-lg">
+            <button
+              className="py-2.5 font-bold background-primary w-full rounded-lg"
+              onClick={() => setPaymentMethod(true)}
+            >
               Proceed To Buy
             </button>
           </div>

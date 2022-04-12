@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { CartAtom, SelectedProductAtom } from "../Recoil/atom";
 import commonService from "../Services/commonService";
 import config from "../Services/config";
+import { toast } from "react-toastify";
 
 function ProductListItem({ item }) {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function ProductListItem({ item }) {
 
   const increaseQuantity = (item) => {
     commonService.increaseQuantity(item, cart, setCart);
+    toast("Added to Cart");
   };
 
   const decreaseQuantity = (item) => {

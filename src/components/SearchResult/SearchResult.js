@@ -97,7 +97,6 @@ function SearchResult({ item }) {
           </span>
         </div>
       </div>
-
       <div className="flex justify-center items-center h-6 w-full	 ">
         {noOfItemsAlreadyAddedInCart !== 0 ? (
           <>
