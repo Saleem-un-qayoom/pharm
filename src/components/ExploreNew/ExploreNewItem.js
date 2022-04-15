@@ -50,7 +50,7 @@ function ExploreNewItem({ item }) {
             <div
               className="absolute top-2 right-2 bg-amber-400 py-1 px-2 rounded-md text-white text-xs font-semibold"
               onClick={() => {
-                navigate(`/cart-page/${item.id}`);
+                navigate(`/cart-screen/${item.id}`);
               }}
             >
               Buy Now

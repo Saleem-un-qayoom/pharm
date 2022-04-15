@@ -100,6 +100,17 @@ const commonService = {
     }
     return found;
   },
+  returnItemFromCartById: (id, cart) => {
+    let cartItem = null;
+    let temp = [...cart];
+    for (let i = 0; i < temp.length; i++) {
+      if (temp[i].id === id) {
+        cartItem = temp[i];
+        break;
+      }
+    }
+    return cartItem;
+  },
 };
 
 export default commonService;

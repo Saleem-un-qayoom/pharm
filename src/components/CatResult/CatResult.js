@@ -155,7 +155,10 @@ function CatResult(item) {
                     {commonService.isItemAlreadyInCart(item, cart, setCart) !==
                     0 ? (
                       <>
-                        <div className="absolute top-2 right-5 bg-orange-400 py-0.5 px-1.5 rounded-md">
+                        <div
+                          className="absolute top-2 right-5 bg-orange-400 py-0.5 px-1.5 rounded-md"
+                          onClick={() => navigate(`/cart-page/${item.id}`)}
+                        >
                           <span className="text-white font-semibold">
                             Buy Now
                           </span>

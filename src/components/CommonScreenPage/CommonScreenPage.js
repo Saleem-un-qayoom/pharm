@@ -1,10 +1,15 @@
 import "./CommonScreenPage.scss";
 
-import { CartAtom, orderDetailsAtom } from "../../Recoil/atom";
+import {
+  CartAtom,
+  orderDetailsAtom,
+  SelectedProductAtom,
+} from "../../Recoil/atom";
 import React from "react";
 import { useNavigate } from "react-router";
 import { useRecoilState, useRecoilValue } from "recoil";
 import commonService from "../../Services/commonService";
+import config from "../../Services/config";
 
 function CommonScreenPage({
   headingTitle,
@@ -26,17 +31,21 @@ function CommonScreenPage({
   const cartItems = [...cart];
 
   const [myOrderDetails, setMyOrderDetails] = useRecoilState(orderDetailsAtom);
+  const [selectedProduct, setSelectedProduct] =
+    useRecoilState(SelectedProductAtom);
 
   return (
     <div className={`h-screen ${contentBg ? contentBg : "bg-white"}`}>
-      <div className="common-screen-page-header background-primary height-8 flex items-center ion-padding-x">
-        <img
-          onClick={() => navigate(-1)}
-          src="/assets/icons/back.png"
-          alt=""
-          className="h-5"
-        />
-        <p className="font-bold ml-2.5 capitalize">{headingTitle}</p>
+      <div className="common-screen-page-header background-primary height-8 flex items-center ion-padding-x justify-between">
+        <div className="flex">
+          <img
+            onClick={() => navigate(-1)}
+            src="/assets/icons/back.png"
+            alt=""
+            className="h-5"
+          />
+          <p className="font-bold ml-2.5 capitalize">{headingTitle}</p>
+        </div>
         {showCart && (
           <div
             className="relative ml-auto"
@@ -138,6 +147,11 @@ function CommonScreenPage({
               <img
                 className="w-16"
                 src="https://apis.pharmbox.in/assets/category/catimg/1646293838.png"
+                // src={
+                //   item.product_image[0]
+                //     ? `${config.baseUrl}/${item.product_image[0]}`
+                //     : "https://img.icons8.com/ios/100/000000/no-camera--v1.png"
+                // }
               />
             </div>
             <div className="w-3/5	">

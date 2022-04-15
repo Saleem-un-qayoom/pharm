@@ -105,6 +105,16 @@ function ExploreNewPage(item) {
                     <br />
                     OFF
                   </span>
+                  {/* {noOfItemsAlreadyAddedInCart !== 0 && (
+                    <div
+                      className="absolute top-2 right-2 bg-amber-400 py-1 px-2 rounded-md text-white text-xs font-semibold"
+                      onClick={() => {
+                        navigate(`/cart-page/${item.id}`);
+                      }}
+                    >
+                      Buy Now
+                    </div>
+                  )} */}
                 </div>
                 <img
                   className="inline-block h-full"
@@ -153,7 +163,10 @@ function ExploreNewPage(item) {
                   {commonService.isItemAlreadyInCart(item, cart, setCart) !==
                   0 ? (
                     <>
-                      <div className="absolute top-2 right-2 bg-yellow-300 py-1 px-2 rounded-md">
+                      <div
+                        className="absolute top-2 right-2 bg-yellow-300 py-1 px-2 rounded-md"
+                        onClick={() => navigate(`/cart-page/${item.id}`)}
+                      >
                         <p className="text-white text-xs font-semibold">
                           Buy Now
                         </p>

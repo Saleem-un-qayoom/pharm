@@ -149,7 +149,9 @@ function CommonHeaderFooterPage({
               }}
             >
               Welcome to
-              <span className="text-color-secondary">{storeData.title}</span>
+              <span className="text-color-secondary pl-1 ">
+                {storeData.title}
+              </span>
             </div>
           </div>
           <div className="relative" onClick={() => navigate("/cart-page")}>

@@ -38,6 +38,7 @@ import { useRecoilValue } from "recoil";
 import { useState } from "react";
 
 // import Toast from './components/Toast';
+import SingleItemCartScreen from "./View/Screens/SingleItemCartScreen/SingleItemCartScreen";
 
 function App() {
   const pinCodeRecoil = useRecoilValue(pinCodeData);
@@ -113,11 +114,23 @@ function App() {
             }
           />
           <Route
-            path="/cart-page/:id"
+            path="/cart-page"
             element={
               pinCodeRecoil ? <CartScreen /> : <Navigate to="/starter-page" />
             }
           />
+
+          <Route
+            path="/cart-screen/:id"
+            element={
+              pinCodeRecoil ? (
+                <SingleItemCartScreen />
+              ) : (
+                <Navigate to="/starter-page" />
+              )
+            }
+          />
+
           <Route
             path="/profile-page"
             element={
