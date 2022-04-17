@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { addressesAtom, CartAtom } from "../../../Recoil/atom";
@@ -6,20 +6,27 @@ import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenP
 import commonService from "../../../Services/commonService";
 import config from "../../../Services/config";
 import { useRecoilState, useRecoilValue } from "recoil";
+import PrescriptionPopUp from "../../../components/PrescriptionPopUp";
 
 function CartScreen() {
   let navigate = useNavigate();
 
   const myDeliveryAddress = useRecoilValue(addressesAtom);
-
-  const [paymentMethod, setPaymentMethod] = useState(false);
-
   const [cart, setCart] = useRecoilState(CartAtom);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState(false);
+  const [prescriptoinImage, setPrescriptoinImage] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedItemToDelete, setSelectedItemToDelete] = useState({});
+  const [prescriptionRequired, setPrescriptionRequired] = useState(null);
+
+  useEffect(() => {
+    setPrescriptionRequired(commonService.isPrescriptionRequired(cart));
+  }, [cart]);
+
   const increaseQuantity = (item) => {
     commonService.increaseQuantity(item, cart, setCart);
   };
-  const [selectedItemToDelete, setSelectedItemToDelete] = useState({});
 
   const decreaseQuantity = (item) => {
     commonService.decreaseQuantity(item, cart, setCart);
@@ -36,14 +43,34 @@ function CartScreen() {
     setShowDeleteModal(false);
   };
 
+  const handleSubmit = () => {
+    setPaymentMethod(true);
+  };
+
+  const handleImage = (img) => {
+    setPrescriptoinImage(img);
+  };
+
+  const isPrescriptionRequired = () => {
+    if (prescriptionRequired) {
+      if (prescriptoinImage) {
+        handleSubmit();
+      } else {
+        setShowPopUp(true);
+      }
+    } else {
+      handleSubmit();
+    }
+  };
+
   return (
     <CommonScreenPage
       headingTitle={"Cart"}
       showDeleteModal={showDeleteModal}
       onDeleteModalClick={onDeleteModalClick}
-      showCart={true}
       showPaymentMethod={paymentMethod}
       setPaymentMethod={setPaymentMethod}
+      // contentBg="bg-gray-100"
     >
       <div className="flex flex-col h-full ">
         {cart.length !== 0 ? (
@@ -53,11 +80,23 @@ function CartScreen() {
                 <>
                   <div className="flex justify-between w-full py-2 h-20 ion-padding-x">
                     <div className="flex items-center">
-                      <img
-                        className="h-14 w-14"
-                        src={`${config.baseUrl}/${item.product_image[0]}`}
-                        alt=""
-                      />
+                      <div className="relative">
+                        <img
+                          className="h-14 w-14"
+                          src={`${config.baseUrl}/${item.product_image[0]}`}
+                          alt=""
+                        />
+                        {item.prescription_required === "1" && (
+                          <img
+                            src="/assets/icons/rx.png"
+                            className="w-4 absolute  -right-3"
+                            style={{
+                              top: -5,
+                            }}
+                            alt=""
+                          />
+                        )}
+                      </div>
 
                       <div className="flex flex-col ml-4">
                         <span className="font14 text-color-gray font-medium leading-4">
@@ -161,6 +200,20 @@ function CartScreen() {
                         {commonService.getTotalPrice(cart)}
                       </span>
                     </div>
+                    {prescriptoinImage && (
+                      <div className="flex justify-between items-center text-xs font-medium mt-3 text-black ion-padding-x relative ">
+                        Prescription Image
+                        <img src={prescriptoinImage} className="w-20 h-20" />
+                        <img
+                          src="/assets/icons/rx.png"
+                          className="w-4 absolute   right-2"
+                          alt=""
+                          style={{
+                            top: -6,
+                          }}
+                        />
+                      </div>
+                    )}
 
                     <div className="ion-padding-x mb-2">
                       <div className=" w-full flex flex-col border rounded-lg overflow-hidden mt-2 ">
@@ -204,13 +257,18 @@ function CartScreen() {
                 <div className=" ion-padding flex items-center justify-center  rounded-lg">
                   <button
                     className="py-2.5 font-bold background-primary w-full rounded-lg"
-                    onClick={() => setPaymentMethod(true)}
+                    onClick={isPrescriptionRequired}
                   >
                     Proceed To Buy
                   </button>
                 </div>
               </div>
             </div>
+            <PrescriptionPopUp
+              showPopUp={showPopUp}
+              setShowPopUp={setShowPopUp}
+              handleImage={handleImage}
+            />
           </>
         ) : (
           <div className="flex items-center justify-start h-full">

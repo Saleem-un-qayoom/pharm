@@ -78,8 +78,8 @@ function ExploreNewScreen(item) {
         bgColor={"background-tertiary"}
       >
         <div className="ion-padding">
-          {exploreNew.map((item) => (
-            <div className="flex bg-white mb-3 h-24 relative">
+          {exploreNew.map((item, key) => (
+            <div key={key} className="flex bg-white mb-3 h-24 relative">
               <div
                 className="p-2 flex justify-center items-center h-full"
                 style={{

@@ -189,7 +189,7 @@ function CommonScreenPage({
             </div>
             <div className="ion-padding">
               <div className="flex">
-                <img className="h-10" src="assets/img/cash-on-delivery.png" />
+                <img className="h-10" src="/assets/img/cash-on-delivery.png" />
                 <div className="flex flex-col pl-4">
                   <span className="text-xs font-semibold">
                     Cash On Delivery
@@ -201,7 +201,7 @@ function CommonScreenPage({
                 </div>
               </div>
               <div className="flex mt-6">
-                <img className="h-10" src="assets/img/payu.png" />
+                <img className="h-10" src="/assets/img/payu.png" />
                 <div className="flex flex-col pl-4">
                   <span className="text-xs font-semibold">PayU</span>
                   <p className="text-xs text-color-tertiary pt-1">
