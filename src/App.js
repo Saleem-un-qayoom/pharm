@@ -9,15 +9,8 @@ import {
 } from "react-router-dom";
 import { pinCodeData, storeDataAtom } from "./Recoil/atom";
 
-import ApplyCouponScreen from "./View/Screens/ApplyCouponScreen/ApplyCouponScreen";
 import CatResult from "./components/CatResult/CatResult";
-import EditAddressScreen from "./View/Screens/EditAddressScreen/EditAddressScreen";
-import HomeScreen from "./View/Screens/HomeScreen/HomeScreen";
 import Login from "./View/Pages/LoginPage/LoginPage";
-import ManageAddressScreen from "./View/Screens/ManageAddressScreen/ManageAddressScreen";
-import MyOrderDetailsScreen from "./View/Screens/MyOrderDetailsScreen/MyOrderDetailsScreen";
-import MyOrderScreen from "./View/Screens/MyOrdersScreen/MyOrdersScreen";
-import NotificationScreen from "./View/Screens/NotificationScreen/NotificationScreen";
 import OtpPage from "./View/Pages/OtpPage/OtpPage";
 import PinCodePage from "./View/Pages/PinCodePage/PinCodePage";
 import StarterPage from "./View/Pages/StarterPage/StarterPage";
@@ -27,17 +20,24 @@ import { ToastContainer } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { useState } from "react";
 
-import SingleItemCartScreen from "./View/Screens/SingleItemCartScreen/SingleItemCartScreen";
-import ExploreNewScreen from "./View/Screens/ExploreNewScreen/ExploreNewScreen";
-import ProductDescriptionScreen from "./View/Screens/ProductDescriptionScreen/ProductDescriptionScreen";
 import {
   AboutScreen,
+  ApplyCouponScreen,
   CartScreen,
   CategoryScreen,
   ContactScreen,
+  EditAddressScreen,
   EditProfileScreen,
+  ExploreNewScreen,
+  HomeScreen,
+  ManageAddressScreen,
+  MyOrderDetailsScreen,
+  MyOrdersScreen,
+  NotificationScreen,
   PrivacyPolicyScreen,
+  ProductDescriptionScreen,
   ProfileScreen,
+  SingleItemCartScreen,
   TandCScreen,
 } from "./View/Screens";
 
@@ -147,7 +147,7 @@ function App() {
             path="/my-order"
             element={
               pinCodeRecoil ? (
-                <MyOrderScreen />
+                <MyOrdersScreen />
               ) : (
                 <Navigate to="/starter-page" />
               )
