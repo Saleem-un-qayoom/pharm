@@ -14,7 +14,6 @@ import Login from "./View/Pages/LoginPage/LoginPage";
 import OtpPage from "./View/Pages/OtpPage/OtpPage";
 import PinCodePage from "./View/Pages/PinCodePage/PinCodePage";
 import StarterPage from "./View/Pages/StarterPage/StarterPage";
-import StorePage from "./View/MainPage/StorePage/StorePage";
 import SubmitPrescription from "./components/SubmitPrescription/SubmitPrescription";
 import { ToastContainer } from "react-toastify";
 import { useRecoilValue } from "recoil";
@@ -38,7 +37,8 @@ import {
   ProductDescriptionScreen,
   ProfileScreen,
   SingleItemCartScreen,
-  TandCScreen,
+  StoreScreen,
+  TNCScreen,
 } from "./View/Screens";
 
 function App() {
@@ -228,7 +228,7 @@ function App() {
           <Route
             path="/terms-and-conditions"
             element={
-              pinCodeRecoil ? <TandCScreen /> : <Navigate to="/starter-page" />
+              pinCodeRecoil ? <TNCScreen /> : <Navigate to="/starter-page" />
             }
           />
           <Route
@@ -250,7 +250,7 @@ function App() {
           <Route
             path="/store-page"
             element={
-              pinCodeRecoil ? <StorePage /> : <Navigate to="/starter-page" />
+              pinCodeRecoil ? <StoreScreen /> : <Navigate to="/starter-page" />
             }
           />
 

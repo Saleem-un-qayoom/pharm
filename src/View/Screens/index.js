@@ -4,7 +4,9 @@ export { default as ProfileScreen } from "./ProfileScreen/ProfileScreen";
 export { default as AboutScreen } from "./AboutScreen/AboutScreen";
 export { default as ContactScreen } from "./ContactScreen/ContactScreen";
 export { default as PrivacyPolicyScreen } from "./PrivacyPolicyScreen/PrivacyPolicyScreen";
-export { default as TandCScreen } from "./TandCScreen/TandCScreen";
+// export { default as TandCScreen } from "./TandCScreen/TandCScreen";
+export { default as TNCScreen } from "./TNCScreen/TNCScreen";
+
 export { default as EditProfileScreen } from "./EditProfileScreen/EditProfileScreen";
 export { default as ManageAddressScreen } from "./ManageAddressScreen/ManageAddressScreen";
 export { default as NotificationScreen } from "./NotificationScreen/NotificationScreen";
@@ -16,3 +18,4 @@ export { default as EditAddressScreen } from "./EditAddressScreen/EditAddressScr
 export { default as ProductDescriptionScreen } from "./ProductDescriptionScreen/ProductDescriptionScreen";
 export { default as HomeScreen } from "./HomeScreen/HomeScreen";
 export { default as ExploreNewScreen } from "./ExploreNewScreen/ExploreNewScreen";
+export { default as StoreScreen } from "./StoreScreen/StoreScreen";
