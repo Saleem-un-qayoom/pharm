@@ -64,7 +64,7 @@ function CommonScreenPage({
           </div>
         )}
       </div>
-      <div className="common-screen-page-content height-92 scrollable-element ">
+      <div className="common-screen-page-content height-92 scrollable-element-y ">
         {children}
       </div>
       {showLoading && (

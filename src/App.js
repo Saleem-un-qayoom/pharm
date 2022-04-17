@@ -9,15 +9,9 @@ import {
 } from "react-router-dom";
 import { pinCodeData, storeDataAtom } from "./Recoil/atom";
 
-import AboutPage from "./View/MainPage/ProfilePage/AboutPage/AboutPage";
 import ApplyCouponScreen from "./View/Screens/ApplyCouponScreen/ApplyCouponScreen";
-import CartScreen from "./View/Screens/CartScreen/CartScreen";
 import CatResult from "./components/CatResult/CatResult";
-import CategoryScreen from "./View/Screens/CategoryScreen/CategoryScreen";
-import ContactPage from "./View/MainPage/ProfilePage/ContactPage/ContactPage";
 import EditAddressScreen from "./View/Screens/EditAddressScreen/EditAddressScreen";
-import EditProfile from "./View/MainPage/ProfilePage/EditProfile/EditProfile";
-import ExploreNewPage from "./View/MainPage/ExploreNewPage/ExploreNewPage";
 import HomeScreen from "./View/Screens/HomeScreen/HomeScreen";
 import Login from "./View/Pages/LoginPage/LoginPage";
 import ManageAddressScreen from "./View/Screens/ManageAddressScreen/ManageAddressScreen";
@@ -26,19 +20,26 @@ import MyOrderScreen from "./View/Screens/MyOrdersScreen/MyOrdersScreen";
 import NotificationScreen from "./View/Screens/NotificationScreen/NotificationScreen";
 import OtpPage from "./View/Pages/OtpPage/OtpPage";
 import PinCodePage from "./View/Pages/PinCodePage/PinCodePage";
-import PrivacyPolicy from "./View/MainPage/ProfilePage/PrivacyPolicy/PrivacyPolicy";
-import ProductDescription from "./View/MainPage/ProductDescription/ProductDescription";
-import ProfilePage from "./View/MainPage/ProfilePage/ProfilePage";
 import StarterPage from "./View/Pages/StarterPage/StarterPage";
 import StorePage from "./View/MainPage/StorePage/StorePage";
 import SubmitPrescription from "./components/SubmitPrescription/SubmitPrescription";
-import TermsandConditions from "./View/MainPage/ProfilePage/TermsandConditions/TermsandConditions";
 import { ToastContainer } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { useState } from "react";
 
-// import Toast from './components/Toast';
 import SingleItemCartScreen from "./View/Screens/SingleItemCartScreen/SingleItemCartScreen";
+import ExploreNewScreen from "./View/Screens/ExploreNewScreen/ExploreNewScreen";
+import ProductDescriptionScreen from "./View/Screens/ProductDescriptionScreen/ProductDescriptionScreen";
+import {
+  AboutScreen,
+  CartScreen,
+  CategoryScreen,
+  ContactScreen,
+  EditProfileScreen,
+  PrivacyPolicyScreen,
+  ProfileScreen,
+  TandCScreen,
+} from "./View/Screens";
 
 function App() {
   const pinCodeRecoil = useRecoilValue(pinCodeData);
@@ -134,7 +135,11 @@ function App() {
           <Route
             path="/profile-page"
             element={
-              pinCodeRecoil ? <ProfilePage /> : <Navigate to="/starter-page" />
+              pinCodeRecoil ? (
+                <ProfileScreen />
+              ) : (
+                <Navigate to="/starter-page" />
+              )
             }
           />
 
@@ -173,7 +178,7 @@ function App() {
           <Route
             path="/about-page"
             element={
-              pinCodeRecoil ? <AboutPage /> : <Navigate to="/starter-page" />
+              pinCodeRecoil ? <AboutScreen /> : <Navigate to="/starter-page" />
             }
           />
 
@@ -202,7 +207,11 @@ function App() {
           <Route
             path="/contact-page"
             element={
-              pinCodeRecoil ? <ContactPage /> : <Navigate to="/starter-page" />
+              pinCodeRecoil ? (
+                <ContactScreen />
+              ) : (
+                <Navigate to="/starter-page" />
+              )
             }
           />
 
@@ -210,7 +219,7 @@ function App() {
             path="/privacy-policy"
             element={
               pinCodeRecoil ? (
-                <PrivacyPolicy />
+                <PrivacyPolicyScreen />
               ) : (
                 <Navigate to="/starter-page" />
               )
@@ -219,17 +228,17 @@ function App() {
           <Route
             path="/terms-and-conditions"
             element={
-              pinCodeRecoil ? (
-                <TermsandConditions />
-              ) : (
-                <Navigate to="/starter-page" />
-              )
+              pinCodeRecoil ? <TandCScreen /> : <Navigate to="/starter-page" />
             }
           />
           <Route
             path="/edit-profile"
             element={
-              pinCodeRecoil ? <EditProfile /> : <Navigate to="/starter-page" />
+              pinCodeRecoil ? (
+                <EditProfileScreen />
+              ) : (
+                <Navigate to="/starter-page" />
+              )
             }
           />
           <Route
@@ -260,7 +269,7 @@ function App() {
             path="/product-description"
             element={
               pinCodeRecoil ? (
-                <ProductDescription />
+                <ProductDescriptionScreen />
               ) : (
                 <Navigate to="/starter-page" />
               )
@@ -270,7 +279,7 @@ function App() {
             path="/explore-new-page"
             element={
               pinCodeRecoil ? (
-                <ExploreNewPage />
+                <ExploreNewScreen />
               ) : (
                 <Navigate to="/starter-page" />
               )

@@ -10,7 +10,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import commonService from "../../../Services/commonService";
 import { toast } from "react-toastify";
 
-function ProductDescription() {
+function ProductDescriptionScreen() {
   let navigate = useNavigate();
 
   const [showBrand, setShowBrand] = useState(false);
@@ -50,7 +50,7 @@ function ProductDescription() {
   return (
     <CommonScreenPage headingTitle={"Product Description"} showCart={true}>
       <div className="flex flex-col h-full px-2">
-        <div className="grow scrollable-element">
+        <div className="grow scrollable-element-y">
           {selectedProduct && (
             <div className="grow">
               <div>
@@ -82,7 +82,7 @@ function ProductDescription() {
                     <div
                       className="absolute top-80 right-2	 bg-amber-400 py-1 px-2 rounded-md text-white text-xs font-semibold"
                       onClick={() => {
-                        navigate(`/cart-page/${selectedProduct.id}`);
+                        navigate(`/cart-screen/${selectedProduct.id}`);
                       }}
                     >
                       Buy Now
@@ -235,4 +235,4 @@ function ProductDescription() {
   );
 }
 
-export default ProductDescription;
+export default ProductDescriptionScreen;

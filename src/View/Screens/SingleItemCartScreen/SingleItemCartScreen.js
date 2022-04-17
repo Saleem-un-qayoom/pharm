@@ -56,7 +56,7 @@ function SingleItemCartScreen() {
       <div className="flex flex-col h-full">
         {returnItemCart ? (
           <>
-            <div className=" scrollable-element grow">
+            <div className=" scrollable-element-y grow">
               <div className="flex justify-between w-full py-2 h-20 ion-padding-x">
                 <div className="flex items-center">
                   <img
@@ -171,14 +171,6 @@ function SingleItemCartScreen() {
                   </div>
                 </div>
               </div>
-
-              {/* {returnItemCart ? (
-            ""
-          ) : (
-            <div className="flex items-center justify-center flex-col h-full">
-              <img src="/assets/img/empty-cart.png" />
-            </div>
-          )} */}
             </div>
 
             <div>

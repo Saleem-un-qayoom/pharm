@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
-import { CartAtom } from "../../../Recoil/atom";
+import { addressesAtom, CartAtom } from "../../../Recoil/atom";
 import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenPage";
 import commonService from "../../../Services/commonService";
 import config from "../../../Services/config";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 function CartScreen() {
   let navigate = useNavigate();
+
+  const myDeliveryAddress = useRecoilValue(addressesAtom);
 
   const [paymentMethod, setPaymentMethod] = useState(false);
 
@@ -46,7 +48,7 @@ function CartScreen() {
       <div className="flex flex-col h-full ">
         {cart.length !== 0 ? (
           <>
-            <div className=" scrollable-element grow ">
+            <div className=" scrollable-element-y grow ">
               {cart.map((item) => (
                 <>
                   <div className="flex justify-between w-full py-2 h-20 ion-padding-x">
@@ -54,6 +56,7 @@ function CartScreen() {
                       <img
                         className="h-14 w-14"
                         src={`${config.baseUrl}/${item.product_image[0]}`}
+                        alt=""
                       />
 
                       <div className="flex flex-col ml-4">
@@ -86,6 +89,7 @@ function CartScreen() {
                           setShowDeleteModal(true);
                         }}
                         src="/assets/icons/delete.png"
+                        alt=""
                         className="w-5"
                       />
                       <div className="w-full flex justify-between items-center">
@@ -113,7 +117,11 @@ function CartScreen() {
                 <>
                   <div className="background-tertiary mt-1 py-4 ion-padding-x flex justify-between">
                     <div className="flex items-center">
-                      <img src="/assets/icons/coupon.png" className="w-6" />
+                      <img
+                        src="/assets/icons/coupon.png"
+                        alt=""
+                        className="w-6"
+                      />
                       <span className="text-sm font-bold pl-4">
                         Apply Coupon
                       </span>
@@ -121,6 +129,7 @@ function CartScreen() {
                     <div>
                       <img
                         src="/assets/icons/next.png"
+                        alt=""
                         className="w-6"
                         onClick={() => navigate("/apply-coupon")}
                       />
@@ -174,12 +183,17 @@ function CartScreen() {
               <div className=" bg-white w-full flex flex-col justify-between">
                 <div className="flex justify-between bg-slate-100 items-start ion-padding background-tertiary">
                   <div className="grow flex items-start">
-                    <img src="/assets/icons/map.png" className="w-10" />
+                    <img src="/assets/icons/map.png" alt="" className="w-10" />
                     <div className="ml-2">
-                      <p className="mb-1 font-medium">Other</p>
+                      <p className="mb-1 font-medium">
+                        {myDeliveryAddress &&
+                          myDeliveryAddress.AddressList &&
+                          myDeliveryAddress.AddressList.type}
+                      </p>
                       <p className="text-xs text-color-gray font-medium">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Dicta, porro?
+                        {myDeliveryAddress &&
+                          myDeliveryAddress.AddressList &&
+                          myDeliveryAddress.AddressList.address}
                       </p>
                     </div>
                   </div>
@@ -199,8 +213,8 @@ function CartScreen() {
             </div>
           </>
         ) : (
-          <div>
-            <img src="assets/img/empty-cart.png" />
+          <div className="flex items-center justify-start h-full">
+            <img src="assets/img/empty-cart.png" alt="" />
           </div>
         )}
       </div>

@@ -185,7 +185,7 @@ function CommonHeaderFooterPage({
         </div>
       </div>
       <div
-        className={`height-77 scrollable-element ${
+        className={`height-77 scrollable-element-y ${
           bgColor ? bgColor : "bg-white"
         }`}
       >

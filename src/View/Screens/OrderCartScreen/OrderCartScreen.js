@@ -29,7 +29,7 @@
 //       showPaymentMethod={paymentMethod}
 //     >
 //       <div
-//         className="ion-padding-x scrollable-element"
+//         className="ion-padding-x scrollable-element-y"
 //         style={{
 //           height: "70%",
 //         }}

@@ -9,28 +9,21 @@ import {
 } from "../../../Recoil/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import CustomDropDown from "../../../components/CustomDropDown/CustomDropDown";
-import ExploreNew from "../../../components/ExploreNew/ExploreNew";
-import Footer from "../../../components/Footer/Footer";
-import Header from "../../../components/Header/Header";
-import HeaderFooterWrapper from "../../../components/HeaderFooterWrapper/HeaderFooterWrapper";
 import config from "../../../Services/config";
 import { getExploreNewApi } from "../../../Services/apis";
 
 // import Select from "react-select";
-import { navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import commonService from "../../../Services/commonService";
 import CommonHeaderFooterPage from "../../../components/CommonScreenWithSearchHeaderPage/CommonHeaderFooterPage";
 
-function ExploreNewPage(item) {
+function ExploreNewScreen(item) {
   const navigate = useNavigate();
 
   const [exploreNew, setExploreNew] = useState([]);
   const userRecoil = useRecoilValue(userDataAtom);
   const [storeRecoil, setStoreRecoil] = useRecoilState(storeDataAtom);
   const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
-
-  const [exploreNewRecoil, setExploreNewRecoil] = useState(exploreNewData);
 
   const [loading, setLoading] = useState(true);
 
@@ -56,11 +49,6 @@ function ExploreNewPage(item) {
       setExploreNew(res.BrandProductList);
     }
   };
-
-  // const addItemToCart = (item) => {
-  //   setCart([...cart, item]);
-  //   localStorage.setItem("pharm-box-cart", JSON.stringify([...cart, item]));
-  // };
 
   const [noOfItemsAlreadyAddedInCart, setNoOfItemsAlreadyInCart] = useState(0);
 
@@ -105,16 +93,6 @@ function ExploreNewPage(item) {
                     <br />
                     OFF
                   </span>
-                  {/* {noOfItemsAlreadyAddedInCart !== 0 && (
-                    <div
-                      className="absolute top-2 right-2 bg-amber-400 py-1 px-2 rounded-md text-white text-xs font-semibold"
-                      onClick={() => {
-                        navigate(`/cart-page/${item.id}`);
-                      }}
-                    >
-                      Buy Now
-                    </div>
-                  )} */}
                 </div>
                 <img
                   className="inline-block h-full"
@@ -165,7 +143,7 @@ function ExploreNewPage(item) {
                     <>
                       <div
                         className="absolute top-2 right-2 bg-yellow-300 py-1 px-2 rounded-md"
-                        onClick={() => navigate(`/cart-page/${item.id}`)}
+                        onClick={() => navigate(`/cart-screen/${item.id}`)}
                       >
                         <p className="text-white text-xs font-semibold">
                           Buy Now
@@ -214,4 +192,4 @@ function ExploreNewPage(item) {
   );
 }
 
-export default ExploreNewPage;
+export default ExploreNewScreen;

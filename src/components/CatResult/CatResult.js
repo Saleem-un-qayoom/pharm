@@ -1,33 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { getCategoryListApi, getCategoryResultApi } from "../../Services/apis";
+import { getCategoryResultApi } from "../../Services/apis";
 import {
   CartAtom,
   pinCodeData,
   SelectedProductAtom,
   storeDataAtom,
-  userData,
   userDataAtom,
 } from "../../Recoil/atom";
 
-import Header from "../Header/Header";
-import HeaderFooterWrapper from "../HeaderFooterWrapper/HeaderFooterWrapper";
 import config from "../../Services/config";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { toast } from "react-toastify";
 import commonService from "../../Services/commonService";
 import CommonHeaderFooterPage from "../CommonScreenWithSearchHeaderPage/CommonHeaderFooterPage";
 
 function CatResult(item) {
   const navigate = useNavigate();
-  // const [categoryList, setCategoryList] = useState([]);
-  // const userRecoil = useRecoilValue(userData);
-  // const [storeRecoil, setStoreRecoil] = useRecoilState(storeData);
-  // const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
-  // const [categoryListRecoil, setCategoryListRecoil] =
-  //   useRecoilState(categoryListData);
 
-  //   const getCategoryListApiFunc = getCategoryListApi();
   const getCategoryResultApiFunc = getCategoryResultApi();
 
   const { id } = useParams();
@@ -80,11 +69,6 @@ function CatResult(item) {
   const decreaseQuantity = (item) => {
     commonService.decreaseQuantity(item, cart, setCart);
   };
-
-  // const addItemToCart = (item) => {
-  //   setCart([...cart, item]);
-  //   localStorage.setItem("pharm-box-cart", JSON.stringify([...cart, item]));
-  // };
 
   return (
     <>
@@ -151,13 +135,21 @@ function CatResult(item) {
                     </span>
                   </div>
 
+                  <div className="rounded border mt-2 px-2 uppercase text-sm	h-6 text-emerald-400 w-2/5		">
+                    <span className="font10  truncate">
+                      {item.product_info &&
+                        item.product_info.length > 0 &&
+                        item.product_info[0].product_type}
+                    </span>
+                  </div>
+
                   <div className="flex justify-center items-center w-full h-6  ">
                     {commonService.isItemAlreadyInCart(item, cart, setCart) !==
                     0 ? (
                       <>
                         <div
-                          className="absolute top-2 right-5 bg-orange-400 py-0.5 px-1.5 rounded-md"
-                          onClick={() => navigate(`/cart-page/${item.id}`)}
+                          className="absolute top-2 right-5 bg-yellow-300 py-0.5 px-1.5 rounded-md"
+                          onClick={() => navigate(`/cart-screen/${item.id}`)}
                         >
                           <span className="text-white font-semibold">
                             Buy Now

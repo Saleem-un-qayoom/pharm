@@ -5,7 +5,6 @@ import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../../../Recoil/atom";
 import { getMyOrderApi } from "../../../Services/apis";
 import config from "../../../Services/config";
-import { navigate, useParams } from "react-router";
 import { useNavigate } from "react-router";
 
 function MyOrder() {
