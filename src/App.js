@@ -9,7 +9,7 @@ import {
 	EditProfileScreen,
 	PrivacyPolicyScreen,
 	ProfileScreen,
-	TandCScreen,
+	TNCScreen,
 } from './View/Screens';
 import {
 	Navigate,
@@ -252,7 +252,7 @@ function App() {
 						path="/terms-and-conditions"
 						element={
 							pinCodeRecoil ? (
-								<TandCScreen />
+								<TNCScreen />
 							) : (
 								<Navigate to="/starter-page" />
 							)
