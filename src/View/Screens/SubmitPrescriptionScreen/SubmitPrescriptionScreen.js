@@ -1,31 +1,31 @@
-import "./SubmitPrescription.css";
+import "./SubmitPrescriptionScreen.css";
 
 import React, { useState } from "react";
+
+import { useRecoilValue, useSetRecoilState } from "recoil";
+
+import { toast } from "react-toastify";
+// import { uploadPrescriptionApi } from "../../Services/apis";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import {
   prescriptionImageAtom,
   showLoadingModalAtom,
   storeDataAtom,
   userDataAtom,
-} from "../../Recoil/atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+} from "../../../Recoil/atom";
+import { uploadPrescriptionApi } from "../../../Services/apis";
 
-import { toast } from "react-toastify";
-import { uploadPrescriptionApi } from "../../Services/apis";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
-
-function SubmitPrescription() {
+function SubmitPrescriptionScreen() {
   let navigate = useNavigate();
 
   const uploadPrescriptionApiFunc = uploadPrescriptionApi();
 
   const prescriptionImage = useRecoilValue(prescriptionImageAtom);
-  const [showLoadingModal, setShowLoadingModal] =
-    useRecoilState(showLoadingModalAtom);
+  const setShowLoadingModal = useSetRecoilState(showLoadingModalAtom);
 
   const userData = useRecoilValue(userDataAtom);
   const store = useRecoilValue(storeDataAtom);
-  // const [toast, setToast] = useRecoilState(toastAtom);
 
   const [details, setDetails] = useState();
 
@@ -73,6 +73,7 @@ function SubmitPrescription() {
           <img
             onClick={() => navigate(-1)}
             src="https://img.icons8.com/ios-filled/2x/long-arrow-left.png "
+            alt=""
             style={{
               height: "25px",
               width: "20px",
@@ -118,4 +119,4 @@ function SubmitPrescription() {
   );
 }
 
-export default SubmitPrescription;
+export default SubmitPrescriptionScreen;

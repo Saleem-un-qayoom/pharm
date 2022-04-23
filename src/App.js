@@ -7,24 +7,25 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import { pinCodeData, storeDataAtom } from "./Recoil/atom";
+import { pinCodeData, storeDataAtom, userDataAtom } from "./Recoil/atom";
 
 import CatResult from "./components/CatResult/CatResult";
 import Login from "./View/Pages/LoginPage/LoginPage";
 import OtpPage from "./View/Pages/OtpPage/OtpPage";
 import PinCodePage from "./View/Pages/PinCodePage/PinCodePage";
 import StarterPage from "./View/Pages/StarterPage/StarterPage";
-import SubmitPrescription from "./components/SubmitPrescription/SubmitPrescription";
 import { ToastContainer } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { useState } from "react";
 
 import {
   AboutScreen,
+  AddUserDetailsScreen,
   ApplyCouponScreen,
   CartScreen,
   CategoryScreen,
   ContactScreen,
+  CreateNewPasswordScreen,
   EditAddressScreen,
   EditProfileScreen,
   ExploreNewScreen,
@@ -38,12 +39,14 @@ import {
   ProfileScreen,
   SingleItemCartScreen,
   StoreScreen,
+  SubmitPrescriptionScreen,
   TNCScreen,
 } from "./View/Screens";
 
 function App() {
   const pinCodeRecoil = useRecoilValue(pinCodeData);
   const storeRecoil = useRecoilValue(storeDataAtom);
+  const userData = useRecoilValue(userDataAtom);
   const [popUpModal, setPopUpModal] = useState(false);
 
   // const toast = useRecoilValue(toastAtom);
@@ -102,7 +105,14 @@ function App() {
           />
 
           <Route
-            path="/otp-page"
+            path="/sign-up/otp-page"
+            element={
+              pinCodeRecoil ? <OtpPage /> : <Navigate to="/starter-page" />
+            }
+          />
+
+          <Route
+            path="/forget-password/otp-page"
             element={
               pinCodeRecoil ? <OtpPage /> : <Navigate to="/starter-page" />
             }
@@ -111,23 +121,21 @@ function App() {
           <Route
             path="/cart-page"
             element={
-              pinCodeRecoil ? <CartScreen /> : <Navigate to="/starter-page" />
-            }
-          />
-          <Route
-            path="/cart-page"
-            element={
-              pinCodeRecoil ? <CartScreen /> : <Navigate to="/starter-page" />
+              pinCodeRecoil && userData ? (
+                <CartScreen />
+              ) : (
+                <Navigate to="/login-page" />
+              )
             }
           />
 
           <Route
             path="/cart-screen/:id"
             element={
-              pinCodeRecoil ? (
+              pinCodeRecoil && userData ? (
                 <SingleItemCartScreen />
               ) : (
-                <Navigate to="/starter-page" />
+                <Navigate to="/login-page" />
               )
             }
           />
@@ -166,6 +174,17 @@ function App() {
           />
 
           <Route
+            path="/create-new-password"
+            element={
+              pinCodeRecoil ? (
+                <CreateNewPasswordScreen />
+              ) : (
+                <Navigate to="/starter-page" />
+              )
+            }
+          />
+
+          <Route
             path="/manage-addresses"
             element={
               pinCodeRecoil ? (
@@ -197,7 +216,7 @@ function App() {
             path="/submit-prescription"
             element={
               pinCodeRecoil ? (
-                <SubmitPrescription />
+                <SubmitPrescriptionScreen />
               ) : (
                 <Navigate to="/starter-page" />
               )
@@ -241,6 +260,18 @@ function App() {
               )
             }
           />
+
+          <Route
+            path="/add-user-details"
+            element={
+              pinCodeRecoil ? (
+                <AddUserDetailsScreen />
+              ) : (
+                <Navigate to="/starter-page" />
+              )
+            }
+          />
+
           <Route
             path="/login-page"
             element={

@@ -19,3 +19,7 @@ export { default as ProductDescriptionScreen } from "./ProductDescriptionScreen/
 export { default as HomeScreen } from "./HomeScreen/HomeScreen";
 export { default as ExploreNewScreen } from "./ExploreNewScreen/ExploreNewScreen";
 export { default as StoreScreen } from "./StoreScreen/StoreScreen";
+export { default as SubmitPrescriptionScreen } from "./SubmitPrescriptionScreen/SubmitPrescriptionScreen";
+export { default as UploadPrescriptionScreen } from "./UploadPrescriptionScreen/UploadPrescriptionScreen";
+export { default as CreateNewPasswordScreen } from "./CreateNewPasswordScreen/CreateNewPasswordScreen";
+export { default as AddUserDetailsScreen } from "./AddUserDetailsScreen/AddUserDetailsScreen";

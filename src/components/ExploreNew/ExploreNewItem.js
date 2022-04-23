@@ -1,10 +1,10 @@
-import { CartAtom, SelectedProductAtom } from "../../Recoil/atom";
+import { CartAtom, SelectedProductAtom, userDataAtom } from "../../Recoil/atom";
 import React, { useEffect, useState } from "react";
 
 import commonService from "../../Services/commonService";
 import config from "../../Services/config";
 import { useNavigate } from "react-router";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 function ExploreNewItem({ item }) {
   const navigate = useNavigate();
@@ -13,6 +13,7 @@ function ExploreNewItem({ item }) {
   const [selectedProduct, setSelectedProduct] =
     useRecoilState(SelectedProductAtom);
   const [noOfItemsAlreadyAddedInCart, setNoOfItemsAlreadyInCart] = useState(0);
+  const userData = useRecoilValue(userDataAtom);
 
   useEffect(() => {
     setNoOfItemsAlreadyInCart(
@@ -50,7 +51,11 @@ function ExploreNewItem({ item }) {
             <div
               className="absolute top-2 right-2 bg-amber-400 py-1 px-2 rounded-md text-white text-xs font-semibold"
               onClick={() => {
-                navigate(`/cart-screen/${item.id}`);
+                if (userData) {
+                  navigate(`/cart-screen/${item.id}`);
+                } else {
+                  navigate("/login-page");
+                }
               }}
             >
               Buy Now

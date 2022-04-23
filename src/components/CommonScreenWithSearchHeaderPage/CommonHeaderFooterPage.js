@@ -114,7 +114,16 @@ function CommonHeaderFooterPage({ children, showLoading = false, bgColor }) {
               </span>
             </div>
           </div>
-          <div className="relative" onClick={() => navigate("/cart-page")}>
+          <div
+            className="relative"
+            onClick={() => {
+              if (userData) {
+                navigate("/cart-page");
+              } else {
+                navigate("/login-page");
+              }
+            }}
+          >
             <img className="h-7" src="/assets/icons/shopping-cart.svg" alt="" />
             <span
               style={{

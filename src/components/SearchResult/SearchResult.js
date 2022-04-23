@@ -33,7 +33,7 @@ function SearchResult({ item }) {
   };
   return (
     <div
-      className="flex flex-col bg-white mr-3 relative"
+      className="flex flex-col  bg-white mr-3 relative"
       style={{
         flex: "0 0 145px",
       }}
@@ -46,17 +46,20 @@ function SearchResult({ item }) {
             <br />
             OFF
           </span>
-          <div
-            className="absolute top-2 right-2 bg-amber-400	 py-1 px-2 rounded-md"
-            onClick={() => {
-              navigate(`/cart-page/${item.id}`);
-            }}
-          >
-            <p className="text-white text-xs font-semibold">Buy Now</p>
-          </div>
+
+          {noOfItemsAlreadyAddedInCart !== 0 && (
+            <div
+              className="absolute top-2 right-2 bg-amber-400 py-1 px-2 rounded-md text-white text-xs font-semibold"
+              onClick={() => {
+                navigate(`/cart-screen/${item.id}`);
+              }}
+            >
+              Buy Now
+            </div>
+          )}
         </div>
         <div
-          className="h-28 flex items-center justify-center"
+          className="h-10 flex items-center justify-center"
           onClick={() => {
             setSelectedProduct(item);
             navigate("/product-description");
