@@ -1,28 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-import { addressesAtom, CartAtom } from "../../../Recoil/atom";
+import { addressesAtom, CartAtom, userDataAtom } from "../../../Recoil/atom";
 import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenPage";
 import commonService from "../../../Services/commonService";
 import config from "../../../Services/config";
 import { useRecoilState, useRecoilValue } from "recoil";
 import PrescriptionPopUp from "../../../components/PrescriptionPopUp";
+import PopUpFromBottom from "../../../components/PopUpFromBottom/PopUpFromBottom";
+import { getMyDeliveryAddressApi } from "../../../Services/apis";
 
 function CartScreen() {
   let navigate = useNavigate();
 
-  const myDeliveryAddress = useRecoilValue(addressesAtom);
+  const [myDeliveryAddress, setMyDeliveyAddress] = useState();
+
   const [cart, setCart] = useRecoilState(CartAtom);
-  const [showPopUp, setShowPopUp] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState(false);
+  const [showDeletePopUp, setShowDeletePopUp] = useState(false);
   const [prescriptoinImage, setPrescriptoinImage] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedItemToDelete, setSelectedItemToDelete] = useState({});
   const [prescriptionRequired, setPrescriptionRequired] = useState(null);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const userData = useRecoilValue(userDataAtom);
+
+  const getMyDeliveryAddressApiFunc = getMyDeliveryAddressApi();
 
   useEffect(() => {
     setPrescriptionRequired(commonService.isPrescriptionRequired(cart));
   }, [cart]);
+
+  useEffect(() => {
+    const data = {
+      uid: userData.id,
+    };
+    getMyDeliveryAddressApiFunc(data, (res) => {
+      setMyDeliveyAddress(res.AddressList[0]);
+    });
+  }, []);
 
   const increaseQuantity = (item) => {
     commonService.increaseQuantity(item, cart, setCart);
@@ -44,7 +59,7 @@ function CartScreen() {
   };
 
   const handleSubmit = () => {
-    setPaymentMethod(true);
+    setShowPopUp(true);
   };
 
   const handleImage = (img) => {
@@ -56,7 +71,7 @@ function CartScreen() {
       if (prescriptoinImage) {
         handleSubmit();
       } else {
-        setShowPopUp(true);
+        setShowDeletePopUp(true);
       }
     } else {
       handleSubmit();
@@ -68,9 +83,6 @@ function CartScreen() {
       headingTitle={"Cart"}
       showDeleteModal={showDeleteModal}
       onDeleteModalClick={onDeleteModalClick}
-      showPaymentMethod={paymentMethod}
-      setPaymentMethod={setPaymentMethod}
-      // contentBg="bg-gray-100"
     >
       <div className="flex flex-col h-full ">
         {cart.length !== 0 ? (
@@ -233,24 +245,37 @@ function CartScreen() {
               )}
             </div>
             <div>
-              <div className=" bg-white w-full flex flex-col justify-between">
+              <div className=" bg-white w-full flex flex-col justify-between ">
                 <div className="flex justify-between bg-slate-100 items-start ion-padding background-tertiary">
-                  <div className="grow flex items-start">
-                    <img src="/assets/icons/map.png" alt="" className="w-10" />
-                    <div className="ml-2">
-                      <p className="mb-1 font-medium">
-                        {myDeliveryAddress &&
-                          myDeliveryAddress.AddressList &&
-                          myDeliveryAddress.AddressList.type}
+                  <div className="grow flex  items-center">
+                    <img
+                      src=
+                      // {myDeliveryAddress && myDeliveryAddress.address}
+                      "/assets/icons/map.png"
+                      alt=""
+                      className="w-10"
+                    />
+                    <div className="ml-4">
+                      <p className=" font-medium">
+                        {myDeliveryAddress && myDeliveryAddress.type}
                       </p>
-                      <p className="text-xs text-color-gray font-medium">
-                        {myDeliveryAddress &&
-                          myDeliveryAddress.AddressList &&
-                          myDeliveryAddress.AddressList.address}
+                      <div className="flex">
+                        <p className="text-xs text-gray-600  font-semibold">
+                          {myDeliveryAddress && myDeliveryAddress.hno},
+                        </p>
+                        <p className="text-xs text-gray-600 font-semibold">
+                          {myDeliveryAddress && myDeliveryAddress.landmark}
+                        </p>
+                      </div>
+                      <p className="text-xs text-gray-600 font-semibold">
+                        {myDeliveryAddress && myDeliveryAddress.address}
                       </p>
                     </div>
                   </div>
-                  <div className="ml-5">
+                  <div
+                    className="ml-5"
+                    onClick={() => navigate("/manage-addresses")}
+                  >
                     <span className="text-xs font-medium">Change</span>
                   </div>
                 </div>
@@ -265,8 +290,8 @@ function CartScreen() {
               </div>
             </div>
             <PrescriptionPopUp
-              showPopUp={showPopUp}
-              setShowPopUp={setShowPopUp}
+              showPopUp={showDeletePopUp}
+              setShowPopUp={setShowDeletePopUp}
               handleImage={handleImage}
             />
           </>
@@ -276,6 +301,53 @@ function CartScreen() {
           </div>
         )}
       </div>
+      <PopUpFromBottom showPopUp={showPopUp}>
+        <div
+          className="common-screen-page-loading  w-screen absolute top-0 left-0 z-50 flex justify-center items-center"
+          //   onClick={() => onDeleteModalClick(false)}
+        >
+          <div
+            className="grow common-screen-page-loading h-screen "
+            onClick={() => setShowPopUp(false)}
+          ></div>
+          <div className="w-full  bg-white rounded-md  py-3 px-3 absolute bottom-0">
+            <div>
+              <p className="text-base font-semibold">Select Payment Method</p>
+              <p className="text-sm font-semibold text-emerald-600">
+                Total Amount Rs{commonService.getTotalPrice(cart)}
+              </p>
+            </div>
+            <div className="ion-padding">
+              <div className="flex">
+                <img
+                  className="h-10"
+                  alt=""
+                  src="/assets/img/cash-on-delivery.png"
+                />
+                <div className="flex flex-col pl-4">
+                  <span className="text-xs font-semibold">
+                    Cash On Delivery
+                  </span>
+                  <p className="text-xs text-color-tertiary pt-1">
+                    Pay via cash at the time of delivery. it's free and only
+                    takes a few minutes{" "}
+                  </p>
+                </div>
+              </div>
+              <div className="flex mt-6">
+                <img className="h-10" alt="" src="/assets/img/payu.png" />
+                <div className="flex flex-col pl-4">
+                  <span className="text-xs font-semibold">PayU</span>
+                  <p className="text-xs text-color-tertiary pt-1">
+                    Credit/Debit card with easier way to pay - online in your
+                    mobile phone
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </PopUpFromBottom>
     </CommonScreenPage>
   );
 }

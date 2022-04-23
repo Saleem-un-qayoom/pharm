@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
-import { CartAtom } from "../../../Recoil/atom";
+import { CartAtom, userDataAtom } from "../../../Recoil/atom";
 import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenPage";
 import commonService from "../../../Services/commonService";
 import config from "../../../Services/config";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import PrescriptionPopUp from "../../../components/PrescriptionPopUp";
+import { getMyDeliveryAddressApi } from "../../../Services/apis";
 
 function SingleItemCartScreen() {
   let navigate = useNavigate();
 
   const { id } = useParams();
+  const [myDeliveryAddress, setMyDeliveyAddress] = useState();
 
   const [paymentMethod, setPaymentMethod] = useState(false);
+  const userData = useRecoilValue(userDataAtom);
 
   const [cart, setCart] = useRecoilState(CartAtom);
   const [prescriptoinImage, setPrescriptoinImage] = useState(null);
@@ -21,6 +24,8 @@ function SingleItemCartScreen() {
   const [showPopUp, setShowPopUp] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedItemToDelete, setSelectedItemToDelete] = useState({});
+
+  const getMyDeliveryAddressApiFunc = getMyDeliveryAddressApi();
 
   const increaseQuantity = (item) => {
     commonService.increaseQuantity(item, cart, setCart);
@@ -52,6 +57,16 @@ function SingleItemCartScreen() {
   useEffect(() => {
     setPrescriptionRequired(commonService.isPrescriptionRequired(cart));
   }, [cart]);
+
+  useEffect(() => {
+    const data = {
+      uid: userData.id,
+    };
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data);
+    getMyDeliveryAddressApiFunc(data, (res) => {
+      setMyDeliveyAddress(res.AddressList[0]);
+    });
+  }, [userData]);
 
   const handleSubmit = () => {
     setPaymentMethod(true);
@@ -88,17 +103,18 @@ function SingleItemCartScreen() {
               <div className="flex justify-between w-full py-2 h-20 ion-padding-x">
                 <div className="flex items-center">
                   <img
+                    alt=""
                     className="h-14 w-14"
                     src={`${config.baseUrl}/${returnItemCart.product_image[0]}`}
                   />
-                  {cart.prescription_required === "1" && (
+                  {returnItemCart.prescription_required === "1" && (
                     <img
+                      alt=""
                       src="/assets/icons/rx.png"
                       className="w-4 absolute  -right-3"
                       style={{
                         top: -5,
                       }}
-                      alt=""
                     />
                   )}
 
@@ -133,6 +149,7 @@ function SingleItemCartScreen() {
                       setShowDeleteModal(true);
                     }}
                     src="/assets/icons/delete.png"
+                    alt=""
                     className="w-5"
                   />
                   <div className="w-full flex justify-between items-center">
@@ -156,12 +173,13 @@ function SingleItemCartScreen() {
               <hr />
               <div className="background-tertiary mt-1 py-4 ion-padding-x flex justify-between">
                 <div className="flex items-center">
-                  <img src="/assets/icons/coupon.png" className="w-6" />
+                  <img src="/assets/icons/coupon.png" alt="" className="w-6" />
                   <span className="text-sm font-bold pl-4">Apply Coupon</span>
                 </div>
                 <div>
                   <img
                     src="/assets/icons/next.png"
+                    alt=""
                     className="w-6"
                     onClick={() => navigate("/apply-coupon")}
                   />
@@ -197,7 +215,7 @@ function SingleItemCartScreen() {
                 {prescriptoinImage && (
                   <div className="flex justify-between items-center text-xs font-medium mt-3 text-black ion-padding-x relative ">
                     Prescription Image
-                    <img src={prescriptoinImage} className="w-20 h-20" />
+                    <img src={prescriptoinImage} alt="" className="w-20 h-20" />
                     <img
                       src="/assets/icons/rx.png"
                       className="w-4 absolute   right-2"
@@ -229,7 +247,7 @@ function SingleItemCartScreen() {
               <div className=" bg-white w-full flex flex-col justify-between">
                 <div className="flex justify-between bg-slate-100 items-start ion-padding background-tertiary">
                   <div className="grow flex items-start">
-                    <img src="/assets/icons/map.png" className="w-10" />
+                    <img src="/assets/icons/map.png" alt="" className="w-10" />
                     <div className="ml-2">
                       <p className="mb-1 font-medium">Other</p>
                       <p className="text-xs text-color-gray font-medium">
@@ -260,7 +278,7 @@ function SingleItemCartScreen() {
           </>
         ) : (
           <div className="flex items-center justify-center flex-col h-full">
-            <img src="/assets/img/empty-cart.png" />
+            <img src="/assets/img/empty-cart.png" alt="" />
           </div>
         )}
       </div>

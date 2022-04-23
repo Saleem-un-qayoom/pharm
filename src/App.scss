@@ -7,6 +7,7 @@
   --text-color-secondary: #3fc9ce;
   --text-color-tertiary: #808080;
   --text-gray: #828282;
+  --border-grey: #808080;
 }
 
 body {
@@ -23,6 +24,10 @@ body {
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.border-grey {
+  border-color: var(--border-grey);
 }
 
 .background-primary {
@@ -307,4 +312,14 @@ input::placeholder {
   opacity: 0.5;
   pointer-events: none;
   cursor: default;
+}
+
+///
+button:disabled,
+button[disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+  // border: 1px solid #999999;
+  // background-color: #cccccc;
+  // color: #666666;
 }

@@ -35,11 +35,6 @@ export const prescriptionImageAtom = atom({
   default: null,
 });
 
-// export const orderAtom = atom({
-//   key: "orderAtom",
-//   default: "",
-// });
-
 export const bannersAtom = atom({
   key: "bannersAtom",
   default: [],
@@ -101,12 +96,6 @@ export const testimonialAtom = atom({
 });
 
 // Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?
-// Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?
-// Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?
-// Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?
-// Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?
-// Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?
-// Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iusto?
 
 export const PrivacyPolicyData = atom({
   key: "PrivacyPolicyData",
@@ -135,5 +124,10 @@ export const addressesAtom = atom({
 
 export const orderDetailsAtom = atom({
   key: "orderDetailsAtom",
+  default: [],
+});
+
+export const storeMobileNumberAtom = atom({
+  key: "storeMobileNumberAtom",
   default: [],
 });

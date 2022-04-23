@@ -6,6 +6,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenPage";
 import { getMyOrderDetailsApi } from "../../../Services/apis";
 import { useNavigate } from "react-router";
+import PopUpFromBottom from "../../../components/PopUpFromBottom/PopUpFromBottom";
 
 function MyOrderDetailsScreen() {
   const [loading, setLoading] = useState(true);
@@ -14,11 +15,14 @@ function MyOrderDetailsScreen() {
 
   const getMyOrderDetailsApiFunc = getMyOrderDetailsApi();
   const userData = useRecoilValue(userDataAtom);
-  // const [storerecoil, setStoreRecoil] = useState(storeDataAtom);
   const [myOrderDetails, setMyOrderDetails] = useRecoilState(orderDetailsAtom);
 
-  const [trackOrder, setTrackOrder] = useState(false);
-  const [trackItem, setTrackItem] = useState(false);
+  // const [trackOrder, setTrackOrder] = useState(false);
+  // const [trackItem, setTrackItem] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
+
+  const [showTrackPopUp, setShowTrackPopUp] = useState(false);
+  const [showItemPopUp, setShowItemPopUp] = useState(false);
 
   useEffect(() => {
     const data = {
@@ -31,24 +35,8 @@ function MyOrderDetailsScreen() {
   const handleResponse = (response) => {
     setLoading(false);
     console.log("first", response);
-    // if (response.ResponseCode === "200") {/
     setMyOrderDetails(response.OrderHistory);
-    // }
   };
-
-  // useEffect(() => {
-  //   const data = {
-  //     uid: userData.id,
-  //     order_id: id,
-  //   };
-  //   getMyOrderDetailsApiFunc(data, handleResponse);
-  // }, []);
-
-  // const handleResponse = (response) => {
-  //   if (response === "200") {
-  //     setMyOrderDetails(response.OrderHistory.store);
-  //   }
-  // };
 
   let navigate = useNavigate();
   return (
@@ -57,15 +45,8 @@ function MyOrderDetailsScreen() {
         headingTitle={"Order Details"}
         contentBg={"bg-gray-100"}
         showLoading={loading}
-        showTrackOrder={trackOrder}
-        setTrackOrder={setTrackOrder}
-        setTrackItem={setTrackItem}
-        showTrackItem={trackItem}
       >
-        <div
-          className="h-full flex flex-col justify-between"
-          // onClick={() => setTrackOrder(false)}
-        >
+        <div className="h-full flex flex-col justify-between">
           <div>
             <div className="bg-white mx-2.5 my-2.5 px-2.5 py-2.5 rounded-lg flex flex-col ">
               <div className="flex justify-between text-xs font-medium">
@@ -146,18 +127,76 @@ function MyOrderDetailsScreen() {
           <div className=" flex justify-between ion-padding	">
             <button
               className="text-xs font-medium px-12 py-1 rounded background-primary"
-              onClick={() => setTrackOrder(true)}
+              onClick={() => setShowTrackPopUp(true)}
             >
               Track Order
             </button>
             <button
               className=" text-xs font-medium px-12 py-1 rounded background-primary"
-              onClick={() => setTrackItem(true)}
+              onClick={() => setShowItemPopUp(true)}
             >
               Item
             </button>
           </div>
         </div>
+        <PopUpFromBottom showPopUp={showTrackPopUp}>
+          <div className="common-screen-page-loading  w-screen absolute top-0 left-0 z-50 flex justify-center items-center">
+            <div
+              className="grow common-screen-page-loading h-screen "
+              onClick={() => setShowTrackPopUp(false)}
+            ></div>
+            <div className="w-full  bg-white rounded-md  py-3 px-3 absolute bottom-0">
+              <div>
+                <span className="text-sm font-semibold">Order Tracking</span>
+              </div>
+              <div className="ion-padding flex flex-col">
+                <div className="bg-slate-400  text-sm font-medium pt-2 pb-6 pl-2">
+                  <p>Waiting For Store Decision</p>
+                </div>
+                <div className="bg-slate-400 flex flex-col text-xs font-medium pt-2 pb-6 pl-2 mt-2">
+                  <p>Cancelled By Store</p>
+                  <span className="text-red-600 text-xs">
+                    {myOrderDetails &&
+                      myOrderDetails.order &&
+                      myOrderDetails.order.comment_reject}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </PopUpFromBottom>
+        <PopUpFromBottom showPopUp={showItemPopUp}>
+          <div className="common-screen-page-loading  w-screen absolute top-0 left-0 z-50 flex ">
+            <div
+              className="grow common-screen-page-loading h-screen "
+              onClick={() => setShowItemPopUp(false)}
+            ></div>
+            <div className="w-full  bg-white rounded-md ion-padding-y py-3 px-3 absolute bottom-0 flex items-center ">
+              <div className="w-1/5	">
+                <img
+                  alt=""
+                  className="w-16"
+                  src="https://apis.pharmbox.in/assets/category/catimg/1646293838.png"
+                />
+              </div>
+              <div className="w-3/5	">
+                <p className="text-sm text-color-tertiary ">
+                  ZORAY SUNSCREEN LOTION
+                </p>
+                <p className="text-xs text-color-tertiary pt-1">
+                  LOTION OF 60 Ml
+                </p>
+                <p className="text-xs pt-1">Qty 1</p>
+              </div>
+              <div className="w-1/5 flex flex-col">
+                <span className="text-sm">Rs205.2</span>
+                <span className="font10  text-color-tertiary flex ">
+                  Rs205.2
+                </span>
+              </div>
+            </div>
+          </div>
+        </PopUpFromBottom>
       </CommonScreenPage>
     </>
   );
