@@ -84,19 +84,6 @@ function Login() {
     }
   };
 
-  // const handleStore = () => {
-  //   let error = 0;
-  //   if (number.length < 10) {
-  //     setNumberError(true);
-  //     error++;
-  //   }
-
-  //   if (error == 0) {
-  //     // setStoreMobileNumber(number);
-  //     // navigate("/otp-page");
-  //   }
-  // };
-
   const handleResponse = (res) => {
     if (res.Result === "true") {
       if (rememberMe) {

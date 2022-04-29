@@ -8,14 +8,17 @@ function TermsandConditions() {
 
   return (
     <>
-      <CommonScreenPage
-        headingTitle={"Terms and Conditions"}
-      ></CommonScreenPage>
+      <CommonScreenPage headingTitle={"Terms and Conditions"}>
+        <div
+          className="ion-padding font11 font-w-700"
+          dangerouslySetInnerHTML={{ __html: termsAndConditionRecoil }}
+        />
+      </CommonScreenPage>
 
-      <div
+      {/* <div
         className="ion-padding font11 font-w-700"
         dangerouslySetInnerHTML={{ __html: termsAndConditionRecoil }}
-      />
+      /> */}
     </>
   );
 }

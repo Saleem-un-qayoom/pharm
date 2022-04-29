@@ -48,7 +48,7 @@ function StoreScreen() {
           <span>Store</span>
         </div>
         <div>
-          <span onClick={() => navigate("/pin-code")}>Deliver to</span>
+          <span onClick={() => navigate("/manage-addresses")}>Deliver to</span>
         </div>
       </div>
       <div className="ion-padding">

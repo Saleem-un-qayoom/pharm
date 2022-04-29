@@ -84,7 +84,7 @@ function SubmitPrescriptionScreen() {
         </div>
         <div className="bg-slate-100 " style={{ height: "92%" }}>
           <div className="flex items-center justify-center ion-padding 	">
-            <div className="rounded-lg w-full ">
+            <div className="rounded-lg w-full h-20 ">
               <img src={prescriptionImage} alt="" />
             </div>
           </div>
