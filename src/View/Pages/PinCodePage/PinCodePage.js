@@ -1,100 +1,130 @@
-import { pinCodeData, showLoadingModalAtom } from "../../../Recoil/atom";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { getPinCodeApi } from "../../../Services/apis";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
-import { useRecoilState } from "recoil";
+import CommonScreenPage from '../../../components/CommonScreenPage/CommonScreenPage';
+import { GoogleApiWrapper } from 'google-maps-react';
+import config from '../../../Services/config';
+import { getPinCodeApi } from '../../../Services/apis';
+import { pinCodeData } from '../../../Recoil/atom';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
+import { useSetRecoilState } from 'recoil';
 
-function PinCodePage() {
-  let navigate = useNavigate();
-  const [showPinCodeError, setShowPinCodeError] = useState(false);
-  const [pinCodeRecoil, setPinCodeRecoil] = useRecoilState(pinCodeData);
-  const [pinCode, setPinCode] = useState("");
+function PinCodePage({ google }) {
+	let navigate = useNavigate();
 
-  const [showLoadingModal, setShowLoadingModal] =
-    useRecoilState(showLoadingModalAtom);
+	const getPinCodeApiFunc = getPinCodeApi();
 
-  const getPinCodeApiFunc = getPinCodeApi();
+	const [pinCode, setPinCode] = useState('');
+	const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const pinCode = localStorage.getItem("pharm-box-pin-code");
-    if (pinCode) {
-      navigate("/");
-    } else {
-      setShowLoadingModal(true);
-      navigator.geolocation.getCurrentPosition((currentLocation) => {
-        console.log("currentLocation", currentLocation);
-        // var geocoder = new google.maps.Geocoder();
+	const [showPinCodeError, setShowPinCodeError] = useState(false);
+	const setPinCodeRecoil = useSetRecoilState(pinCodeData);
 
-        setShowLoadingModal(false);
-      });
-      // eslint-disable-next-line
-    }
-  }, []);
+	useEffect(() => {
+		setLoading(true);
+		const pinCode = localStorage.getItem('pharm-box-pin-code');
+		if (pinCode) {
+			navigate('/');
+		} else {
+			navigator.geolocation.getCurrentPosition(currentLocation => {
+				var latlng = new google.maps.LatLng(
+					currentLocation.coords.latitude,
+					currentLocation.coords.longitude
+				);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+				// This is making the Geocode request
+				var geocoder = new google.maps.Geocoder();
+				geocoder.geocode({ latLng: latlng }, (results, status) => {
+					if (status !== google.maps.GeocoderStatus.OK) {
+						alert(status);
+					}
+					// This is checking to see if the Geoeode Status is OK before proceeding
+					if (status == google.maps.GeocoderStatus.OK) {
+						// EXTRACTING PIN CODE
+						for (let result of results[0]
+							.address_components) {
+							if (result.types[0] === 'postal_code') {
+								checkLocation(result.short_name);
+								break;
+							}
+						}
+						setLoading(false);
+					}
+				});
+			});
+			// eslint-disable-next-line
+		}
+	}, []);
 
-    if (!pinCode) {
-      setShowPinCodeError(true);
-    } else {
-      setShowLoadingModal(true);
-      getPinCodeApiFunc(handleResponse);
-    }
-  };
+	const checkLocation = pinCodeData => {
+		if (pinCodeData) {
+			getPinCodeApiFunc(handleResponse);
+		}
+	};
 
-  const handleResponse = (res) => {
-    setShowLoadingModal(false);
-    if (res && res.ResponseCode === "200") {
-      for (let i = 0; i < res.PincodeData.length; i++) {
-        if (res.PincodeData[i].pincode === pinCode) {
-          setPinCodeRecoil(res.PincodeData[i]);
-          navigate("/store-page");
-          return;
-        }
-      }
-    }
-    // ShowToast('We dont deliver at your address yet?', setToast);
-    toast("We dont deliver at your address yet?");
-  };
+	const handleSubmit = e => {
+		if (e) e.preventDefault();
 
-  return (
-    <div className="bg-white">
-      <div className="header ion-padding  rounded-b-xl background-primary font-semibold tracking-wider">
-        <span>Address</span>
-      </div>
-      <div className="ion-padding-x mt-1.5">
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="font12 font-w-600" htmlFor="">
-              Select pincode to see product availability
-            </label>
-            <div className="flex">
-              <input
-                type="text"
-                className="rounded-lg py-0.5 px-2.5 grow border border-slate-400"
-                value={pinCode}
-                onChange={({ target }) => {
-                  setPinCode(target.value);
-                  setShowPinCodeError(false);
-                }}
-                placeholder="Enter Pincode"
-              />
-              <button className="px-7 py-2 ml-2.5 font-semibold rounded-lg background-primary text-black">
-                Check
-              </button>
-            </div>
-            {showPinCodeError && (
-              <span className="error-message font10 tracking-wider	">
-                PinCode is Required
-              </span>
-            )}
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+		if (!pinCode) {
+			setShowPinCodeError(true);
+		} else {
+			getPinCodeApiFunc(handleResponse);
+		}
+	};
+
+	const handleResponse = res => {
+		setLoading(false);
+		if (res && res.ResponseCode === '200') {
+			for (let i = 0; i < res.PincodeData.length; i++) {
+				if (res.PincodeData[i].pincode === pinCode) {
+					setPinCodeRecoil(res.PincodeData[i]);
+					navigate('/store-page');
+					return;
+				}
+			}
+		}
+		toast('We dont deliver at your address yet?');
+	};
+
+	return (
+		<CommonScreenPage
+			hideBackButton={true}
+			headingTitle="Address"
+			showLoading={loading}
+		>
+			<div className="ion-padding-x mt-1.5">
+				<form onSubmit={handleSubmit}>
+					<div className="form-group">
+						<label className="font12 font-w-600" htmlFor="">
+							Select pincode to see product availability
+						</label>
+						<div className="flex">
+							<input
+								type="text"
+								className="rounded-lg py-0.5 px-2.5 grow border border-slate-400"
+								value={pinCode}
+								onChange={({ target }) => {
+									setPinCode(target.value);
+									setShowPinCodeError(false);
+								}}
+								placeholder="Enter Pincode"
+							/>
+							<button className="px-7 py-2 ml-2.5 font-semibold rounded-lg background-primary text-black">
+								Check
+							</button>
+						</div>
+						{showPinCodeError && (
+							<span className="error-message font10 tracking-wider	">
+								PinCode is Required
+							</span>
+						)}
+					</div>
+				</form>
+			</div>
+		</CommonScreenPage>
+	);
 }
 
-export default PinCodePage;
+export default GoogleApiWrapper({
+	apiKey: config.MAP_API_KEY,
+})(PinCodePage);

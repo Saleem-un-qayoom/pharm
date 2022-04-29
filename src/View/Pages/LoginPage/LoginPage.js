@@ -1,35 +1,40 @@
 import "./LoginPage.scss";
 
 import React, { useState } from "react";
-import { getOtpApi, loginApi } from "../../../Services/apis";
+import {
+  forgetPasswordApi,
+  loginApi,
+  mobileCheckApi,
+} from "../../../Services/apis";
+import { storeMobileNumberAtom, userDataAtom } from "../../../Recoil/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
+import PopUpFromBottom from "../../../components/PopUpFromBottom/PopUpFromBottom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { storeMobileNumberAtom, userDataAtom } from "../../../Recoil/atom";
-import PopUpFromBottom from "../../../components/PopUpFromBottom/PopUpFromBottom";
 
 function Login() {
-  const [userData, setUserData] = useRecoilState(userDataAtom);
-  const loginApiFunc = loginApi();
-
-  const getOtpApiFunc = getOtpApi();
-
   const navigate = useNavigate();
 
+  const loginApiFunc = loginApi();
+  const mobileCheckApiFunc = mobileCheckApi();
+
+  const [userData, setUserData] = useRecoilState(userDataAtom);
   const [number, setNumber] = useState("");
   const [numberError, setNumberError] = useState(false);
-
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-
   const [showSignUpModule, setShowSignUpModule] = useState(true);
-
   const [rememberMe, setRememberMe] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [forgetNumber, setForgetNumber] = useState("");
 
   const setStoreMobileNumber = useSetRecoilState(storeMobileNumberAtom);
+
+  const [showLoading, setShowLoading] = useState(false);
+
+  const forgetPasswordApiFunc = forgetPasswordApi();
 
   useEffect(() => {
     if (userData) {
@@ -54,23 +59,22 @@ function Login() {
     }
 
     if (!error) {
+      setShowLoading(true);
       if (showSignUpModule) {
         const data = {
           mobile: number,
         };
-        getOtpApiFunc(data, (res) => {
-          console.log("res", res);
+        mobileCheckApiFunc(data, (res) => {
+          setShowLoading(false);
+
           if (res && res.Result === "true") {
             setStoreMobileNumber(number);
-            console.log(
-              ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",
-              number
-            );
             navigate("/sign-up/otp-page");
           } else if (
             res &&
             res.ResponseMsg === "Already Exist Mobile Number!"
           ) {
+            toast(res.ResponseMsg);
             setShowSignUpModule(false);
           }
         });
@@ -83,6 +87,19 @@ function Login() {
       }
     }
   };
+
+  // const handleStore = () => {
+  //   let error = 0;
+  //   if (number.length < 10) {
+  //     setNumberError(true);
+  //     error++;
+  //   }
+
+  //   if (error == 0) {
+  //     // setStoreMobileNumber(number);
+  //     // navigate("/otp-page");
+  //   }
+  // };
 
   const handleResponse = (res) => {
     if (res.Result === "true") {
@@ -103,6 +120,31 @@ function Login() {
     setPassword("");
     setPasswordError("");
     setShowSignUpModule(value);
+  };
+
+  const handleForgetPassword = (e) => {
+    e.preventDefault();
+    setShowLoading(true);
+
+    if (forgetNumber.length == 10) {
+      const data = {
+        mobile: forgetNumber,
+      };
+      mobileCheckApiFunc(data, (res) => {
+        setShowLoading(false);
+
+        if (res && res.Result === "true") {
+          toast(res.ResponseMsg);
+
+          // setStoreMobileNumber(number);
+          // navigate('/sign-up/otp-page');
+        } else if (res && res.ResponseMsg === "Already Exist Mobile Number!") {
+          // toast(res.ResponseMsg);
+          navigate("/forget-password/otp-page");
+          setShowSignUpModule(false);
+        }
+      });
+    }
   };
 
   return (
@@ -204,8 +246,20 @@ function Login() {
           </div>
         </form>
       </div>
+      {showLoading && (
+        <div className="common-screen-page-loading h-screen w-screen absolute top-0 left-0 z-50 flex justify-center items-center">
+          <div className="w-56 h-14 bg-white rounded-md flex items-center px-1">
+            <img
+              className="w-11 inline-block"
+              src="/assets/icons/spinner-animated.svg"
+              alt=""
+            />
+            Loading...
+          </div>
+        </div>
+      )}
       <PopUpFromBottom showPopUp={showPopUp}>
-        <div className="common-screen-page-loading  w-screen absolute top-0 left-0 z-50 flex justify-center items-center">
+        <div className="common-screen-page-loading  w-screen absolute top-0 left-0 z-40 flex justify-center items-center">
           <div
             className="grow common-screen-page-loading h-screen "
             onClick={() => setShowPopUp(false)}
@@ -215,18 +269,25 @@ function Login() {
               <p className="text-lg font-semibold">Forgot Password</p>
             </div>
             <div className="flex flex-col justify-center items-center">
-              <form className="w-full">
+              <form
+                className="w-full"
+                // onSubmit={handleForgetPassword}
+              >
                 <input
                   type="number"
+                  value={forgetNumber}
+                  onChange={({ target }) => setForgetNumber(target.value)}
                   placeholder="Enter Phone Number"
                   className="w-full py-3 px-3 rounded-3xl"
                 />
               </form>
-              <div
-                className="background-primary mt-32 w-4/5 flex items-center justify-center py-3 rounded-lg"
-                onClick={() => navigate("/forget-password/otp-page")}
-              >
-                <button className="text-xs font-semibold">Submit</button>
+              <div className=" mt-32 w-4/5 flex items-center justify-center  rounded-lg">
+                <button
+                  className="text-xs font-semibold background-primary w-full py-3"
+                  onClick={handleForgetPassword}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </div>

@@ -1,127 +1,137 @@
 const commonService = {
-  getTotalPrice: (cart) => {
-    let temp = [...cart];
+	getTotalPrice: cart => {
+		let temp = [...cart];
 
-    let price = 0.0;
+		let price = 0.0;
 
-    for (let i = 0; i < temp.length; i++) {
-      price =
-        price +
-        (temp[i].product_info[0].product_price -
-          (temp[i].product_info[0].product_price / 100) *
-            temp[i].product_info[0].product_discount) *
-          temp[i].quantity;
-    }
-    return price.toFixed(2);
-  },
-  getCartItemById: (id, cart) => {
-    let temp = {};
-    for (let i = 0; i < cart.length; i++) {
-      if (id == cart[i].id) {
-        temp = cart[i];
-        break;
-      }
-    }
-    return temp;
-  },
+		for (let i = 0; i < temp.length; i++) {
+			price =
+				price +
+				(temp[i].product_info[0].product_price -
+					(temp[i].product_info[0].product_price / 100) *
+						temp[i].product_info[0].product_discount) *
+					temp[i].quantity;
+		}
+		return price.toFixed(2);
+	},
 
-  addItemToCart: (item, cart, setCart) => {
-    let found = false;
-    let temp = [...cart];
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i].id === item.id) {
-        temp[i] = { ...temp[i], quantity: temp[i].quantity + 1 };
-        found = true;
-        break;
-      }
-    }
-    if (!found) {
-      temp.push({ ...item, quantity: 1 });
-    }
-    setCart(temp);
-    localStorage.setItem("pharm-box-cart", JSON.stringify(temp));
-  },
+	getCartItemById: (id, carts) => {
+		let cartItem = {};
 
-  increaseQuantity: (item, cart, setCart) => {
-    let temp = [...cart];
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i].id === item.id) {
-        temp[i] = { ...temp[i], quantity: temp[i].quantity + 1 };
-        break;
-      }
-    }
+		for (let cart of carts)
+			if (cart.id === id) {
+				cartItem = cart;
+				break;
+			}
+		return cartItem;
+	},
 
-    setCart(temp);
-    localStorage.setItem("pharm-box-cart", JSON.stringify(temp));
-  },
+	addItemToCart: (item, carts, setCart) => {
+		let found = false;
+		carts = [...carts];
 
-  decreaseQuantity: (item, cart, setCart) => {
-    let lastItemInQuantity = -1;
-    let temp = [...cart];
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i].id === item.id) {
-        if (temp[i].quantity > 1) {
-          temp[i] = {
-            ...temp[i],
-            quantity: temp[i].quantity - 1,
-          };
-        } else {
-          lastItemInQuantity = i;
-        }
-        break;
-      }
-    }
-    if (lastItemInQuantity !== -1) {
-      temp.splice(lastItemInQuantity, 1);
-    }
-    setCart(temp);
-    localStorage.setItem("pharm-box-cart", JSON.stringify(temp));
-  },
-  removeItemFromCart: (item, cart, setCart) => {
-    let temp = [...cart];
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i].id === item.id) {
-        temp.splice(i, 1);
-        break;
-      }
-    }
-    setCart(temp);
-    localStorage.setItem("pharm-box-cart", JSON.stringify(temp));
-  },
-  isItemAlreadyInCart: (item, cart, setCart) => {
-    let found = 0;
-    let temp = [...cart];
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i].id === item.id) {
-        found = temp[i].quantity;
-        break;
-      }
-    }
-    return found;
-  },
-  returnItemFromCartById: (id, cart) => {
-    let cartItem = null;
-    let temp = [...cart];
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i].id === id) {
-        cartItem = temp[i];
-        break;
-      }
-    }
-    return cartItem;
-  },
+		for (let [index, cart] of carts.entries())
+			if (cart.id === item.id) {
+				carts[index] = {
+					...cart,
+					quantity: carts[index].quantity + 1,
+				};
+				found = true;
+				break;
+			}
 
-  isPrescriptionRequired: (cart) => {
-    let temp = [...cart];
-    let isPrescriptionRequired = false;
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i].prescription_required === "1") {
-        isPrescriptionRequired = true;
-        break;
-      }
-    }
-    return isPrescriptionRequired;
-  },
+		if (!found) {
+			carts.push({ ...item, quantity: 1 });
+		}
+		setCart(carts);
+		localStorage.setItem('pharm-box-cart', JSON.stringify(carts));
+	},
+
+	increaseQuantity: (item, carts, setCart) => {
+		carts = [...carts];
+
+		for (let [index, cart] of carts.entries()) {
+			if (cart.id === item.id) {
+				carts[index] = {
+					...cart,
+					quantity: carts[index].quantity + 1,
+				};
+				break;
+			}
+		}
+
+		setCart(carts);
+		localStorage.setItem('pharm-box-cart', JSON.stringify(carts));
+	},
+
+	decreaseQuantity: (item, carts, setCart) => {
+		let lastItemInQuantity = -1;
+		carts = [...carts];
+
+		for (let [index, cart] of carts.entries())
+			if (cart.id === item.id) {
+				if (cart.quantity > 1) {
+					carts[index] = {
+						...cart,
+						quantity: carts[index].quantity - 1,
+					};
+				} else {
+					lastItemInQuantity = index;
+				}
+				break;
+			}
+
+		if (lastItemInQuantity !== -1) {
+			carts.splice(lastItemInQuantity, 1);
+		}
+		setCart(carts);
+		localStorage.setItem('pharm-box-cart', JSON.stringify(carts));
+	},
+	removeItemFromCart: (item, cart, setCart) => {
+		let temp = [...cart];
+		for (let i = 0; i < temp.length; i++) {
+			if (temp[i].id === item.id) {
+				temp.splice(i, 1);
+				break;
+			}
+		}
+		setCart(temp);
+		localStorage.setItem('pharm-box-cart', JSON.stringify(temp));
+	},
+	isItemAlreadyInCart: (item, cart) => {
+		let found = 0;
+		let temp = [...cart];
+		for (let i = 0; i < temp.length; i++) {
+			if (temp[i].id === item.id) {
+				found = temp[i].quantity;
+				break;
+			}
+		}
+		return found;
+	},
+	returnItemFromCartById: (id, carts) => {
+		let cartItem = null;
+		carts = [...carts];
+		for (let i = 0; i < carts.length; i++) {
+			if (carts[i].id === id) {
+				cartItem = carts[i];
+				break;
+			}
+		}
+		return cartItem;
+	},
+
+	isPrescriptionRequired: cart => {
+		let temp = [...cart];
+		let isPrescriptionRequired = false;
+		for (let i = 0; i < temp.length; i++) {
+			if (temp[i].prescription_required === '1') {
+				isPrescriptionRequired = true;
+				break;
+			}
+		}
+		return isPrescriptionRequired;
+	},
 };
 
 export default commonService;

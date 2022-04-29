@@ -1,19 +1,20 @@
+import { CartAtom, addressesAtom, userDataAtom } from "../../../Recoil/atom";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-import { addressesAtom, CartAtom, userDataAtom } from "../../../Recoil/atom";
 import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenPage";
+import PopUpFromBottom from "../../../components/PopUpFromBottom/PopUpFromBottom";
+import PrescriptionPopUp from "../../../components/PrescriptionPopUp";
 import commonService from "../../../Services/commonService";
 import config from "../../../Services/config";
-import { useRecoilState, useRecoilValue } from "recoil";
-import PrescriptionPopUp from "../../../components/PrescriptionPopUp";
-import PopUpFromBottom from "../../../components/PopUpFromBottom/PopUpFromBottom";
 import { getMyDeliveryAddressApi } from "../../../Services/apis";
+import { useNavigate } from "react-router";
 
 function CartScreen() {
   let navigate = useNavigate();
 
-  const [myDeliveryAddress, setMyDeliveyAddress] = useState();
+  const [myDeliveryAddress, setMyDeliveryAddress] = useState();
+  const [loading, setLoading] = useState(false)
 
   const [cart, setCart] = useRecoilState(CartAtom);
   const [showDeletePopUp, setShowDeletePopUp] = useState(false);
@@ -31,11 +32,13 @@ function CartScreen() {
   }, [cart]);
 
   useEffect(() => {
+    setLoading(true)
     const data = {
       uid: userData.id,
     };
     getMyDeliveryAddressApiFunc(data, (res) => {
-      setMyDeliveyAddress(res.AddressList[0]);
+      setLoading(false)
+      setMyDeliveryAddress(res.AddressList[0]);
     });
   }, []);
 
@@ -83,6 +86,7 @@ function CartScreen() {
       headingTitle={"Cart"}
       showDeleteModal={showDeleteModal}
       onDeleteModalClick={onDeleteModalClick}
+      showLoading={loading}
     >
       <div className="flex flex-col h-full ">
         {cart.length !== 0 ? (
