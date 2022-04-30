@@ -102,6 +102,7 @@ function Login() {
   // };
 
   const handleResponse = (res) => {
+    setShowLoading(false);
     if (res.Result === "true") {
       if (rememberMe) {
         localStorage.setItem("pharm-box-user", JSON.stringify(res.UserLogin));
