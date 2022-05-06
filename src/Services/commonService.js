@@ -1,4 +1,32 @@
 const commonService = {
+	getProperAddress: addressComponents => {
+		let properAddress = '';
+		let plusCode = '';
+		for (let [index, value] of addressComponents.entries()) {
+			if (value.types.indexOf('plus_code') === -1) {
+				properAddress += `${value.long_name}${
+					index !== addressComponents.length - 1 ? ', ' : ''
+				}`;
+			} else {
+				plusCode = value.long_name;
+			}
+		}
+
+		console.log(
+			'🚀 ~ file: commonService.js ~ line 42 ~ properAddress =>',
+			properAddress
+		);
+		console.log(
+			'🚀 ~ file: commonService.js ~ line 43 ~ plusCode =>',
+			plusCode
+		);
+
+		return {
+			properAddress,
+			plusCode,
+		};
+	},
+
 	getTotalPrice: cart => {
 		let temp = [...cart];
 

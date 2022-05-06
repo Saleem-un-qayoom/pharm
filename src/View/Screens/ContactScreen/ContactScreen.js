@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router";
-import { useRecoilValue } from "recoil";
-import { contactAtom } from "../../../Recoil/atom";
+import CommonScreenPage from '../../../components/CommonScreenPage/CommonScreenPage';
+import { contactAtom } from '../../../Recoil/atom';
+import { useNavigate } from 'react-router';
+import { useRecoilValue } from 'recoil';
+
 // import { contactAtom } from "../../../../Recoil/atom";
-import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenPage";
 
 // var stringToHTML = function (str) {
 //   var parser = new DOMParser();
@@ -11,19 +12,20 @@ import CommonScreenPage from "../../../components/CommonScreenPage/CommonScreenP
 // };
 
 function ContactScreen({ history }) {
-  let navigate = useNavigate();
+	let navigate = useNavigate();
 
-  // const [contactRecoil, setContactRecoil] = useRecoilState(contactAtom);
-  const contactRecoil = useRecoilValue(contactAtom);
-  return (
-    <>
-      <CommonScreenPage headingTitle={"Contact"}></CommonScreenPage>
-      <div
-        className="ion-padding font11 font-w-700"
-        dangerouslySetInnerHTML={{ __html: contactRecoil }}
-      />
-    </>
-  );
+	// const [contactRecoil, setContactRecoil] = useRecoilState(contactAtom);
+	const contactRecoil = useRecoilValue(contactAtom);
+	return (
+		<>
+			<CommonScreenPage headingTitle={'Contact'}>
+				<div
+					className="ion-padding font11 font-w-700"
+					dangerouslySetInnerHTML={{ __html: contactRecoil }}
+				/>
+			</CommonScreenPage>
+		</>
+	);
 }
 
 export default ContactScreen;
