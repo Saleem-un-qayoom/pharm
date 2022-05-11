@@ -30,7 +30,9 @@ function Login() {
   const [showPopUp, setShowPopUp] = useState(false);
   const [forgetNumber, setForgetNumber] = useState("");
 
-  const setStoreMobileNumber = useSetRecoilState(storeMobileNumberAtom);
+  const [setMobileNumber, setStoreMobileNumber] = useRecoilState(
+    storeMobileNumberAtom
+  );
 
   const [showLoading, setShowLoading] = useState(false);
 
@@ -88,19 +90,6 @@ function Login() {
     }
   };
 
-  // const handleStore = () => {
-  //   let error = 0;
-  //   if (number.length < 10) {
-  //     setNumberError(true);
-  //     error++;
-  //   }
-
-  //   if (error == 0) {
-  //     // setStoreMobileNumber(number);
-  //     // navigate("/otp-page");
-  //   }
-  // };
-
   const handleResponse = (res) => {
     setShowLoading(false);
     if (res.Result === "true") {
@@ -127,20 +116,19 @@ function Login() {
     e.preventDefault();
     setShowLoading(true);
 
-    if (forgetNumber.length == 10) {
+    if (number.length == 10) {
       const data = {
-        mobile: forgetNumber,
+        mobile: number,
       };
       mobileCheckApiFunc(data, (res) => {
         setShowLoading(false);
 
         if (res && res.Result === "true") {
           toast(res.ResponseMsg);
-
-          // setStoreMobileNumber(number);
-          // navigate('/sign-up/otp-page');
+          setStoreMobileNumber(number);
         } else if (res && res.ResponseMsg === "Already Exist Mobile Number!") {
-          // toast(res.ResponseMsg);
+          console.log(">>>>>>>>>>>", number);
+          setStoreMobileNumber(number);
           navigate("/forget-password/otp-page");
           setShowSignUpModule(false);
         }
@@ -276,8 +264,8 @@ function Login() {
               >
                 <input
                   type="number"
-                  value={forgetNumber}
-                  onChange={({ target }) => setForgetNumber(target.value)}
+                  value={number}
+                  onChange={({ target }) => setNumber(target.value)}
                   placeholder="Enter Phone Number"
                   className="w-full py-3 px-3 rounded-3xl"
                 />
